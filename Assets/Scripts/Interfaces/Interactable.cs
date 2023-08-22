@@ -6,6 +6,8 @@ namespace PG
 {
     public interface Interactable 
     {
-        void ReturnData();
+        void OnHoverEnter();
+        void OnHoverExit();
+        void OnClick();
     }
 }
