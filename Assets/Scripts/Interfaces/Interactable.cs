@@ -4,18 +4,8 @@ using UnityEngine;
 
 namespace PG
 {
-    public class Interactable : MonoBehaviour
+    public interface Interactable 
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        void ReturnData();
     }
 }
