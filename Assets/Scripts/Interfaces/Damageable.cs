@@ -7,5 +7,6 @@ namespace PG
     public interface Damageable 
     {
         void TakeDamage(float damage);
+        void Die();
     }
 }
