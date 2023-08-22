@@ -9,7 +9,7 @@ namespace PG
     {
         public string unitName = "Soldier";
         public float movement = 5f;
-        public float health = 3f;
+        public float maxHealth = 3f;
         public float damage = 1f;
         public int clipSize = 3;
         public int reloadSpeed = 1;
