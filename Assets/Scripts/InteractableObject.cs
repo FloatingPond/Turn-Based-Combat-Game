@@ -7,6 +7,7 @@ namespace PG
     public class InteractableObject : MonoBehaviour, Interactable
     {
         private RoundManager rm;
+        private InputManager inputManager;
 
         public void OnClick()
         {
@@ -15,9 +16,12 @@ namespace PG
 
         public void OnHoverEnter()
         {
-            Debug.Log(rm.unitTakingTurn);
-        }
 
+        }
+        public void OnHoverStay()
+        {
+            Debug.Log("Distance from unit taking turn to target: " + Vector3.Distance(rm.unitTakingTurn.transform.position, inputManager.hoverWorldPosition) + "m.");
+        }
         public void OnHoverExit()
         {
             
@@ -27,6 +31,7 @@ namespace PG
         void Start()
         {
             rm = FindObjectOfType<RoundManager>();
+            inputManager = FindObjectOfType<InputManager>();
         }
 
         // Update is called once per frame

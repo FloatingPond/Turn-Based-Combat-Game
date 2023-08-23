@@ -30,7 +30,7 @@ namespace PG
             cameras = FindObjectsOfType<CinemachineVirtualCamera>().ToList();
             if (cameras.Count == 0)
             {
-                Debug.LogWarning("No virtual cameras in scene.");
+                Debug.LogWarning("No active virtual cameras in scene.");
             }
         }
         public void CalculateInitiativeOrder()
