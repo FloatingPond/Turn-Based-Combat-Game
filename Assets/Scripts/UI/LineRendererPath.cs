@@ -14,9 +14,10 @@ namespace PG
             lineRenderer = GetComponent<LineRenderer>();
         }
         [Button]
-        public void PathToTransform(Transform target)
+        public void PathToTransform(Vector3 origin, Vector3 target)
         {
-            lineRenderer.SetPosition(lineRenderer.positionCount - 1, target.position);
+            lineRenderer.SetPosition(0, origin);
+            lineRenderer.SetPosition(lineRenderer.positionCount - 1, target);
         }
     }
 }

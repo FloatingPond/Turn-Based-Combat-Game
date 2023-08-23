@@ -8,6 +8,7 @@ namespace PG
     {
         private RoundManager roundManager;
         private InputManager inputManager;
+        private LineRendererPath lineRendererPath;
 
         public void OnClick()
         {
@@ -20,7 +21,8 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            Debug.Log("Distance from unit taking turn to target: " + Vector3.Distance(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition) + "m.");
+            lineRendererPath.PathToTransform(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition);
+            //Debug.Log("Distance from unit taking turn to target: " + Vector3.Distance(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition) + "m.");
         }
         public void OnHoverExit()
         {
@@ -32,6 +34,7 @@ namespace PG
         {
             roundManager = FindObjectOfType<RoundManager>();
             inputManager = FindObjectOfType<InputManager>();
+            lineRendererPath = FindObjectOfType<LineRendererPath>();
         }
 
         // Update is called once per frame
