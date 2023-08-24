@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PG
 {
@@ -21,12 +22,12 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            lineRendererPath.PathToTransform(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition);
+            lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
             //Debug.Log("Distance from unit taking turn to target: " + Vector3.Distance(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition) + "m.");
         }
         public void OnHoverExit()
         {
-            
+            lineRendererPath.ClearPath();
         }
 
         // Start is called before the first frame update

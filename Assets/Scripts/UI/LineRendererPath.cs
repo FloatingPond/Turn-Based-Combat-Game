@@ -1,23 +1,37 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PG
 {
     public class LineRendererPath : MonoBehaviour
     {
         private LineRenderer lineRenderer;
-        // Start is called before the first frame update
+
         void Start()
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer = FindObjectOfType<LineRenderer>();
         }
-        [Button]
-        public void PathToTransform(Vector3 origin, Vector3 target)
+        public void ClearPath()
         {
-            lineRenderer.SetPosition(0, origin);
-            lineRenderer.SetPosition(lineRenderer.positionCount - 1, target);
+            lineRenderer.positionCount = 0;
+        }
+        public void DrawPath(NavMeshAgent agent, Vector3 target)
+        {
+            agent.SetDestination(target);
+            agent.speed = 0;
+            if (agent.path.status != NavMeshPathStatus.PathInvalid)
+            {
+                lineRenderer.positionCount = agent.path.corners.Length;
+                for (int i = 0; i < agent.path.corners.Length; i++)
+                {
+                    lineRenderer.SetPosition(i, agent.path.corners[i]);
+                }
+            }
         }
     }
 }
