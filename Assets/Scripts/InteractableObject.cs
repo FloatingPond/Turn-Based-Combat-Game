@@ -23,7 +23,6 @@ namespace PG
         public void OnHoverStay()
         {
             lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
-            //Debug.Log("Distance from unit taking turn to target: " + Vector3.Distance(roundManager.unitTakingTurn.transform.position, inputManager.hoverWorldPosition) + "m.");
         }
         public void OnHoverExit()
         {
