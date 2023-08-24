@@ -33,5 +33,9 @@ namespace PG
                 }
             }
         }
+        public float GetPathDistance(NavMeshAgent agent, Vector3 target)
+        {
+            return (target - agent.transform.position).magnitude;
+        }
     }
 }
