@@ -5,12 +5,19 @@ using UnityEngine.AI;
 
 namespace PG
 {
-    public class InteractableObject : MonoBehaviour, IInteractable
+    public class PathableObject : MonoBehaviour, IInteractable
     {
         private RoundManager roundManager;
         private InputManager inputManager;
         private LineRendererPath lineRendererPath;
 
+        // Start is called before the first frame update
+        void Start()
+        {
+            roundManager = FindObjectOfType<RoundManager>();
+            inputManager = FindObjectOfType<InputManager>();
+            lineRendererPath = FindObjectOfType<LineRendererPath>();
+        }
         public void OnClick()
         {
             
@@ -23,24 +30,13 @@ namespace PG
         public void OnHoverStay()
         {
             lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
+            //Update distance text position & content
+            Debug.Log(lineRendererPath.GetPathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition));
         }
         public void OnHoverExit()
         {
             lineRendererPath.ClearPath();
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            roundManager = FindObjectOfType<RoundManager>();
-            inputManager = FindObjectOfType<InputManager>();
-            lineRendererPath = FindObjectOfType<LineRendererPath>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }
