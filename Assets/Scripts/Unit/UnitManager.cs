@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PG
 {
-    public class UnitManager : MonoBehaviour, Damageable
+    public class UnitManager : MonoBehaviour, IDamageable
     {
         public team myTeam;
         public UnitData unitData;

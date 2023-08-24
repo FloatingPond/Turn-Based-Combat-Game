@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PG
 {
-    public interface Interactable 
+    public interface IInteractable 
     {
         void OnHoverEnter();
         void OnHoverStay();

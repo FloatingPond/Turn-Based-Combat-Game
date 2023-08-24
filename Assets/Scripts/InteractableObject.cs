@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace PG
 {
-    public class InteractableObject : MonoBehaviour, Interactable
+    public class InteractableObject : MonoBehaviour, IInteractable
     {
         private RoundManager roundManager;
         private InputManager inputManager;

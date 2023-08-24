@@ -6,7 +6,7 @@ namespace PG
 {
     public class InputManager : MonoBehaviour
     {
-        private Interactable currentHover;
+        private IInteractable currentHover;
         [SerializeField]
         public Vector3 hoverWorldPosition;
         void Update()
@@ -16,7 +16,7 @@ namespace PG
 
             if (Physics.Raycast(ray, out hit))
             {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 
                 //If we have just hovered over something interactable:
                 if (interactable != null)

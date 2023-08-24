@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PG
 {
-    public interface Damageable 
+    public interface IDamageable 
     {
         void TakeDamage(float damage);
         void Die();
