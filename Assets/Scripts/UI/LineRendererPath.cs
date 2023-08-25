@@ -5,6 +5,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace PG
 {
@@ -23,7 +24,6 @@ namespace PG
         public void DrawPath(NavMeshAgent agent, Vector3 target)
         {
             agent.SetDestination(target);
-            agent.speed = 0;
             if (agent.path.status != NavMeshPathStatus.PathInvalid)
             {
                 lineRenderer.positionCount = agent.path.corners.Length;

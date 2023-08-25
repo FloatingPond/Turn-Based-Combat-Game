@@ -22,7 +22,7 @@ namespace PG
         }
         public void OnClick()
         {
-            
+            roundManager.unitTakingTurn.GetComponent<UnitMovement>().MoveToDestination();
         }
 
         public void OnHoverEnter()
@@ -31,16 +31,19 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
-            //Update distance text position & content
-            uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
-            uIManager.distanceText.transform.position = Input.mousePosition;
-            //Update projected movement indicator position & active state
-            uIManager.projectedMovementIndicator.enabled = true;
-            uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
-            //Update ghost position & opacity
-            uIManager.ghost.ShowGhost();
-            uIManager.ghost.transform.position = inputManager.hoverWorldPosition;
+            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            {
+                lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
+                //Update distance text position & content
+                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
+                uIManager.distanceText.transform.position = Input.mousePosition;
+                //Update projected movement indicator position & active state
+                uIManager.projectedMovementIndicator.enabled = true;
+                uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
+                //Update ghost position & opacity
+                uIManager.ghost.ShowGhost();
+                uIManager.ghost.transform.position = inputManager.hoverWorldPosition;
+            }
         }
         public void OnHoverExit()
         {

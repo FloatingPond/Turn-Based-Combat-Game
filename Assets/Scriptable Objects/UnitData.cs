@@ -8,7 +8,8 @@ namespace PG
     public class UnitData : ScriptableObject
     {
         public string unitName = "Soldier";
-        public float movement = 5f;
+        public float maxMovementDistance = 5f;
+        public float moveSpeed = 3.5f;
         public float maxHealth = 3f;
         public float damage = 1f;
         public int clipSize = 3;

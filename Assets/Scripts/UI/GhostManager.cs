@@ -14,12 +14,6 @@ namespace PG
         {
             HideGhost();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
         [Button]
         public void ShowGhost()
         {
