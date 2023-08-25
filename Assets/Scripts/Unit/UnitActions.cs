@@ -17,5 +17,10 @@ namespace PG
         {
         
         }
+
+        public void Shoot()
+        {
+            
+        }
     }
 }
