@@ -419,7 +419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0, y: 4.942304e-10, z: -3.1411804e-10, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 4.4408916e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1399,8 +1399,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301452513}
-  m_LocalRotation: {x: -0, y: 0.00000004155562, z: -0.000000026411445, w: 1}
-  m_LocalPosition: {x: -4.12, y: 0.00000010855057, z: 0.00000017079286}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.12, y: 0.0000001075521, z: 0.00000016922186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1470,7 +1470,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443956237}
-  m_LocalRotation: {x: -0, y: 2.6676614e-10, z: -1.6954792e-10, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 4.4408916e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1798,6 +1798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1979905196}
+  - component: {fileID: 1979905197}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -1823,6 +1824,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1979905197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979905195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e090c0d10ff8548820719affba18d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceText: {fileID: 1052354871}
 --- !u!1 &2040739983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2023,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134661032}
-  m_LocalRotation: {x: 0.2793159, y: -0.000000023278423, z: 0.000000006771545, w: 0.9601993}
+  m_LocalRotation: {x: 0.2793159, y: -0.000000023365013, z: 0.0000000067967343, w: 0.9601993}
   m_LocalPosition: {x: 4.12, y: 3.47, z: -3.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

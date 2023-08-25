@@ -10,6 +10,7 @@ namespace PG
         private RoundManager roundManager;
         private InputManager inputManager;
         private LineRendererPath lineRendererPath;
+        private UIManager uIManager;
 
         // Start is called before the first frame update
         void Start()
@@ -17,6 +18,7 @@ namespace PG
             roundManager = FindObjectOfType<RoundManager>();
             inputManager = FindObjectOfType<InputManager>();
             lineRendererPath = FindObjectOfType<LineRendererPath>();
+            uIManager = FindObjectOfType<UIManager>();
         }
         public void OnClick()
         {
@@ -31,7 +33,8 @@ namespace PG
         {
             lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
             //Update distance text position & content
-            Debug.Log(lineRendererPath.GetPathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition));
+            uIManager.distanceText.text = lineRendererPath.GetPathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition).ToString("F1") + "m";
+            uIManager.distanceText.transform.position = Input.mousePosition;
         }
         public void OnHoverExit()
         {
