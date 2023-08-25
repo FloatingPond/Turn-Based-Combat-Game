@@ -25,7 +25,7 @@ namespace PG
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
             if (roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
             {
-                uIManager.distanceText.text = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance.ToString("F1") + "m";
+                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
             }
             //Clears the distance text once the unit has reached it's destination
             if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance < 0.01)
@@ -35,7 +35,7 @@ namespace PG
         }
         public void OnClick()
         {
-            roundManager.unitTakingTurn.GetComponent<UnitMovement>().MoveToDestination();
+            roundManager.unitTakingTurn.GetComponent<UnitMovement>().CheckRemainingMovement();
         }
 
         public void OnHoverEnter()

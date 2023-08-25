@@ -10,14 +10,34 @@ namespace PG
     {
         private NavMeshAgent agent;
         private UnitManager unitManager;
+        private LineRendererPath lineRendererPath;
         public bool unitMoving;
+        private UnitData unitData;
+        public float currentMovementRemaining;
+        private float thisMovementCost;
         // Start is called before the first frame update
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             unitManager = GetComponent<UnitManager>();
-        }
+            lineRendererPath = FindObjectOfType<LineRendererPath>();
 
+            unitData = unitManager.unitData;
+            currentMovementRemaining = unitData.maxMovementDistance;
+        }
+        public void CheckRemainingMovement()
+        {
+            thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
+            if (thisMovementCost > currentMovementRemaining)
+            {
+                Debug.Log("Not enough movement!");
+            }
+            else
+            {
+                Debug.Log("I have enough movement, moving."); 
+                MoveToDestination();
+            }
+        }
         public void MoveToDestination()
         {
             agent.speed = unitManager.unitData.moveSpeed;
@@ -30,6 +50,7 @@ namespace PG
             {
                 unitMoving = false;
                 agent.speed = 0;
+                currentMovementRemaining -= thisMovementCost;
             }
         }
     }
