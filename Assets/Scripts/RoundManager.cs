@@ -41,7 +41,8 @@ namespace PG
            {
                 unit.initiative = Random.Range(1, 20);
            }
-           unitTakingTurn = units.First();
+           units.Sort((a, b) => b.initiative.CompareTo(a.initiative));
+           unitTakingTurn = units[0];
            TransitionCameraToUnit(unitTakingTurn);
         }
         private void TransitionCameraToUnit(UnitManager unit)
