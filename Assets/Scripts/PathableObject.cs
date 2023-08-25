@@ -35,10 +35,19 @@ namespace PG
             //Update distance text position & content
             uIManager.distanceText.text = lineRendererPath.GetPathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition).ToString("F1") + "m";
             uIManager.distanceText.transform.position = Input.mousePosition;
+            //Update projected movement indicator position & active state
+            uIManager.projectedMovementIndicator.enabled = true;
+            uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
         }
         public void OnHoverExit()
         {
             lineRendererPath.ClearPath();
+
+            uIManager.distanceText.text = "";
+            uIManager.distanceText.transform.position = Vector3.zero;
+
+            uIManager.projectedMovementIndicator.enabled = false;
+            uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
         }
 
     }
