@@ -20,6 +20,13 @@ namespace PG
             lineRendererPath = FindObjectOfType<LineRendererPath>();
             uIManager = FindObjectOfType<UIManager>();
         }
+        private void Update()
+        {
+            if (roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            {
+                uIManager.distanceText.text = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance.ToString("F1") + "m";
+            }
+        }
         public void OnClick()
         {
             roundManager.unitTakingTurn.GetComponent<UnitMovement>().MoveToDestination();
@@ -31,7 +38,7 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            
+
             if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
             {
                 lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
@@ -49,16 +56,20 @@ namespace PG
         {
             if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
             {
-                lineRendererPath.ClearPath();
-
-                uIManager.distanceText.text = "";
-
-                uIManager.projectedMovementIndicator.enabled = false;
-                uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
-
-                uIManager.ghost.HideGhost();
-                uIManager.ghost.transform.position = Vector3.zero;
+                ClearMovementUI();
             }
+        }
+        private void ClearMovementUI()
+        {
+            lineRendererPath.ClearPath();
+
+            uIManager.distanceText.text = "";
+
+            uIManager.projectedMovementIndicator.enabled = false;
+            uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
+
+            uIManager.ghost.HideGhost();
+            uIManager.ghost.transform.position = Vector3.zero;
         }
 
     }
