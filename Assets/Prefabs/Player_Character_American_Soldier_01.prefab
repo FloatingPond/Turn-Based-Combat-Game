@@ -3953,6 +3953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitMoving: 0
+  currentMovementRemaining: 0
 --- !u!114 &7974212460142301643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4973,6 +4974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64886331422118522, guid: cc13ea7aca755ee4bb10925b6bf586c8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc13ea7aca755ee4bb10925b6bf586c8, type: 3}
