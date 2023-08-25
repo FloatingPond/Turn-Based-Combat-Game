@@ -56,6 +56,11 @@ namespace PG
                 //Update ghost position & opacity
                 uIManager.ghost.ShowGhost();
                 uIManager.ghost.transform.position = inputManager.hoverWorldPosition;
+                //Turn unit to face ghost
+                Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghost.transform.position;
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                rotation *= Quaternion.Euler(0, 180, 0);
+                roundManager.unitTakingTurn.transform.rotation = rotation;
             }
         }
         public void OnHoverExit()
