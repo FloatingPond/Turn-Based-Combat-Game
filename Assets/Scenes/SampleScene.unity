@@ -419,7 +419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0, y: -0, z: -4.440892e-16, w: 1}
+  m_LocalRotation: {x: -0, y: -1.7763566e-15, z: 8.881783e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1276,8 +1276,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301452513}
-  m_LocalRotation: {x: -0, y: -0, z: -4.440892e-16, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.000000029802322, y: -3.5527137e-15, z: 2.220446e-15, w: 1}
+  m_LocalPosition: {x: -4.12, y: -0.000000107552076, z: -0.00000016922183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1347,8 +1347,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443956237}
-  m_LocalRotation: {x: -0, y: 0.000000041073243, z: -0.00000002610486, w: 1}
-  m_LocalPosition: {x: 4.12, y: -0.000000107552005, z: -0.00000016922175}
+  m_LocalRotation: {x: -0, y: -3.5527133e-15, z: 2.2204458e-15, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2139,8 +2139,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134661032}
-  m_LocalRotation: {x: 0.27931586, y: -0.000000023364999, z: 0.0000000067967294, w: 0.9601993}
-  m_LocalPosition: {x: 0, y: 3.47, z: -3.43}
+  m_LocalRotation: {x: 0.2793159, y: 0.000000023365006, z: -0.0000000067967316, w: 0.9601993}
+  m_LocalPosition: {x: 4.12, y: 3.47, z: -3.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2438,15 +2438,5 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 7221032570143404862, guid: b0441960dc08a394981347b93d8d2883,
-        type: 3}
-      propertyPath: m_BlockingMask.m_Bits
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221032570297797743, guid: b0441960dc08a394981347b93d8d2883,
-        type: 3}
-      propertyPath: m_Speed
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0441960dc08a394981347b93d8d2883, type: 3}
