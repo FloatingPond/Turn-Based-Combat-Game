@@ -42,5 +42,11 @@ namespace PG
             }
             return distance;
         }
+
+        public void ChangeColor(Color color)
+        {
+            lineRenderer.startColor = color;
+            lineRenderer.endColor = color;
+        }
     }
 }
