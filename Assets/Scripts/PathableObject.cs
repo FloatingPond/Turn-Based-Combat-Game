@@ -26,6 +26,10 @@ namespace PG
             {
                 uIManager.distanceText.text = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance.ToString("F1") + "m";
             }
+            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance < 0.01)
+            {
+                ClearMovementUI();
+            }
         }
         public void OnClick()
         {
