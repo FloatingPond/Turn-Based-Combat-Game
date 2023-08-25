@@ -10,10 +10,11 @@ namespace PG
     {
         public TextMeshProUGUI distanceText;
         public Image projectedMovementIndicator;
+        public GhostManager ghost;
         // Start is called before the first frame update
         void Start()
         {
-        
+            ghost = FindObjectOfType<GhostManager>();
         }
 
         // Update is called once per frame

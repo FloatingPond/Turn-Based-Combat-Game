@@ -38,6 +38,9 @@ namespace PG
             //Update projected movement indicator position & active state
             uIManager.projectedMovementIndicator.enabled = true;
             uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
+            //Update ghost position & opacity
+            uIManager.ghost.ShowGhost();
+            uIManager.ghost.transform.position = inputManager.hoverWorldPosition;
         }
         public void OnHoverExit()
         {
@@ -48,6 +51,9 @@ namespace PG
 
             uIManager.projectedMovementIndicator.enabled = false;
             uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
+
+            uIManager.ghost.HideGhost();
+            uIManager.ghost.transform.position = Vector3.zero;
         }
 
     }
