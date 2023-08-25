@@ -31,12 +31,12 @@ namespace PG
         }
         public void OnHoverStay()
         {
+            
             if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
             {
                 lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
                 //Update distance text position & content
                 uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
-                uIManager.distanceText.transform.position = Input.mousePosition;
                 //Update projected movement indicator position & active state
                 uIManager.projectedMovementIndicator.enabled = true;
                 uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
@@ -47,16 +47,18 @@ namespace PG
         }
         public void OnHoverExit()
         {
-            lineRendererPath.ClearPath();
+            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            {
+                lineRendererPath.ClearPath();
 
-            uIManager.distanceText.text = "";
-            uIManager.distanceText.transform.position = Vector3.zero;
+                uIManager.distanceText.text = "";
 
-            uIManager.projectedMovementIndicator.enabled = false;
-            uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
+                uIManager.projectedMovementIndicator.enabled = false;
+                uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
 
-            uIManager.ghost.HideGhost();
-            uIManager.ghost.transform.position = Vector3.zero;
+                uIManager.ghost.HideGhost();
+                uIManager.ghost.transform.position = Vector3.zero;
+            }
         }
 
     }
