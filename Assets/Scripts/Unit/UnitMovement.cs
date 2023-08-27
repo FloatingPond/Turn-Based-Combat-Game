@@ -11,9 +11,11 @@ namespace PG
         private NavMeshAgent agent;
         private UnitManager unitManager;
         private LineRendererPath lineRendererPath;
-        public bool unitMoving;
         private UnitData unitData;
+        public bool unitMoving;
+        public bool movementComplete;
         public float currentMovementRemaining;
+        [SerializeField]
         private float thisMovementCost;
         // Start is called before the first frame update
         void Start()
@@ -28,6 +30,7 @@ namespace PG
         public void CheckRemainingMovement()
         {
             thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
+            thisMovementCost = Mathf.Round(thisMovementCost * 10) / 10;
             if (thisMovementCost > currentMovementRemaining)
             {
                 Debug.Log("Not enough movement!");
@@ -51,6 +54,12 @@ namespace PG
                 unitMoving = false;
                 agent.speed = 0;
                 currentMovementRemaining -= thisMovementCost;
+                if (currentMovementRemaining <= 0)
+                {
+                    currentMovementRemaining = 0;
+                    movementComplete = true;
+                } 
+                
             }
         }
     }
