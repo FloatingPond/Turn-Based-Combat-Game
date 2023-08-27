@@ -10,6 +10,7 @@ namespace PG
         public UnitData unitData;
         public int initiative;
         public float currentHealth;
+        public UIManager uIManager;
         public enum team { player, computer };
         public void Die()
         {
@@ -28,6 +29,7 @@ namespace PG
         // Start is called before the first frame update
         void Start()
         {
+            uIManager = FindObjectOfType<UIManager>();
             currentHealth = unitData.maxHealth;
         }
 

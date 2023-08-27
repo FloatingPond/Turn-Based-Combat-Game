@@ -8,7 +8,7 @@ namespace PG
 {
     public class UIManager : MonoBehaviour
     {
-        public TextMeshProUGUI distanceText;
+        public TextMeshProUGUI distanceText, movementRemainingText, actionRemainingText;
         public Image projectedMovementIndicator;
         public GhostManager ghost;
         // Start is called before the first frame update

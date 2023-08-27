@@ -48,7 +48,8 @@ namespace PG
         // Update is called once per frame
         void Update()
         {
-            if (agent.remainingDistance < 0.01)
+            unitManager.uIManager.movementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
+            if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
                 unitMoving = false;
                 agent.speed = 0;
@@ -57,8 +58,8 @@ namespace PG
                 {
                     currentMovementRemaining = 0;
                     movementComplete = true;
-                } 
-                
+                    unitManager.uIManager.movementRemainingText.text = "Movement Complete";
+                }
             }
         }
     }
