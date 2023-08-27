@@ -35,7 +35,7 @@ namespace PG
         }
         public void OnClick()
         {
-            roundManager.unitTakingTurn.GetComponent<UnitMovement>().CheckRemainingMovement();
+            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().movementComplete) roundManager.unitTakingTurn.GetComponent<UnitMovement>().CheckRemainingMovement();
         }
 
         public void OnHoverEnter()
@@ -45,7 +45,7 @@ namespace PG
         public void OnHoverStay()
         {
 
-            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && !roundManager.unitTakingTurn.GetComponent<UnitMovement>().movementComplete)
             {
                 lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
                 //Update distance text position & content
