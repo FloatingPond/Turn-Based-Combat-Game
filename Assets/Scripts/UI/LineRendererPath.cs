@@ -40,6 +40,7 @@ namespace PG
         {
                 distance += Vector3.Distance(agent.path.corners[i], agent.path.corners[i + 1]);
             }
+            distance = Mathf.Round(distance * 10) / 10;
             return distance;
         }
 

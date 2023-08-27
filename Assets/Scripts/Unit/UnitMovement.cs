@@ -30,7 +30,6 @@ namespace PG
         public void CheckRemainingMovement()
         {
             thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
-            thisMovementCost = Mathf.Round(thisMovementCost * 10) / 10;
             if (thisMovementCost > currentMovementRemaining)
             {
                 Debug.Log("Not enough movement!");
