@@ -64,7 +64,6 @@ namespace PG
                         renderer.material.SetColor("_Color",Color.red);
                     }
                     uIManager.ghost.skinnedMesh.material.SetColor("_Color", Color.red);
-                    lineRendererPath.ChangeColor(Color.red);
                     uIManager.distanceText.color = Color.red;
                 }
                 else
@@ -74,10 +73,9 @@ namespace PG
                         renderer.material.SetColor("_Color", Color.white);
                     }
                     uIManager.ghost.skinnedMesh.material.SetColor("_Color", Color.white);
-                    lineRendererPath.ChangeColor(Color.white);
                     uIManager.distanceText.color = Color.white;
                 }
-
+                lineRendererPath.ChangeColor(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>());
                 //Turn unit to face ghost
                 Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghost.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
