@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
@@ -14,81 +15,77 @@ namespace PG
     public class LineRendererPath : MonoBehaviour
     {
         [SerializeField]
-        private LineRenderer[] renderers;
+        private LineRenderer lineRenderer;
         private RoundManager roundManager;
         private float distance = 0f;
+        private Gradient gradient;
+        private float percentage;
         void Start()
         {
-            renderers = GetComponentsInChildren<LineRenderer>();
+            lineRenderer = GetComponent<LineRenderer>();
             roundManager = FindObjectOfType<RoundManager>();
         }
         public void ClearPath()
         {
-            renderers[0].positionCount = 0;
-            renderers[1].positionCount = 0;
+            lineRenderer.positionCount = 0;
         }
+            
         public void DrawPath(NavMeshAgent agent, Vector3 target)
         {
             agent.SetDestination(target);
             if (agent.path.status != NavMeshPathStatus.PathInvalid)
             {
-                if (distance <= roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining)
+                lineRenderer.positionCount = agent.path.corners.Length;
+                for (int i = 0; i < agent.path.corners.Length; i++)
                 {
-                    //WHITE
-                    renderers[0].positionCount = agent.path.corners.Length;
-                    renderers[1].positionCount = agent.path.corners.Length;
-                    for (int i = 0; i < agent.path.corners.Length; i++)
-                    {
-                        renderers[0].SetPosition(i, agent.path.corners[i]);
-                        renderers[1].SetPosition(i, agent.path.corners[i]);
-                    }
+                    lineRenderer.SetPosition(i, agent.path.corners[i]);
                 }
-                else
-                {
-                    //RED
-
-                    renderers[0].positionCount = 1;
-                    renderers[0].SetPosition(0, agent.transform.position);
-                    float overlapDistance = distance - roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining;
-                    float percentage = overlapDistance / distance;
-
-                    Vector3 maxMovementPoint = Vector3.zero;
-                    
-                    renderers[1].positionCount = agent.path.corners.Length;
-                    if (renderers[1].positionCount <= 2)
-                    {
-                        renderers[0].positionCount = agent.path.corners.Length;
-                        maxMovementPoint = Vector3.Lerp(renderers[1].GetPosition(0), renderers[1].GetPosition(renderers[1].positionCount - 1), 1.0f - percentage);
-                    }
-                    else
-                    {
-                        int z;
-                        float lengthSoFar = 0f;
-                        float lastPointLength = 0f;
-
-                        for (z = 1; z < agent.path.corners.Length - 1; z++)
-                        {
-                            renderers[0].positionCount++;
-                            lengthSoFar += Vector3.Distance(agent.path.corners[z], agent.path.corners[z + 1]);
-                            if (lengthSoFar > roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining)
-                            {
-                                break;
-                            }
-                            lastPointLength = lengthSoFar;
-                            renderers[0].SetPosition(z, agent.path.corners[z]);
-                        }
-                        maxMovementPoint = Vector3.Lerp(renderers[1].GetPosition(z), renderers[1].GetPosition(z - 1),
-                        1.0f - ((roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining - lastPointLength) / roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining));
-                    }
-                    renderers[0].SetPosition(renderers[0].positionCount - 1, maxMovementPoint);
-                    for (int i = 0; i < agent.path.corners.Length; i++)
-                    {
-                        renderers[1].SetPosition(i, agent.path.corners[i]);
-                    }
-                }
-                
             }
         }
+
+        public Vector3 CalculateMaxMovementPoint(NavMeshAgent agent)
+        {
+            percentage = 0;
+            Vector3 maxMovementPoint = Vector3.zero;
+
+            Vector3 previousCorner = agent.path.corners[0];
+            float lengthSoFar = 0.0F;
+            int i = 1;
+            while (i < agent.path.corners.Length)
+            {
+                Vector3 currentCorner = agent.path.corners[i];
+                lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
+                if (lengthSoFar >= roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining) break;
+                previousCorner = currentCorner;
+                i++;
+            }
+            float overlapDistance = lengthSoFar - roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining;
+            percentage = overlapDistance / distance;
+            if (lineRenderer.positionCount <= 2)
+            {
+                maxMovementPoint = Vector3.Lerp(lineRenderer.GetPosition(0), lineRenderer.GetPosition(lineRenderer.positionCount - 1), 1.0f - percentage);
+            }
+            else
+            {
+                maxMovementPoint = Vector3.Lerp(lineRenderer.GetPosition(i - 2), lineRenderer.GetPosition(i - 1), 1.0f - percentage);
+            }
+            return maxMovementPoint;
+        }
+
+        public void ChangeGradientColour()
+        {
+            // Create a new gradient with color keys
+            gradient = new Gradient();
+            gradient.mode = GradientMode.Fixed;
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(Color.white, 1.0f - percentage), new GradientColorKey(Color.red, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+
+            // Assign the gradient to the LineRenderer
+            lineRenderer.colorGradient = gradient;
+        }
+
         public float CalculatePathDistance(NavMeshAgent agent)
         {
             distance = 0;

@@ -53,32 +53,34 @@ namespace PG
                 uIManager.projectedMovementIndicator.enabled = true;
                 uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
                 //Update ghost position & opacity
-                uIManager.ghost.ShowGhost();
-                uIManager.ghost.transform.position = inputManager.hoverWorldPosition;
+                uIManager.ghostManager.ShowGhost();
+                uIManager.ghostManager.transform.position = inputManager.hoverWorldPosition;
 
                 if (roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining < lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()))
                 {
-                    foreach (Renderer renderer in uIManager.ghost.renderers)
+                    foreach (Renderer renderer in uIManager.ghostManager.renderers)
                     {
                         renderer.material.SetColor("_Color",Color.red);
                     }
-                    uIManager.ghost.skinnedMesh.material.SetColor("_Color", Color.red);
+                    uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.red);
                     uIManager.distanceText.color = Color.red;
                 }
                 else
                 {
-                    foreach (Renderer renderer in uIManager.ghost.renderers)
+                    foreach (Renderer renderer in uIManager.ghostManager.renderers)
                     {
                         renderer.material.SetColor("_Color", Color.white);
                     }
-                    uIManager.ghost.skinnedMesh.material.SetColor("_Color", Color.white);
+                    uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.white);
                     uIManager.distanceText.color = Color.white;
                 }
 
                 lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
+                lineRendererPath.CalculateMaxMovementPoint(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>());
+                lineRendererPath.ChangeGradientColour();
 
                 //Turn unit to face ghost
-                Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghost.transform.position;
+                Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghostManager.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
                 rotation *= Quaternion.Euler(0, 180, 0);
                 roundManager.unitTakingTurn.transform.rotation = rotation;
@@ -100,8 +102,8 @@ namespace PG
             uIManager.projectedMovementIndicator.enabled = false;
             uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
 
-            uIManager.ghost.HideGhost();
-            uIManager.ghost.transform.position = Vector3.zero;
+            uIManager.ghostManager.HideGhost();
+            uIManager.ghostManager.transform.position = Vector3.zero;
         }
 
     }
