@@ -47,7 +47,6 @@ namespace PG
 
             if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && !roundManager.unitTakingTurn.GetComponent<UnitMovement>().movementComplete)
             {
-                lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
                 //Update distance text position & content
                 uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
                 //Update projected movement indicator position & active state
@@ -75,7 +74,9 @@ namespace PG
                     uIManager.ghost.skinnedMesh.material.SetColor("_Color", Color.white);
                     uIManager.distanceText.color = Color.white;
                 }
-                lineRendererPath.ChangeColor(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>());
+
+                lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
+
                 //Turn unit to face ghost
                 Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghost.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
