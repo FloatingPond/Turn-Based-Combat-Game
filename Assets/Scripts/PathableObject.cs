@@ -44,22 +44,23 @@ namespace PG
         }
         public void OnHoverStay()
         {
-
-            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && !roundManager.unitTakingTurn.GetComponent<UnitMovement>().movementComplete)
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
+            if (!unitTakingTurnMovement.unitMoving && !unitTakingTurnMovement.movementComplete)
             {
                 //Update distance text position & content
-                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
+                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(agentTakingTurn).ToString("F1") + "m";
                 //Update projected movement indicator position & active state
                 uIManager.projectedMovementIndicator.enabled = true;
                 
                 //Update ghost opacity
                 uIManager.ghostManager.ShowGhost();
 
-                lineRendererPath.DrawPath(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>(), inputManager.hoverWorldPosition);
-                Vector3 maxMovementPoint = lineRendererPath.CalculateMaxMovementPoint(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>());
+                lineRendererPath.DrawPath(agentTakingTurn, inputManager.hoverWorldPosition);
+                Vector3 maxMovementPoint = lineRendererPath.CalculateMaxMovementPoint(agentTakingTurn);
                 lineRendererPath.ChangeGradientColour();
 
-                if (roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining < lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()))
+                if (unitTakingTurnMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(agentTakingTurn))
                 {
                     foreach (Renderer renderer in uIManager.ghostManager.renderers)
                     {
