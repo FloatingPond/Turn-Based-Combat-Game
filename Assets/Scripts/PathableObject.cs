@@ -56,9 +56,9 @@ namespace PG
                 //Update ghost opacity
                 uIManager.ghostManager.ShowGhost();
 
-                lineRendererPath.DrawPath(agentTakingTurn, inputManager.hoverWorldPosition);
-                Vector3 maxMovementPoint = lineRendererPath.CalculateMaxMovementPoint(agentTakingTurn);
-                lineRendererPath.ChangeGradientColour();
+                
+                //Vector3 maxMovementPoint = lineRendererPath.CalculateMaxMovementPoint(agentTakingTurn);
+                //lineRendererPath.ChangeGradientColour();
 
                 if (unitTakingTurnMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(agentTakingTurn))
                 {
@@ -89,7 +89,7 @@ namespace PG
                     uIManager.projectedMovementIndicator.transform.position = clampedVect3;
                     uIManager.ghostManager.transform.position = clampedVect3;
                 }
-
+                lineRendererPath.DrawPath(agentTakingTurn, uIManager.ghostManager.transform.position);
                 #region Turn unit to face ghost
                 Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghostManager.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
