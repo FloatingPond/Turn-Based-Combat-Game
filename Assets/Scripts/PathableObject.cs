@@ -56,10 +56,6 @@ namespace PG
                 //Update ghost opacity
                 uIManager.ghostManager.ShowGhost();
 
-                
-                //Vector3 maxMovementPoint = lineRendererPath.CalculateMaxMovementPoint(agentTakingTurn);
-                //lineRendererPath.ChangeGradientColour();
-
                 if (unitTakingTurnMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(agentTakingTurn))
                 {
                     foreach (Renderer renderer in uIManager.ghostManager.renderers)

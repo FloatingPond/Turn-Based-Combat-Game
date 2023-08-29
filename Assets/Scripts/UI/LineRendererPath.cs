@@ -43,58 +43,6 @@ namespace PG
             }
         }
 
-        public Vector3 CalculateMaxMovementPoint(NavMeshAgent agent)
-        {
-
-            float distanceBetweenOriginAndPositionBeforeMax = 0;
-            percentage = 0;
-            Vector3 maxMovementPoint = Vector3.zero;
-            
-            if (lineRenderer.positionCount <= 2)
-            {
-                float overlapDistance = distance - roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining;
-                percentage = overlapDistance / distance;
-                maxMovementPoint = Vector3.Lerp(lineRenderer.GetPosition(0), lineRenderer.GetPosition(lineRenderer.positionCount - 1), 1.0f - percentage);
-            }
-            else
-            {
-                Vector3 previousCorner = agent.path.corners[0];
-                float lengthSoFar = 0.0F;
-                int i = 1;
-                for  (i = 1; i < agent.path.corners.Length; i++)
-                {
-                    distanceBetweenOriginAndPositionBeforeMax = lengthSoFar;
-                    Vector3 currentCorner = agent.path.corners[i];
-                    lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
-                    previousCorner = currentCorner;
-                    if (lengthSoFar >= roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining) break;
-                }
-                float remainingMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining - distanceBetweenOriginAndPositionBeforeMax;
-                percentage = remainingMovement / lengthSoFar;
-                //float overlapDistance = lengthSoFar - roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining;
-                //percentage = overlapDistance / lengthSoFar;
-                Debug.Log("i = " + i);
-                maxMovementPoint = Vector3.Lerp(agent.path.corners[i - 1], agent.path.corners[i], 1.0f - percentage);
-            }
-            return maxMovementPoint;
-        }
-
-        public void ChangeGradientColour()
-        {
-            float gradientKeyPosition = distance - roundManager.unitTakingTurn.GetComponent<UnitMovement>().currentMovementRemaining;
-            percentage = gradientKeyPosition / distance;
-
-            // Create a new gradient with color keys
-            gradient = new Gradient();
-            gradient.mode = GradientMode.Fixed;
-            gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(Color.white, 1.0f - percentage), new GradientColorKey(Color.red, 1.0f) },
-                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
-            );
-            // Assign the gradient to the LineRenderer
-            lineRenderer.colorGradient = gradient;
-        }
-
         public float CalculatePathDistance(NavMeshAgent agent)
         {
             distance = 0;
