@@ -65,8 +65,6 @@ namespace PG
                     {
                         renderer.material.SetColor("_Color", Color.red);
                     }
-                    uIManager.projectedMovementIndicator.transform.position = maxMovementPoint;
-                    uIManager.ghostManager.transform.position = maxMovementPoint;
                     uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.red);
                     uIManager.distanceText.color = Color.red;
                 }
@@ -76,11 +74,21 @@ namespace PG
                     {
                         renderer.material.SetColor("_Color", Color.white);
                     }
-                    uIManager.projectedMovementIndicator.transform.position = inputManager.hoverWorldPosition;
-                    uIManager.ghostManager.transform.position = inputManager.hoverWorldPosition;
+
                     uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.white);
                     uIManager.distanceText.color = Color.white;
                 }
+
+                Vector3 clampedVect3 = new Vector3 (Mathf.Sign(inputManager.hoverWorldPosition.x) * (Mathf.Abs((int)inputManager.hoverWorldPosition.x) + 0.5f),
+                                                    0,
+                                                    Mathf.Sign(inputManager.hoverWorldPosition.z) * (Mathf.Abs((int)inputManager.hoverWorldPosition.z) + 0.5f));
+
+                if (clampedVect3 != roundManager.unitTakingTurn.transform.position)
+                {
+                    uIManager.projectedMovementIndicator.transform.position = clampedVect3;
+                    uIManager.ghostManager.transform.position = clampedVect3;
+                }
+
                 #region Turn unit to face ghost
                 Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghostManager.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
