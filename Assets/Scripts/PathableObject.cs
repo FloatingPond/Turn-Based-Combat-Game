@@ -80,7 +80,7 @@ namespace PG
                 }
 
                 Vector3 clampedVect3 = new Vector3 (Mathf.Sign(inputManager.hoverWorldPosition.x) * (Mathf.Abs((int)inputManager.hoverWorldPosition.x) + 0.5f),
-                                                    0,
+                                                    roundManager.unitTakingTurn.transform.position.y,
                                                     Mathf.Sign(inputManager.hoverWorldPosition.z) * (Mathf.Abs((int)inputManager.hoverWorldPosition.z) + 0.5f));
 
                 if (clampedVect3 != roundManager.unitTakingTurn.transform.position)
