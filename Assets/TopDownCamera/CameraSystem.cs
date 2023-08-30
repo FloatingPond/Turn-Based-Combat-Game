@@ -10,6 +10,9 @@ namespace CodeMonkey.CameraSystem {
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private bool useEdgeScrolling = false;
         [SerializeField] private bool useDragPan = false;
+        private enum zoomType { FOV, MoveForward, LowerY }
+        [SerializeField]
+        private zoomType zoom;
         [SerializeField] private float fieldOfViewMax = 50;
         [SerializeField] private float fieldOfViewMin = 10;
         [SerializeField] private float followOffsetMin = 5f;
@@ -40,9 +43,20 @@ namespace CodeMonkey.CameraSystem {
 
             HandleCameraRotation();
 
-            //HandleCameraZoom_FieldOfView();
-            //HandleCameraZoom_MoveForward();
-            HandleCameraZoom_LowerY();
+            switch (zoom)
+            {
+                case zoomType.FOV:
+                    HandleCameraZoom_FieldOfView();
+                    break;
+                case zoomType.MoveForward:
+                    HandleCameraZoom_MoveForward();
+                    break;
+                case zoomType.LowerY:
+                    HandleCameraZoom_LowerY();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void HandleCameraMovement() {
