@@ -22,20 +22,23 @@ namespace PG
         }
         private void Update()
         {
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
-            if (roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            if (unitTakingTurnMovement.unitMoving)
             {
-                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.GetComponent<NavMeshAgent>()).ToString("F1") + "m";
+                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(agentTakingTurn).ToString("F1") + "m";
             }
             //Clears the distance text once the unit has reached it's destination
-            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving && roundManager.unitTakingTurn.GetComponent<NavMeshAgent>().remainingDistance < 0.01)
+            if (!unitTakingTurnMovement.unitMoving && agentTakingTurn.remainingDistance < 0.01)
             {
                 ClearMovementUI();
             }
         }
         public void OnClick()
         {
-            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().movementComplete) roundManager.unitTakingTurn.GetComponent<UnitMovement>().CheckRemainingMovement();
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            if (!unitTakingTurnMovement.movementComplete) unitTakingTurnMovement.CheckRemainingMovement();
         }
 
         public void OnHoverEnter()
@@ -96,7 +99,8 @@ namespace PG
         }
         public void OnHoverExit()
         {
-            if (!roundManager.unitTakingTurn.GetComponent<UnitMovement>().unitMoving)
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            if (!unitTakingTurnMovement.unitMoving)
             {
                 ClearMovementUI();
             }

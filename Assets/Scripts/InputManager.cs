@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace PG
         public Vector3 hoverWorldPosition;
         void Update()
         {
+            #region Interactable
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -62,6 +64,8 @@ namespace PG
                 currentHover = null;
                 hoverWorldPosition = Vector3.zero;
             }
+            #endregion
+
         }
     }
 

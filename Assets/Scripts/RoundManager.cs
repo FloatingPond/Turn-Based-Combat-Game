@@ -43,7 +43,7 @@ namespace PG
            }
            units.Sort((a, b) => b.initiative.CompareTo(a.initiative));
            unitTakingTurn = units[0];
-           TransitionCameraToUnit(unitTakingTurn);
+           //TransitionCameraToUnit(unitTakingTurn);
         }
         private void TransitionCameraToUnit(UnitManager unit)
         {
