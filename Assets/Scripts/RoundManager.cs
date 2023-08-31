@@ -10,8 +10,24 @@ namespace PG
     public class RoundManager : MonoBehaviour
     {
         public int currentRound = 1;
-        public UnitManager unitTakingTurn;
+        public UnitController unitTakingTurn;
         private List<CinemachineVirtualCamera> cameras;
+        #region Singleton
+        public static RoundManager Instance { get; private set; }
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        #endregion
         // Start is called before the first frame update
         void Start()
         {
@@ -35,9 +51,9 @@ namespace PG
         }
         public void CalculateInitiativeOrder()
         {
-           List<UnitManager> units = new List<UnitManager> ();
-           units = FindObjectsOfType<UnitManager>().ToList<UnitManager>();
-           foreach (UnitManager unit in units)
+           List<UnitController> units = new List<UnitController> ();
+           units = FindObjectsOfType<UnitController>().ToList<UnitController>();
+           foreach (UnitController unit in units)
            {
                 unit.initiative = Random.Range(1, 20);
            }
@@ -45,7 +61,7 @@ namespace PG
            unitTakingTurn = units[0];
            //TransitionCameraToUnit(unitTakingTurn);
         }
-        private void TransitionCameraToUnit(UnitManager unit)
+        private void TransitionCameraToUnit(UnitController unit)
         {
             foreach (CinemachineVirtualCamera cam in cameras)
             {
