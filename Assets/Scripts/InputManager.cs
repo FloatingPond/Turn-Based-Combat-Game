@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PG
 {
@@ -10,6 +11,23 @@ namespace PG
         private IInteractable currentHover;
         [SerializeField]
         public Vector3 hoverWorldPosition;
+        #region Singleton
+        public static InputManager Instance { get; private set; }
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        #endregion
+
         void Update()
         {
             #region Interactable
@@ -24,7 +42,13 @@ namespace PG
                 if (interactable != null)
                 {
                     // Store the world position the player is hovering on
-                    hoverWorldPosition = hit.point;
+                    
+                    Vector3 groundNavMeshHeightOffset = hit.point;
+                    groundNavMeshHeightOffset.y = 1;
+                    NavMeshHit navMeshHit;
+                    NavMesh.SamplePosition(groundNavMeshHeightOffset, out navMeshHit, 1, NavMesh.AllAreas);
+                    if (navMeshHit.position.x == hit.point.x && navMeshHit.position.z == hit.point.z) hoverWorldPosition = hit.point;
+                    else { currentHover.OnHoverExit(); hoverWorldPosition = Vector3.zero; return; }
 
                     //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
                     if (currentHover == null)
