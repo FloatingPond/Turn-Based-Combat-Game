@@ -24,6 +24,7 @@ namespace PG
         {
             UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
             NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
+            if (unitTakingTurnMovement.GetComponent<UnitManager>().myTeam == UnitManager.team.computer) { ClearMovementUI(); return; }
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
             if (unitTakingTurnMovement.unitMoving)
             {
@@ -38,6 +39,7 @@ namespace PG
         public void OnClick()
         {
             UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            if (unitTakingTurnMovement.GetComponent<UnitManager>().myTeam == UnitManager.team.computer) { ClearMovementUI(); return; }
             if (!unitTakingTurnMovement.movementComplete) unitTakingTurnMovement.CheckRemainingMovement();
         }
 
@@ -49,6 +51,7 @@ namespace PG
         {
             UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
             NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
+            if (unitTakingTurnMovement.GetComponent<UnitManager>().myTeam == UnitManager.team.computer) { ClearMovementUI(); return; }
             if (!unitTakingTurnMovement.unitMoving && !unitTakingTurnMovement.movementComplete)
             {
                 //Update distance text position & content
