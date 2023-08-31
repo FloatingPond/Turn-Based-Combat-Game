@@ -8,7 +8,7 @@ namespace PG
     public class UnitAnimation : MonoBehaviour
     {
         private Animator animator;
-        private UnitManager unitManager;
+        private UnitController unitManager;
         private UnitMovement unitMovement;
         private UnitActions unitActions;
         private NavMeshAgent agent;
@@ -16,7 +16,7 @@ namespace PG
         void Start()
         {
             animator = GetComponent<Animator>();
-            unitManager = GetComponent<UnitManager>();
+            unitManager = GetComponent<UnitController>();
             unitMovement = GetComponent<UnitMovement>();
             unitActions = GetComponent<UnitActions>();
             agent = GetComponent<NavMeshAgent>();
