@@ -23,13 +23,13 @@ namespace PG
 
         void IInteractable.OnHoverEnter()
         {
-            RoundManager.Instance.unitTakingTurn.unitActions.myTarget = this.transform;
+            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = this;
+            RoundManager.Instance.unitTakingTurn.myLookAtTarget = this.transform.position;
         }
 
         void IInteractable.OnHoverExit()
         {
-            RoundManager.Instance.unitTakingTurn.unitActions.myTarget = null;
-            RoundManager.Instance.unitTakingTurn.myLookAtTarget = RoundManager.Instance.unitTakingTurn.transform.position;
+            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = null;
         }
 
         void IInteractable.OnHoverStay()
