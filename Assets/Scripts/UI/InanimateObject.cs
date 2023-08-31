@@ -23,7 +23,7 @@ namespace PG
 
         void IInteractable.OnHoverEnter()
         {
-            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = this;
+            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = this.gameObject;
             RoundManager.Instance.unitTakingTurn.myLookAtTarget = this.transform.position;
         }
 

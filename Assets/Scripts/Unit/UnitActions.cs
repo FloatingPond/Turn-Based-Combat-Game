@@ -13,7 +13,7 @@ namespace PG
         public enum action { shoot, throwGrenade };
         [SerializeField] private Transform gunBarrel;
         [SerializeField] private ParticleSystem gunSmoke;
-        public IDamageable myDamageableTarget;
+        public GameObject myDamageableTarget;
 
         private void Start()
         {

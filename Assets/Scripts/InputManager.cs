@@ -55,35 +55,50 @@ namespace PG
                 {
                     // Store the world position the player is hovering on
 
-                    if (CheckPositionOnNavMesh(hit.point)) { hoverWorldPosition = hit.point; }
-
-                    RoundManager.Instance.unitTakingTurn.myLookAtTarget = hoverWorldPosition;
-                    //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
-                    if (currentHover == null)
+                    if (CheckPositionOnNavMesh(hit.point))
                     {
-                        currentHover = interactable;
-                        test = hit.transform.gameObject;
-                        currentHover.OnHoverEnter();
+                        hoverWorldPosition = hit.point;
+                        RoundManager.Instance.unitTakingTurn.myLookAtTarget = hoverWorldPosition;
+                        //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
+                        if (currentHover == null)
+                        {
+                            currentHover = interactable;
+                            test = hit.transform.gameObject;
+                            currentHover.OnHoverEnter();
+                        }
+                        //If the thing we've hovered over is interactable but different from the interactable from last frame, call exit then enter again
+                        else if (currentHover != interactable)
+                        {
+                            currentHover.OnHoverExit();
+                            currentHover = interactable;
+                            test = hit.transform.gameObject;
+                            currentHover.OnHoverEnter();
+                        }
+                        //If we're hovering over the same interactable from last frame, call stay
+                        else if (currentHover == interactable)
+                        {
+                            currentHover.OnHoverStay();
+                        }
+                        //If we click, call click
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            currentHover.OnClick();
+                        }
                     }
-                    //If the thing we've hovered over is interactable but different from the interactable from last frame, call exit then enter again
-                    else if (currentHover != interactable)
+                    else
                     {
-                        currentHover.OnHoverExit();
-                        currentHover = interactable;
-                        test = hit.transform.gameObject;
-                        currentHover.OnHoverEnter();
+                        if (currentHover == null)
+                        {
+                            currentHover = interactable;
+                            currentHover.OnHoverEnter();
+                        }
+                        else
+                        {
+                            currentHover.OnHoverExit();
+                            currentHover = interactable;
+                            currentHover.OnHoverEnter();
+                        }
                     }
-                    //If we're hovering over the same interactable from last frame, call stay
-                    else if (currentHover == interactable)
-                    {
-                        currentHover.OnHoverStay();
-                    }
-                    //If we click, call click
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        currentHover.OnClick();
-                    }
-                    if (!CheckPositionOnNavMesh(hit.point)) { currentHover.OnHoverExit(); }
                 }
                 //If it's not interactable, call exit
                 else
@@ -93,8 +108,7 @@ namespace PG
             }
             else
             {
-                currentHover.OnHoverExit();
-                currentHover = null;
+                if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
             }
             #endregion
             

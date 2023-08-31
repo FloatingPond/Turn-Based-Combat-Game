@@ -49,7 +49,15 @@ namespace PG
         public void LookAtMyTarget()
         {
             #region Turn unit to face ghost
-            Vector3 direction = transform.position - unitController.myLookAtTarget;
+            Vector3 direction = Vector3.zero;
+            if (unitController.unitActions.myDamageableTarget == null)
+            {
+                direction = transform.position - unitController.myLookAtTarget;
+            }
+            else
+            {
+                direction = transform.position - unitController.unitActions.myDamageableTarget.transform.position;
+            }
             Quaternion rotation = Quaternion.LookRotation(direction);
             rotation *= Quaternion.Euler(0, 180, 0);
             transform.rotation = rotation;
