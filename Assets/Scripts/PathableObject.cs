@@ -79,6 +79,7 @@ namespace PG
                 {
                     UIManager.Instance.projectedMovementIndicator.transform.position = clampedVect3;
                     UIManager.Instance.ghostManager.transform.position = clampedVect3;
+                    UIManager.Instance.ghostManager.transform.rotation = RoundManager.Instance.unitTakingTurn.transform.rotation;
                 }
                 lineRendererPath.DrawPath(RoundManager.Instance.unitTakingTurn.agent, UIManager.Instance.ghostManager.transform.position);
             }
