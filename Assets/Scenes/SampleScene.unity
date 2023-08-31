@@ -475,6 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a76f1f16135c7b49a827bb59ba680ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test: {fileID: 0}
   hoverWorldPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &147281940
 MonoBehaviour:

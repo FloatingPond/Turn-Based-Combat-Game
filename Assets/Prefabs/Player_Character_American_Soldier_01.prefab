@@ -3834,13 +3834,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7216843378998106597}
-  - component: {fileID: 7307069399655574555}
-  - component: {fileID: 7221032570297797743}
-  - component: {fileID: 7221032570297797736}
   - component: {fileID: 7221032570297797738}
   - component: {fileID: 7221032570297797733}
   - component: {fileID: 7221032570297797732}
   - component: {fileID: 7974212460142301643}
+  - component: {fileID: 7221032570297797736}
+  - component: {fileID: 7221032570297797743}
+  - component: {fileID: 7307069399655574555}
   m_Layer: 0
   m_Name: Player_Character_American_Soldier_01
   m_TagString: Untagged
@@ -3886,64 +3886,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7307069399655574555
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7220300336437642057}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bd46112c78e02dc4b938c86e8b8c1116, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4ded09de95679ab4789b21525ac92cd8, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!195 &7221032570297797743
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7220300336437642057}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.34
-  m_Speed: 0
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 200
-  m_StoppingDistance: 0.01
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.85
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &7221032570297797736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7220300336437642057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 7221032569741816520}
-    m_Active: 1
-  m_Effectors: []
 --- !u!114 &7221032570297797738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3956,11 +3898,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520a20d14e12360498fd45211389f1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitActions: {fileID: 0}
+  unitAnimation: {fileID: 0}
+  unitMovement: {fileID: 0}
   myTeam: 0
   unitData: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96, type: 2}
   initiative: 0
   currentHealth: 0
-  uIManager: {fileID: 0}
+  myLookAtTarget: {x: 0, y: 0, z: 0}
+  agent: {fileID: 0}
 --- !u!114 &7221032570297797733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3977,6 +3923,7 @@ MonoBehaviour:
   unitAction: 0
   gunBarrel: {fileID: 5343501454772420399}
   gunSmoke: {fileID: 7221032571430205449}
+  myDamageableTarget: {fileID: 0}
 --- !u!114 &7221032570297797732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4005,6 +3952,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d44a1fd03c4c714a83e4f3ea996c11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7221032570297797736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220300336437642057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 7221032569741816520}
+    m_Active: 1
+  m_Effectors: []
+--- !u!195 &7221032570297797743
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220300336437642057}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.34
+  m_Speed: 0
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 200
+  m_StoppingDistance: 0.01
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.85
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!95 &7307069399655574555
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220300336437642057}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: bd46112c78e02dc4b938c86e8b8c1116, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4ded09de95679ab4789b21525ac92cd8, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7220341102773695349
 GameObject:
   m_ObjectHideFlags: 0
