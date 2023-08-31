@@ -7,17 +7,15 @@ namespace PG
 {
     public class UnitActions : MonoBehaviour, IInteractable
     {
-        private UnitController unitManager;
         public bool usedAction = false;
         public action unitAction;
         public enum action { shoot, throwGrenade };
-        [SerializeField] private Transform gunBarrel;
+        public Transform gunBarrel;
         [SerializeField] private ParticleSystem gunSmoke;
         public GameObject myDamageableTarget;
 
         private void Start()
         {
-            unitManager = GetComponent<UnitController>();
             gunSmoke.Stop();
         }
         public void PerformAction(action _action)
@@ -40,9 +38,13 @@ namespace PG
 
         public void Shoot()
         {
-            UIManager.Instance.gunShotRenderer.DrawGunshot(gunBarrel.position);
-            gunSmoke.Play();
-            //usedAction = true;
+            if (!usedAction)
+            {
+                gunSmoke.Play();
+                usedAction = true;
+                GunShotRenderer.Instance.ClearGunshot();
+                myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn.unitData.damage);
+            }
         }
         public void ThrowGrenade()
         {

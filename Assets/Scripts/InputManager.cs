@@ -98,6 +98,11 @@ namespace PG
                             currentHover = interactable;
                             currentHover.OnHoverEnter();
                         }
+                        //If we click, call click
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            currentHover.OnClick();
+                        }
                     }
                 }
                 //If it's not interactable, call exit
