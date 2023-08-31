@@ -6,21 +6,33 @@ namespace PG
 {
     public class UnitActions : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        public bool usedAction = false;
+        public action unitAction;
+        public enum action { shoot, throwGrenade };
 
-        // Update is called once per frame
-        void Update()
+        public void PerformAction(action _action)
         {
-        
+            if (!usedAction)
+            {
+                switch (_action)
+                {
+                    case action.shoot:
+                        Shoot();
+                        break;
+                    case action.throwGrenade:
+                        ThrowGrenade();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public void Shoot()
         {
-            
+        }
+        public void ThrowGrenade()
+        {
         }
     }
 }
