@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PG
 {
@@ -17,6 +18,7 @@ namespace PG
         public float currentHealth;
         public UIManager uIManager;
         private Transform myTarget;
+        public NavMeshAgent agent;
         public enum team { player, computer };
        
         // Start is called before the first frame update
@@ -25,7 +27,8 @@ namespace PG
             unitActions = GetComponent<UnitActions>();
             unitAnimation = GetComponent<UnitAnimation>();
             unitMovement = GetComponent<UnitMovement>();
-            uIManager = FindObjectOfType<UIManager>();
+            uIManager = UIManager.Instance;
+            agent = GetComponent<NavMeshAgent>();
             currentHealth = unitData.maxHealth;
         }
 

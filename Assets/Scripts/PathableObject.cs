@@ -15,32 +15,29 @@ namespace PG
         // Start is called before the first frame update
         void Start()
         {
-            roundManager = FindObjectOfType<RoundManager>();
-            inputManager = FindObjectOfType<InputManager>();
+            roundManager = RoundManager.Instance;
+            inputManager = InputManager.Instance;
             lineRendererPath = FindObjectOfType<LineRendererPath>();
-            uIManager = FindObjectOfType<UIManager>();
+            uIManager = UIManager.Instance;
         }
         private void Update()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
-            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
-            if (unitTakingTurnMovement.GetComponent<UnitController>().myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+            if (roundManager.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
-            if (unitTakingTurnMovement.unitMoving)
+            if (roundManager.unitTakingTurn.unitMovement.unitMoving)
             {
-                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(agentTakingTurn).ToString("F1") + "m";
+                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.agent).ToString("F1") + "m";
             }
             //Clears the distance text once the unit has reached it's destination
-            if (!unitTakingTurnMovement.unitMoving && agentTakingTurn.remainingDistance < 0.01)
+            if (!roundManager.unitTakingTurn.unitMovement.unitMoving && roundManager.unitTakingTurn.agent.remainingDistance < 0.01)
             {
                 ClearMovementUI();
             }
         }
         public void OnClick()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
-            if (unitTakingTurnMovement.GetComponent<UnitController>().myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
-            if (!unitTakingTurnMovement.movementComplete) unitTakingTurnMovement.CheckRemainingMovement();
+            if (roundManager.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+            if (!roundManager.unitTakingTurn.unitMovement.movementComplete) roundManager.unitTakingTurn.unitMovement.CheckRemainingMovement();
         }
 
         public void OnHoverEnter()
@@ -49,8 +46,8 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
-            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.GetComponent<NavMeshAgent>();
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.unitMovement;
+            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.agent;
             if (unitTakingTurnMovement.GetComponent<UnitController>().myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
             if (!unitTakingTurnMovement.unitMoving && !unitTakingTurnMovement.movementComplete)
             {
@@ -102,7 +99,7 @@ namespace PG
         }
         public void OnHoverExit()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.GetComponent<UnitMovement>();
+            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.unitMovement;
             if (!unitTakingTurnMovement.unitMoving)
             {
                 ClearMovementUI();
