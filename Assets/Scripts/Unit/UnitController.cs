@@ -16,8 +16,7 @@ namespace PG
         public UnitData unitData;
         public int initiative;
         public float currentHealth;
-        public UIManager uIManager;
-        private Transform myTarget;
+        public Vector3 myLookAtTarget;
         public NavMeshAgent agent;
         public enum team { player, computer };
        
@@ -27,7 +26,6 @@ namespace PG
             unitActions = GetComponent<UnitActions>();
             unitAnimation = GetComponent<UnitAnimation>();
             unitMovement = GetComponent<UnitMovement>();
-            uIManager = UIManager.Instance;
             agent = GetComponent<NavMeshAgent>();
             currentHealth = unitData.maxHealth;
         }

@@ -7,37 +7,31 @@ namespace PG
 {
     public class PathableObject : MonoBehaviour, IInteractable
     {
-        private RoundManager roundManager;
-        private InputManager inputManager;
         private LineRendererPath lineRendererPath;
-        private UIManager uIManager;
 
         // Start is called before the first frame update
         void Start()
         {
-            roundManager = RoundManager.Instance;
-            inputManager = InputManager.Instance;
             lineRendererPath = FindObjectOfType<LineRendererPath>();
-            uIManager = UIManager.Instance;
         }
         private void Update()
-        {
-            if (roundManager.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+        { 
+            if (RoundManager.Instance.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
-            if (roundManager.unitTakingTurn.unitMovement.unitMoving)
+            if (RoundManager.Instance.unitTakingTurn.unitMovement.unitMoving)
             {
-                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(roundManager.unitTakingTurn.agent).ToString("F1") + "m";
+                UIManager.Instance.distanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn.agent).ToString("F1") + "m";
             }
             //Clears the distance text once the unit has reached it's destination
-            if (!roundManager.unitTakingTurn.unitMovement.unitMoving && roundManager.unitTakingTurn.agent.remainingDistance < 0.01)
+            if (!RoundManager.Instance.unitTakingTurn.unitMovement.unitMoving && RoundManager.Instance.unitTakingTurn.agent.remainingDistance < 0.01)
             {
                 ClearMovementUI();
             }
         }
         public void OnClick()
         {
-            if (roundManager.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
-            if (!roundManager.unitTakingTurn.unitMovement.movementComplete) roundManager.unitTakingTurn.unitMovement.CheckRemainingMovement();
+            if (RoundManager.Instance.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+            if (!RoundManager.Instance.unitTakingTurn.unitMovement.movementComplete) RoundManager.Instance.unitTakingTurn.unitMovement.CheckRemainingMovement();
         }
 
         public void OnHoverEnter()
@@ -46,61 +40,52 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.unitMovement;
-            NavMeshAgent agentTakingTurn = roundManager.unitTakingTurn.agent;
-            if (unitTakingTurnMovement.GetComponent<UnitController>().myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
-            if (!unitTakingTurnMovement.unitMoving && !unitTakingTurnMovement.movementComplete)
+            if (RoundManager.Instance.unitTakingTurn.myTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+            if (!RoundManager.Instance.unitTakingTurn.unitMovement.unitMoving && !RoundManager.Instance.unitTakingTurn.unitMovement.movementComplete)
             {
                 //Update distance text position & content
-                uIManager.distanceText.text = lineRendererPath.CalculatePathDistance(agentTakingTurn).ToString("F1") + "m";
+                UIManager.Instance.distanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn.agent).ToString("F1") + "m";
                 //Update projected movement indicator position & active state
-                uIManager.projectedMovementIndicator.enabled = true;
-                
-                //Update ghost opacity
-                uIManager.ghostManager.ShowGhost();
+                UIManager.Instance.projectedMovementIndicator.enabled = true;
 
-                if (unitTakingTurnMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(agentTakingTurn))
+                //Update ghost opacity
+                UIManager.Instance.ghostManager.ShowGhost();
+
+                if (RoundManager.Instance.unitTakingTurn.unitMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn.agent))
                 {
-                    foreach (Renderer renderer in uIManager.ghostManager.renderers)
+                    foreach (Renderer renderer in UIManager.Instance.ghostManager.renderers)
                     {
                         renderer.material.SetColor("_Color", Color.red);
                     }
-                    uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.red);
-                    uIManager.distanceText.color = Color.red;
+                    UIManager.Instance.ghostManager.skinnedMesh.material.SetColor("_Color", Color.red);
+                    UIManager.Instance.distanceText.color = Color.red;
                 }
                 else
                 {
-                    foreach (Renderer renderer in uIManager.ghostManager.renderers)
+                    foreach (Renderer renderer in UIManager.Instance.ghostManager.renderers)
                     {
                         renderer.material.SetColor("_Color", Color.white);
                     }
 
-                    uIManager.ghostManager.skinnedMesh.material.SetColor("_Color", Color.white);
-                    uIManager.distanceText.color = Color.white;
+                    UIManager.Instance.ghostManager.skinnedMesh.material.SetColor("_Color", Color.white);
+                    UIManager.Instance.distanceText.color = Color.white;
                 }
 
-                Vector3 clampedVect3 = new Vector3 (Mathf.Sign(inputManager.hoverWorldPosition.x) * (Mathf.Abs((int)inputManager.hoverWorldPosition.x) + 0.5f),
-                                                    roundManager.unitTakingTurn.transform.position.y,
-                                                    Mathf.Sign(inputManager.hoverWorldPosition.z) * (Mathf.Abs((int)inputManager.hoverWorldPosition.z) + 0.5f));
+                Vector3 clampedVect3 = new Vector3 (Mathf.Sign(InputManager.Instance.hoverWorldPosition.x) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.x) + 0.5f),
+                                                    RoundManager.Instance.unitTakingTurn.transform.position.y,
+                                                    Mathf.Sign(InputManager.Instance.hoverWorldPosition.z) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.z) + 0.5f));
 
-                if (clampedVect3 != roundManager.unitTakingTurn.transform.position)
+                if (clampedVect3 != RoundManager.Instance.unitTakingTurn.transform.position)
                 {
-                    uIManager.projectedMovementIndicator.transform.position = clampedVect3;
-                    uIManager.ghostManager.transform.position = clampedVect3;
+                    UIManager.Instance.projectedMovementIndicator.transform.position = clampedVect3;
+                    UIManager.Instance.ghostManager.transform.position = clampedVect3;
                 }
-                lineRendererPath.DrawPath(agentTakingTurn, uIManager.ghostManager.transform.position);
-                #region Turn unit to face ghost
-                Vector3 direction = roundManager.unitTakingTurn.transform.position - uIManager.ghostManager.transform.position;
-                Quaternion rotation = Quaternion.LookRotation(direction);
-                rotation *= Quaternion.Euler(0, 180, 0);
-                roundManager.unitTakingTurn.transform.rotation = rotation;
-                #endregion
+                lineRendererPath.DrawPath(RoundManager.Instance.unitTakingTurn.agent, UIManager.Instance.ghostManager.transform.position);
             }
         }
         public void OnHoverExit()
         {
-            UnitMovement unitTakingTurnMovement = roundManager.unitTakingTurn.unitMovement;
-            if (!unitTakingTurnMovement.unitMoving)
+            if (!RoundManager.Instance.unitTakingTurn.unitMovement.unitMoving)
             {
                 ClearMovementUI();
             }
@@ -109,14 +94,14 @@ namespace PG
         {
             lineRendererPath.ClearPath();
 
-            uIManager.distanceText.text = "";
+            UIManager.Instance.distanceText.text = "";
 
-            uIManager.projectedMovementIndicator.enabled = false;
-            uIManager.projectedMovementIndicator.transform.position = Vector3.zero;
+            UIManager.Instance.projectedMovementIndicator.enabled = false;
+            UIManager.Instance.projectedMovementIndicator.transform.position = Vector3.zero;
 
-            uIManager.ghostManager.HideGhost();
-            uIManager.ghostManager.transform.position = Vector3.zero;
-        }
+            UIManager.Instance.ghostManager.HideGhost();
+            UIManager.Instance.ghostManager.transform.position = Vector3.zero;
+        }   
 
     }
 }

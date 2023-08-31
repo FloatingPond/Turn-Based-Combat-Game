@@ -29,6 +29,7 @@ namespace PG
         void IInteractable.OnHoverExit()
         {
             RoundManager.Instance.unitTakingTurn.unitActions.myTarget = null;
+            RoundManager.Instance.unitTakingTurn.myLookAtTarget = RoundManager.Instance.unitTakingTurn.transform.position;
         }
 
         void IInteractable.OnHoverStay()

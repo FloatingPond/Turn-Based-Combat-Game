@@ -40,7 +40,7 @@ namespace PG
 
         public void Shoot()
         {
-            unitManager.uIManager.gunShotRenderer.DrawGunshot(gunBarrel.position);
+            UIManager.Instance.gunShotRenderer.DrawGunshot(gunBarrel.position);
             gunSmoke.Play();
             //usedAction = true;
         }
