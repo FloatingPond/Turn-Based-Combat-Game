@@ -48,6 +48,7 @@ namespace PG
         // Update is called once per frame
         void Update()
         {
+            if (unitManager.myTeam == UnitManager.team.computer) return;
             unitManager.uIManager.movementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
