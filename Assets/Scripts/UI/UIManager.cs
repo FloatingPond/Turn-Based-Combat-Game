@@ -12,6 +12,22 @@ namespace PG
         public Image projectedMovementIndicator;
         public GhostManager ghostManager;
         public GunShotRenderer gunShotRenderer;
+        #region Singleton
+        public static UIManager Instance { get; private set; }
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        #endregion
         // Start is called before the first frame update
         void Start()
         {
