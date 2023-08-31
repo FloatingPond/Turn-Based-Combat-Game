@@ -9,7 +9,7 @@ namespace PG
     public class UnitMovement : MonoBehaviour
     {
         private NavMeshAgent agent;
-        private UnitManager unitManager;
+        private UnitController unitManager;
         private LineRendererPath lineRendererPath;
         private UnitData unitData;
         public bool unitMoving;
@@ -21,7 +21,7 @@ namespace PG
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
-            unitManager = GetComponent<UnitManager>();
+            unitManager = GetComponent<UnitController>();
             lineRendererPath = FindObjectOfType<LineRendererPath>();
 
             unitData = unitManager.unitData;
@@ -36,7 +36,7 @@ namespace PG
             }
             else
             {
-                Debug.Log("I have enough movement, moving."); 
+                Debug.Log("I have enough movement, moving.");
                 MoveToDestination();
             }
         }
@@ -48,7 +48,7 @@ namespace PG
         // Update is called once per frame
         void Update()
         {
-            if (unitManager.myTeam == UnitManager.team.computer) return;
+            if (unitManager.myTeam == UnitController.team.computer) return;
             unitManager.uIManager.movementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
