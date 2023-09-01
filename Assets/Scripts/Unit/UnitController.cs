@@ -18,7 +18,8 @@ namespace PG
         public int initiative;
         public float currentHealth;
         public Vector3 myLookAtTarget;
-        public WeightedTransform myWeightedLookAtTarget;
+        [Space(10)]
+        public Transform myLookAtTargetTransform;
         public NavMeshAgent agent;
         public enum team { player, computer };
        
@@ -30,7 +31,6 @@ namespace PG
             unitMovement = GetComponent<UnitMovement>();
             agent = GetComponent<NavMeshAgent>();
             currentHealth = unitData.maxHealth;
-            myWeightedLookAtTarget.weight = 1f;
         }
 
         // Update is called once per frame

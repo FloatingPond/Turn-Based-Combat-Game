@@ -20,15 +20,13 @@ namespace PG
         public float currentMovementRemaining;
         [SerializeField]
         private float thisMovementCost;
-        [SerializeField]
-        private List<MultiAimConstraint> multiAimConstraints;
+        public Transform aimTargetIK;
         // Start is called before the first frame update
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             unitController = GetComponent<UnitController>();
             lineRendererPath = FindObjectOfType<LineRendererPath>();
-
             unitData = unitController.unitData;
             currentMovementRemaining = unitData.maxMovementDistance;
         }
@@ -58,34 +56,17 @@ namespace PG
             if (unitController.unitActions.myDamageableTarget == null)
             {
                 direction = transform.position - unitController.myLookAtTarget;
-                foreach (MultiAimConstraint mac in multiAimConstraints)
-                {
-                    SetSourceObject(mac);
-                }
+                aimTargetIK.transform.position = unitController.myLookAtTarget;
             }
             else
             {
                 direction = transform.position - unitController.unitActions.myDamageableTarget.transform.position;
+                aimTargetIK.transform.position = unitController.unitActions.myDamageableTarget.transform.position;
             }
             Quaternion rotation = Quaternion.LookRotation(direction);
             rotation *= Quaternion.Euler(0, 180, 0);
             transform.rotation = rotation;
             #endregion
-        }
-        void SetSourceObject(MultiAimConstraint mac)
-        {
-            var data = mac.data;
-            var sources = data.sourceObjects;
-
-            if (sources.Count == 1 && sources[0].transform == unitController.myWeightedLookAtTarget.transform)
-            { }
-            else
-            {
-                sources.Clear();
-                sources.Add(unitController.myWeightedLookAtTarget);
-                // Update the constraint's source objects
-                data.sourceObjects = sources;
-            }
         }
         // Update is called once per frame
         void Update()

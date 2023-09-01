@@ -4284,6 +4284,7 @@ MonoBehaviour:
   initiative: 0
   currentHealth: 0
   myLookAtTarget: {x: 0, y: 0, z: 0}
+  myLookAtTargetTransform: {fileID: 0}
   agent: {fileID: 0}
 --- !u!114 &7221032570297797733
 MonoBehaviour:
@@ -4318,6 +4319,10 @@ MonoBehaviour:
   movementComplete: 0
   currentMovementRemaining: 0
   thisMovementCost: 0
+  multiAimConstraints:
+  - {fileID: 1939254749}
+  - {fileID: 1740644386}
+  - {fileID: 682711330}
 --- !u!114 &7974212460142301643
 MonoBehaviour:
   m_ObjectHideFlags: 0
