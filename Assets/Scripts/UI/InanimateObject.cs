@@ -8,13 +8,18 @@ namespace PG
     {
         public float currentHealth, maxHealth;
         [SerializeField] private float targetingHeightScale = 0.75f;
+        [SerializeField] private ParticleSystem deathEffect;
+        private MeshRenderer meshRenderer;
         void Start()
         {
+            meshRenderer = GetComponent<MeshRenderer>();
             currentHealth = maxHealth;
+            if (deathEffect != null) deathEffect.Stop();
         }
         public void Die()
         {
-            gameObject.SetActive(false);
+            if (deathEffect != null) deathEffect.Play();
+            meshRenderer.enabled = false;
         }
 
         void IInteractable.OnClick()

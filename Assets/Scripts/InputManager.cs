@@ -10,7 +10,6 @@ namespace PG
     public class InputManager : MonoBehaviour
     {
         private IInteractable currentHover;
-        public GameObject test;
         [SerializeField]
         public Vector3 hoverWorldPosition;
         #region Singleton
@@ -63,7 +62,6 @@ namespace PG
                         if (currentHover == null)
                         {
                             currentHover = interactable;
-                            test = hit.transform.gameObject;
                             currentHover.OnHoverEnter();
                         }
                         //If the thing we've hovered over is interactable but different from the interactable from last frame, call exit then enter again
@@ -71,7 +69,6 @@ namespace PG
                         {
                             currentHover.OnHoverExit();
                             currentHover = interactable;
-                            test = hit.transform.gameObject;
                             currentHover.OnHoverEnter();
                         }
                         //If we're hovering over the same interactable from last frame, call stay
