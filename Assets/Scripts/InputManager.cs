@@ -29,7 +29,7 @@ namespace PG
         }
         #endregion
 
-        private bool CheckPositionOnNavMesh(Vector3 point)
+        private bool CheckIfIsPositionOnNavMesh(Vector3 point)
         {
             Vector3 groundNavMeshHeightOffset = point;
             groundNavMeshHeightOffset.y = 1;
@@ -54,7 +54,7 @@ namespace PG
                 {
                     // Store the world position the player is hovering on
 
-                    if (CheckPositionOnNavMesh(hit.point))
+                    if (CheckIfIsPositionOnNavMesh(hit.point))
                     {
                         hoverWorldPosition = hit.point;
                         RoundManager.Instance.unitTakingTurn.myLookAtTarget = hoverWorldPosition;
