@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 namespace PG
 {
@@ -17,6 +18,7 @@ namespace PG
         public int initiative;
         public float currentHealth;
         public Vector3 myLookAtTarget;
+        public WeightedTransform myWeightedLookAtTarget;
         public NavMeshAgent agent;
         public enum team { player, computer };
        
@@ -28,6 +30,7 @@ namespace PG
             unitMovement = GetComponent<UnitMovement>();
             agent = GetComponent<NavMeshAgent>();
             currentHealth = unitData.maxHealth;
+            myWeightedLookAtTarget.weight = 1f;
         }
 
         // Update is called once per frame

@@ -24,8 +24,9 @@ namespace PG
 
         void IInteractable.OnHoverEnter()
         {
-            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = this.gameObject;
-            RoundManager.Instance.unitTakingTurn.myLookAtTarget = this.transform.position;
+            RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = gameObject;
+            RoundManager.Instance.unitTakingTurn.myLookAtTarget = transform.position;
+            RoundManager.Instance.unitTakingTurn.myWeightedLookAtTarget.transform = transform;
             if (!RoundManager.Instance.unitTakingTurn.unitActions.usedAction)
             {
                 GunShotRenderer.Instance.DrawGunshot(RoundManager.Instance.unitTakingTurn.unitActions.gunBarrel.position, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y * targetingHeightScale), transform.position.z));
@@ -35,6 +36,7 @@ namespace PG
         void IInteractable.OnHoverExit()
         {
             RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = null;
+            RoundManager.Instance.unitTakingTurn.myWeightedLookAtTarget.transform = null;
             GunShotRenderer.Instance.ClearGunshot();
         }
 

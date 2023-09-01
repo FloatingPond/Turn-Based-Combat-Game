@@ -12,6 +12,7 @@ namespace PG
         public Image projectedMovementIndicator;
         public GhostManager ghostManager;
         public GunShotRenderer gunShotRenderer;
+        public Transform aimTargetIK;
         #region Singleton
         public static UIManager Instance { get; private set; }
 

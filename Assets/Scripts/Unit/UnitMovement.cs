@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
 
 namespace PG
@@ -17,6 +20,8 @@ namespace PG
         public float currentMovementRemaining;
         [SerializeField]
         private float thisMovementCost;
+        [SerializeField]
+        private List<MultiAimConstraint> multiAimConstraints;
         // Start is called before the first frame update
         void Start()
         {
@@ -53,6 +58,10 @@ namespace PG
             if (unitController.unitActions.myDamageableTarget == null)
             {
                 direction = transform.position - unitController.myLookAtTarget;
+                foreach (MultiAimConstraint mac in multiAimConstraints)
+                {
+                    SetSourceObject(mac);
+                }
             }
             else
             {
@@ -62,6 +71,21 @@ namespace PG
             rotation *= Quaternion.Euler(0, 180, 0);
             transform.rotation = rotation;
             #endregion
+        }
+        void SetSourceObject(MultiAimConstraint mac)
+        {
+            var data = mac.data;
+            var sources = data.sourceObjects;
+
+            if (sources.Count == 1 && sources[0].transform == unitController.myWeightedLookAtTarget.transform)
+            { }
+            else
+            {
+                sources.Clear();
+                sources.Add(unitController.myWeightedLookAtTarget);
+                // Update the constraint's source objects
+                data.sourceObjects = sources;
+            }
         }
         // Update is called once per frame
         void Update()
