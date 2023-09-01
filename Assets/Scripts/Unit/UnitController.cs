@@ -32,12 +32,6 @@ namespace PG
             agent = GetComponent<NavMeshAgent>();
             currentHealth = unitData.maxHealth;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
         public void Die()
         {
             //Play death animation & sound

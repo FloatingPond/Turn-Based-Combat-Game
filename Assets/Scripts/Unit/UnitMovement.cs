@@ -72,7 +72,7 @@ namespace PG
         void Update()
         {
             if (unitController.myTeam == UnitController.team.computer) return;
-            LookAtMyTarget();
+            if (!unitMoving) LookAtMyTarget();
             UIManager.Instance.movementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
