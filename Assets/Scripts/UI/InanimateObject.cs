@@ -25,6 +25,7 @@ namespace PG
         void IInteractable.OnClick()
         {
             RoundManager.Instance.unitTakingTurn.unitActions.Shoot();
+            if (TryGetComponent<AreaOfEffectDamage>(out AreaOfEffectDamage aoe)) aoe.DoDamageInSphere(transform.position, aoe.radius);
         }
 
         void IInteractable.OnHoverEnter()
