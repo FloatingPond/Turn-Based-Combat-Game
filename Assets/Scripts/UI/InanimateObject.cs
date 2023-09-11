@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PG
 {
@@ -10,8 +11,18 @@ namespace PG
         [SerializeField] private float targetingHeightScale = 0.75f;
         [SerializeField] private ParticleSystem deathEffect;
         private MeshRenderer meshRenderer;
+        private Collider objectCollider;
+        private NavMeshObstacle navMeshObstacle;
         void Start()
         {
+            if (TryGetComponent<NavMeshObstacle>(out NavMeshObstacle NMO))
+            {
+                navMeshObstacle = NMO;
+            }
+            if (TryGetComponent<Collider>(out Collider collider))
+            { 
+                objectCollider = collider;   
+            }
             meshRenderer = GetComponent<MeshRenderer>();
             currentHealth = maxHealth;
             if (deathEffect != null) deathEffect.Stop();
@@ -20,6 +31,8 @@ namespace PG
         {
             if (deathEffect != null) deathEffect.Play();
             meshRenderer.enabled = false;
+            objectCollider.enabled = false;
+            navMeshObstacle.enabled = false;
         }
 
         void IInteractable.OnClick()
