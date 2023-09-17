@@ -1,6 +1,3 @@
-using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PG
@@ -12,11 +9,14 @@ namespace PG
         public enum action { shoot, throwGrenade };
         public Transform gunBarrel;
         [SerializeField] private ParticleSystem gunSmoke;
+        [SerializeField] private ParticleSystem bulletImpactFX;
         public GameObject myDamageableTarget;
+
 
         private void Start()
         {
             gunSmoke.Stop();
+            bulletImpactFX.Stop();
         }
         public void PerformAction(action _action)
         {
@@ -44,6 +44,8 @@ namespace PG
                 usedAction = true;
                 GunShotRenderer.Instance.ClearGunshot();
                 myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn.unitData.damage);
+                bulletImpactFX.transform.position = myDamageableTarget.transform.position;
+                bulletImpactFX.Play();
             }
         }
         public void ThrowGrenade()
