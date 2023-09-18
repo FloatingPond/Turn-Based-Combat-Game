@@ -11,10 +11,11 @@ namespace PG
         [SerializeField] private ParticleSystem gunSmoke;
         [SerializeField] private ParticleSystem bulletImpactFX;
         public GameObject myDamageableTarget;
-
+        private Animator anim;
 
         private void Start()
         {
+            anim = GetComponent<Animator>();
             gunSmoke.Stop();
             bulletImpactFX.Stop();
         }
@@ -33,24 +34,22 @@ namespace PG
                     default:
                         break;
                 }
+                usedAction = true;
             }
         }
 
         public void Shoot()
         {
-            if (!usedAction)
-            {
-                gunSmoke.Play();
-                usedAction = true;
-                GunShotRenderer.Instance.ClearGunshot();
-                myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn.unitData.damage);
-                bulletImpactFX.transform.position = myDamageableTarget.transform.position;
-                bulletImpactFX.Play();
-            }
+            gunSmoke.Play();
+            GunShotRenderer.Instance.ClearGunshot();
+            myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn.unitData.damage);
+            bulletImpactFX.transform.position = myDamageableTarget.transform.position;
+            bulletImpactFX.Play();
+            anim.SetTrigger("Shoot");
         }
         public void ThrowGrenade()
         {
-            //usedAction = true;
+
         }
 
         void IInteractable.OnHoverEnter()
