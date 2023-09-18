@@ -43,8 +43,15 @@ namespace PG
             gunSmoke.Play();
             GunShotRenderer.Instance.ClearGunshot();
             myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn.unitData.damage);
-            bulletImpactFX.transform.position = myDamageableTarget.transform.position;
+
+            bulletImpactFX.transform.position = GunShotRenderer.Instance.hitPosition;
+
+            Vector3 direction = myDamageableTarget.transform.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
+            bulletImpactFX.transform.rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y - 90, rotation.eulerAngles.z);
+
             bulletImpactFX.Play();
+
             anim.SetTrigger("Shoot");
         }
         public void ThrowGrenade()

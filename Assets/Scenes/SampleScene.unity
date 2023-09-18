@@ -910,9 +910,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -2609,6 +2607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cd659f7a5c95c499e894e7ecf139e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2028072219
 GameObject:
   m_ObjectHideFlags: 0

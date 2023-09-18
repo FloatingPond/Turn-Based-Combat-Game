@@ -5,6 +5,7 @@ namespace PG
     public class GunShotRenderer : MonoBehaviour
     {
         private LineRenderer lineRenderer;
+        public Vector3 hitPosition;
         #region Singleton
         public static GunShotRenderer Instance { get; private set; }
 
@@ -24,7 +25,6 @@ namespace PG
         void Start()
         {
             lineRenderer = GetComponent<LineRenderer>();
-            ClearGunshot();
         }
         public void DrawGunshot(Vector3 origin, Vector3 destination)
         {
@@ -34,6 +34,7 @@ namespace PG
 
             if (Physics.Raycast(origin, direction, out hit, distance))
             {
+                hitPosition = hit.point;
                 transform.position = origin;
                 lineRenderer.positionCount = 2;
                 lineRenderer.SetPosition(0, origin);
