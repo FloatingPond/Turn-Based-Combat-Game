@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 namespace PG
 {
@@ -12,6 +13,8 @@ namespace PG
         private UnitMovement unitMovement;
         private UnitActions unitActions;
         private NavMeshAgent agent;
+        [SerializeField] private MultiAimConstraint[] multiAimConstraints;
+        [SerializeField] private MultiAimConstraint headAim, bodyAim, aimConstraint;
         // Start is called before the first frame update
         void Start()
         {
@@ -26,6 +29,33 @@ namespace PG
         void Update()
         {
             animator.SetFloat("MoveSpeed", agent.speed);
+        }
+
+        public void ChangeMultiAimConstraintWeight(MultiAimConstraint multiAimConstraint, float newVal)
+        {
+            multiAimConstraint.weight = newVal;
+        }
+
+        public void ChangeListOfMultiAimConstraints(float newVal)
+        {
+            foreach (MultiAimConstraint mac in multiAimConstraints)
+            {
+                ChangeMultiAimConstraintWeight(mac, newVal);
+            }
+        }
+
+        public void SetRigsForRunning()
+        {
+            ChangeMultiAimConstraintWeight(bodyAim, 0);
+            ChangeMultiAimConstraintWeight(headAim, 0);
+            ChangeMultiAimConstraintWeight(aimConstraint, 0.4f);
+        }
+
+        public void SetRigsForAiming()
+        {
+            ChangeMultiAimConstraintWeight(bodyAim, 0.65f);
+            ChangeMultiAimConstraintWeight(headAim, 1);
+            ChangeMultiAimConstraintWeight(aimConstraint, 1);
         }
     }
 }

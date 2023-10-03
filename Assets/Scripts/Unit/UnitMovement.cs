@@ -39,6 +39,7 @@ namespace PG
         }
         public void MoveToDestination()
         {
+            unitController.unitAnimation.SetRigsForRunning();
             agent.speed = unitController.unitData.moveSpeed;
             unitMoving = true;
         }
@@ -46,6 +47,7 @@ namespace PG
         public void LookAtMyTarget()
         {
             #region Turn unit to face ghost
+            unitController.unitAnimation.SetRigsForAiming();
             Vector3 direction = Vector3.zero;
             if (unitController.unitActions.myDamageableTarget == null)
             {
