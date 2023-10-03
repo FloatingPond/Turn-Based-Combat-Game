@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +6,6 @@ namespace PG
     public class InanimateObject : MonoBehaviour, IInteractable, IDamageable
     {
         public float currentHealth, maxHealth;
-        [SerializeField] private float targetingHeightScale = 0.75f;
         [SerializeField] private ParticleSystem deathEffect;
         private MeshRenderer meshRenderer;
         private Collider objectCollider;
@@ -43,12 +40,14 @@ namespace PG
 
         void IInteractable.OnHoverEnter()
         {
+            float aimHeightTarget = GetHeight(gameObject) / 2;
+            Vector3 aimHeightTargetVector = new Vector3 (transform.position.x, aimHeightTarget, transform.position.z);
             RoundManager.Instance.unitTakingTurn.unitActions.myDamageableTarget = gameObject;
             RoundManager.Instance.unitTakingTurn.myLookAtTarget = transform.position;
             RoundManager.Instance.unitTakingTurn.myLookAtTargetTransform = transform;
             if (!RoundManager.Instance.unitTakingTurn.unitActions.usedAction)
             {
-                GunShotRenderer.Instance.DrawGunshot(RoundManager.Instance.unitTakingTurn.unitActions.gunBarrel.position, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y * targetingHeightScale), transform.position.z));
+                GunShotRenderer.Instance.DrawGunshot(RoundManager.Instance.unitTakingTurn.unitActions.gunBarrel.position, aimHeightTargetVector);
             }
         }
 
@@ -68,11 +67,17 @@ namespace PG
             currentHealth -= damage;
             if (currentHealth <= 0) Die();
         }
-
-        // Update is called once per frame
-        void Update()
+        float GetHeight(GameObject obj)
         {
-        
+            MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+            if (meshRenderer == null)
+            {
+                Debug.LogError("No MeshRenderer found on " + obj.name + ".");
+                return 0;
+            }
+            Bounds bounds = meshRenderer.bounds;
+            float height = bounds.size.y * obj.transform.localScale.y;
+            return height;     
         }
     }
 }

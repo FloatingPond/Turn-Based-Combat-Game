@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
-using UnityEngine.Animations.Rigging;
-using UnityEngine.Events;
 
 namespace PG
 {
@@ -60,8 +54,10 @@ namespace PG
             }
             else
             {
+                float aimHeightTarget = GetHeight(unitController.unitActions.myDamageableTarget) / 2;
+                Vector3 aimHeightTargetVector = new(unitController.unitActions.myDamageableTarget.transform.position.x, aimHeightTarget, unitController.unitActions.myDamageableTarget.transform.position.z);
                 direction = transform.position - unitController.unitActions.myDamageableTarget.transform.position;
-                aimTargetIK.transform.position = unitController.unitActions.myDamageableTarget.transform.position;
+                aimTargetIK.transform.position = aimHeightTargetVector;
             }
             Quaternion rotation = Quaternion.LookRotation(direction);
             rotation *= Quaternion.Euler(0, 180, 0);
@@ -86,6 +82,18 @@ namespace PG
                     UIManager.Instance.movementRemainingText.text = "Movement Complete";
                 }
             }
+        }
+        float GetHeight(GameObject obj)
+        {
+            MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+            if (meshRenderer == null)
+            {
+                Debug.LogError("No MeshRenderer found on " + obj.name + ".");
+                return 0;
+            }
+            Bounds bounds = meshRenderer.bounds;
+            float height = bounds.size.y * obj.transform.localScale.y;
+            return height;
         }
     }
 }
