@@ -11,15 +11,15 @@ namespace PG
         {
             Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 
-            foreach (var hitCollider in hitColliders)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                if (hitCollider.TryGetComponent(out IDamageable damageable))
+                if (hitColliders[i].TryGetComponent(out IDamageable damageable))
                 {
-                    float distanceFromDamageable = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    float distanceFromDamageable = Vector3.Distance(transform.position, hitColliders[i].transform.position);
 
-                    if (distanceFromDamageable <= radius) 
+                    if (distanceFromDamageable <= radius)
                     {
-                        damageable.TakeDamage(baseDamage / distanceFromDamageable); 
+                        damageable.TakeDamage(baseDamage / distanceFromDamageable);
                     }
                 }
             }

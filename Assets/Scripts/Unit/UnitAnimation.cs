@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -9,9 +7,6 @@ namespace PG
     public class UnitAnimation : MonoBehaviour
     {
         public Animator animator;
-        private UnitController unitManager;
-        private UnitMovement unitMovement;
-        private UnitActions unitActions;
         private NavMeshAgent agent;
         [SerializeField] private MultiAimConstraint[] multiAimConstraints;
         [SerializeField] private MultiAimConstraint headAim, bodyAim, aimConstraint;
@@ -20,9 +15,6 @@ namespace PG
         void Start()
         {
             animator = GetComponent<Animator>();
-            unitManager = GetComponent<UnitController>();
-            unitMovement = GetComponent<UnitMovement>();
-            unitActions = GetComponent<UnitActions>();
             agent = GetComponent<NavMeshAgent>();
         }
 

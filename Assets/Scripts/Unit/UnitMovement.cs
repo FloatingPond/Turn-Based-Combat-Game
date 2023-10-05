@@ -12,10 +12,8 @@ namespace PG
         public bool unitMoving;
         public bool movementComplete;
         public float currentMovementRemaining;
-        [SerializeField]
-        private float thisMovementCost;
         public Transform aimTargetIK;
-        // Start is called before the first frame update
+        [SerializeField] private float thisMovementCost;
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -74,7 +72,6 @@ namespace PG
             transform.rotation = rotation;
             #endregion
         }
-        // Update is called once per frame
         void Update()
         {
             if (unitController.myTeam == UnitController.team.computer) return;
