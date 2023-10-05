@@ -26,18 +26,12 @@ namespace PG
             }
         }
         #endregion
-        // Start is called before the first frame update
         void Start()
         {
             GetVcams();
             CalculateInitiativeOrder();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
         private void GetVcams()
         {
             cameras = new List<CinemachineVirtualCamera>();

@@ -25,7 +25,7 @@ namespace PG
         }
         #endregion
 
-        private bool CheckIfIsPositionOnNavMesh(Vector3 point)
+        private bool CheckIfPositionIsOnNavMesh(Vector3 point)
         {
             Vector3 groundNavMeshHeightOffset = point;
             groundNavMeshHeightOffset.y = 1;
@@ -43,14 +43,14 @@ namespace PG
 
             if (Physics.Raycast(ray, out hit))
             {
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                hit.collider.TryGetComponent(out IInteractable interactable);
 
                 //If we have just hovered over something interactable:
                 if (interactable != null)
                 {
                     // Store the world position the player is hovering on
 
-                    if (CheckIfIsPositionOnNavMesh(hit.point))
+                    if (CheckIfPositionIsOnNavMesh(hit.point))
                     {
                         hoverWorldPosition = hit.point;
                         RoundManager.Instance.unitTakingTurn_UnitController.myLookAtTarget = hoverWorldPosition;
@@ -80,6 +80,7 @@ namespace PG
                     }
                     else
                     {
+                        //Position we're hovering over isn't on the navmesh
                         if (currentHover == null)
                         {
                             currentHover = interactable;
@@ -104,9 +105,10 @@ namespace PG
                     if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
                 }
             }
-            else
+            else //If we hit nothing, it's not interactable so call exit
             {
-                if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
+                if (currentHover != null) currentHover.OnHoverExit();
+                currentHover = null;
             }
             #endregion
             
