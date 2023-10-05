@@ -8,8 +8,6 @@ namespace PG
         [SerializeField]
         private LineRenderer lineRenderer;
         private float distance = 0f;
-        private Gradient gradient;
-        private float percentage;
         void Start()
         {
             lineRenderer = GetComponent<LineRenderer>();

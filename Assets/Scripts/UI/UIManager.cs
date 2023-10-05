@@ -9,7 +9,7 @@ namespace PG
         public TextMeshProUGUI distanceText, movementRemainingText, actionRemainingText;
         public Image projectedMovementIndicator;
         public GhostManager ghostManager;
-        public GunShotRenderer gunShotRenderer;
+        public WeaponTrajectoryIndicator gunShotRenderer;
         #region Singleton
         public static UIManager Instance { get; private set; }
 
@@ -30,7 +30,12 @@ namespace PG
         void Start()
         {
             ghostManager = FindObjectOfType<GhostManager>();
-            gunShotRenderer = FindObjectOfType<GunShotRenderer>();
+            gunShotRenderer = FindObjectOfType<WeaponTrajectoryIndicator>();
+        }
+
+        public void SwitchWeapon()
+        {
+            RoundManager.Instance.unitTakingTurn_UnitController.unitActions.SwitchToGrenade(); //Need to take in weapon to switch to at later point
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PG
     public class RoundManager : MonoBehaviour
     {
         public int currentRound = 1;
-        public UnitController unitTakingTurn;
+        public UnitController unitTakingTurn_UnitController;
         private List<CinemachineVirtualCamera> cameras;
         #region Singleton
         public static RoundManager Instance { get; private set; }
@@ -56,7 +56,7 @@ namespace PG
                 unit.initiative = Random.Range(1, 20);
            }
            units.Sort((a, b) => b.initiative.CompareTo(a.initiative));
-           unitTakingTurn = units[0];
+           unitTakingTurn_UnitController = units[0];
            //TransitionCameraToUnit(unitTakingTurn);
         }
         private void TransitionCameraToUnit(UnitController unit)

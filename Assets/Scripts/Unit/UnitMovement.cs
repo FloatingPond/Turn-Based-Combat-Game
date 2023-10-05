@@ -47,7 +47,15 @@ namespace PG
         public void LookAtMyTarget()
         {
             #region Turn unit to face ghost
-            unitController.unitAnimation.SetRigsForAiming();
+            if (unitController.unitAnimation.animator.GetBool("AimGrenade")) 
+            { 
+                unitController.unitAnimation.SetRigsForAimingGrenade(); 
+            }
+            else 
+            { 
+                unitController.unitAnimation.SetRigsForAiming(); 
+            }
+
             Vector3 direction = Vector3.zero;
             if (unitController.unitActions.myDamageableTarget == null)
             {

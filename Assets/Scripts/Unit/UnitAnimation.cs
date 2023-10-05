@@ -8,13 +8,14 @@ namespace PG
 {
     public class UnitAnimation : MonoBehaviour
     {
-        private Animator animator;
+        public Animator animator;
         private UnitController unitManager;
         private UnitMovement unitMovement;
         private UnitActions unitActions;
         private NavMeshAgent agent;
         [SerializeField] private MultiAimConstraint[] multiAimConstraints;
         [SerializeField] private MultiAimConstraint headAim, bodyAim, aimConstraint;
+        [SerializeField] private TwoBoneIKConstraint handAim;
         // Start is called before the first frame update
         void Start()
         {
@@ -49,6 +50,7 @@ namespace PG
             ChangeMultiAimConstraintWeight(bodyAim, 0);
             ChangeMultiAimConstraintWeight(headAim, 0);
             ChangeMultiAimConstraintWeight(aimConstraint, 0.4f);
+            handAim.weight = 1;
         }
 
         public void SetRigsForAiming()
@@ -56,6 +58,14 @@ namespace PG
             ChangeMultiAimConstraintWeight(bodyAim, 0.65f);
             ChangeMultiAimConstraintWeight(headAim, 1);
             ChangeMultiAimConstraintWeight(aimConstraint, 1);
+            handAim.weight = 1;
+        }
+        public void SetRigsForAimingGrenade()
+        {
+            ChangeMultiAimConstraintWeight(bodyAim, 0.65f);
+            ChangeMultiAimConstraintWeight(headAim, 1);
+            ChangeMultiAimConstraintWeight(aimConstraint, 1);
+            handAim.weight = 0;
         }
     }
 }

@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace PG
 {
-    public class GunShotRenderer : MonoBehaviour
+    public class WeaponTrajectoryIndicator : MonoBehaviour
     {
         private LineRenderer lineRenderer;
         public Vector3 hitPosition;
         #region Singleton
-        public static GunShotRenderer Instance { get; private set; }
+        public static WeaponTrajectoryIndicator Instance { get; private set; }
 
         void Awake()
         {
@@ -26,7 +28,7 @@ namespace PG
         {
             lineRenderer = GetComponent<LineRenderer>();
         }
-        public void DrawGunshot(Vector3 origin, Vector3 destination)
+        public void DrawProjectedGunshot(Vector3 origin, Vector3 destination)
         {
             Vector3 direction = (destination - origin).normalized;
             float distance = Vector3.Distance(origin, destination);
@@ -41,9 +43,18 @@ namespace PG
                 lineRenderer.SetPosition(1, destination);
             }
         }
-        public void ClearGunshot()
+        public void ClearRendererPositions()
         {
             lineRenderer.positionCount = 0;
+        }
+
+        public void DrawGrenadeArc(List<Vector3> positions)
+        {
+            lineRenderer.positionCount = positions.Count;
+            for (int i = 0; i < positions.Count; i++)
+            {
+                lineRenderer.SetPosition(i, positions[i]);
+            }
         }
     }
 }
