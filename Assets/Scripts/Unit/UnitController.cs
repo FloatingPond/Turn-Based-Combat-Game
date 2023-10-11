@@ -6,28 +6,29 @@ namespace PG
     public class UnitController : MonoBehaviour, IDamageable, IInteractable
     {
         [Header("Unit Scripts")]
-        public UnitActions unitActions;
-        public UnitAnimation unitAnimation;
-        public UnitMovement unitMovement;
+        public UnitActions UnitActions;
+        public UnitAnimation UnitAnimation;
+        public UnitMovement UnitMovement;
         [Space(10)]
-        public team myTeam;
-        public UnitData unitData;
-        public int initiative;
-        public float currentHealth;
-        public Vector3 myLookAtTarget;
+        public team MyTeam;
+        public UnitData UnitData;
+        public int Initiative;
+        public float CurrentHealth;
+        public Vector3 MyLookAtTargetVector;
         [Space(10)]
-        public Transform myLookAtTargetTransform;
-        public NavMeshAgent agent;
+        public Transform MyLookAtTargetTransform;
+        public NavMeshAgent Agent;
+        public Transform AimTargetIK;
         public enum team { player, computer };
        
         // Start is called before the first frame update
         void Start()
         {
-            unitActions = GetComponent<UnitActions>();
-            unitAnimation = GetComponent<UnitAnimation>();
-            unitMovement = GetComponent<UnitMovement>();
-            agent = GetComponent<NavMeshAgent>();
-            currentHealth = unitData.maxHealth;
+            UnitActions = GetComponent<UnitActions>();
+            UnitAnimation = GetComponent<UnitAnimation>();
+            UnitMovement = GetComponent<UnitMovement>();
+            Agent = GetComponent<NavMeshAgent>();
+            CurrentHealth = UnitData.maxHealth;
         }
         public void Die()
         {
@@ -38,8 +39,8 @@ namespace PG
         public void TakeDamage(float damage)
         {
             //Play damage animation & sound
-            currentHealth -= damage;
-            if (currentHealth <= 0)
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
             {
                 Die();
             }

@@ -36,13 +36,21 @@ namespace PG
 
         public void SwitchWeapon()
         {
-            RoundManager.Instance.unitTakingTurn_UnitController.unitActions.SwitchToGrenade(); //Need to take in weapon to switch to at later point
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.SwitchToGrenade(); //Need to take in weapon to switch to at later point
         }
 
         public void SwitchGrenadeIndicatorRenderer()
         {
+            AimTargetIK = RoundManager.Instance.unitTakingTurn_UnitController.AimTargetIK;
             if (AimTargetIK.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer)) grenadeIndicator = meshRenderer; else grenadeIndicator = null;
-            grenadeIndicator.enabled = !grenadeIndicator.enabled;
+
+            if (grenadeIndicator != null) 
+            {
+                float grenadeExplosionSize = RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.CurrentWeapon.AreaOfEffectRange;
+                Vector3 grenadeExplosionSizeVector = new (grenadeExplosionSize, grenadeExplosionSize, grenadeExplosionSize);
+                grenadeIndicator.enabled = !grenadeIndicator.enabled;
+                AimTargetIK.localScale += grenadeExplosionSizeVector;
+            }
         }
     }
 }

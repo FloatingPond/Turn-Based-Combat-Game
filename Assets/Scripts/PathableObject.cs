@@ -12,11 +12,11 @@ namespace PG
         }
         private void Update()
         { 
-            if (RoundManager.Instance.unitTakingTurn_UnitController.myTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
+            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
-            if (RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.unitMoving)
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving)
             {
-                UIManager.Instance.DistanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.agent).ToString("F1") + "m";
+                UIManager.Instance.DistanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent).ToString("F1") + "m";
             }
             //Clears the distance text once the unit has reached it's destination
             else
@@ -26,8 +26,8 @@ namespace PG
         }
         public void OnClick()
         {
-            if (RoundManager.Instance.unitTakingTurn_UnitController.myTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.movementComplete) RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.CheckRemainingMovement();
+            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
+            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete) RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CheckRemainingMovement();
         }
 
         public void OnHoverEnter()
@@ -36,18 +36,18 @@ namespace PG
         }
         public void OnHoverStay()
         {
-            if (RoundManager.Instance.unitTakingTurn_UnitController.myTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.unitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.movementComplete)
+            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
+            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete)
             {
                 //Update distance text position & content
-                UIManager.Instance.DistanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.agent).ToString("F1") + "m";
+                UIManager.Instance.DistanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent).ToString("F1") + "m";
                 //Update projected movement indicator position & active state
                 UIManager.Instance.ProjectedMovementIndicator.enabled = true;
 
                 //Update ghost opacity
                 UIManager.Instance.GhostManager.ShowGhost();
 
-                if (RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.currentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.agent))
+                if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent))
                 {
                     foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)
                     {
@@ -77,12 +77,12 @@ namespace PG
                     UIManager.Instance.GhostManager.transform.position = clampedVect3;
                     UIManager.Instance.GhostManager.transform.rotation = RoundManager.Instance.unitTakingTurn_UnitController.transform.rotation;
                 }
-                lineRendererPath.DrawPath(RoundManager.Instance.unitTakingTurn_UnitController.agent, UIManager.Instance.GhostManager.transform.position);
+                lineRendererPath.DrawPath(RoundManager.Instance.unitTakingTurn_UnitController.Agent, UIManager.Instance.GhostManager.transform.position);
             }
         }
         public void OnHoverExit()
         {
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.unitMovement.unitMoving)
+            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving)
             {
                 ClearMovementUI();
             }

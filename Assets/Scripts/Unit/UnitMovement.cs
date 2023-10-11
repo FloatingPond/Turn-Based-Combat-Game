@@ -9,23 +9,23 @@ namespace PG
         private UnitController unitController;
         private LineRendererPath lineRendererPath;
         private UnitData unitData;
-        public bool unitMoving;
-        public bool movementComplete;
-        public float currentMovementRemaining;
-        public Transform aimTargetIK;
+        public bool UnitMoving;
+        public bool MovementComplete;
+        public float CurrentMovementRemaining;
+        public Transform AimTargetIK;
         [SerializeField] private float thisMovementCost;
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             unitController = GetComponent<UnitController>();
             lineRendererPath = FindObjectOfType<LineRendererPath>();
-            unitData = unitController.unitData;
-            currentMovementRemaining = unitData.maxMovementDistance;
+            unitData = unitController.UnitData;
+            CurrentMovementRemaining = unitData.maxMovementDistance;
         }
         public void CheckRemainingMovement()
         {
             thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
-            if (thisMovementCost > currentMovementRemaining)
+            if (thisMovementCost > CurrentMovementRemaining)
             {
                 Debug.Log("Not enough movement!");
             }
@@ -37,35 +37,35 @@ namespace PG
         }
         public void MoveToDestination()
         {
-            unitController.unitAnimation.SetRigsForRunning();
-            agent.speed = unitController.unitData.moveSpeed;
-            unitMoving = true;
+            unitController.UnitAnimation.SetRigsForRunning();
+            agent.speed = unitController.UnitData.moveSpeed;
+            UnitMoving = true;
         }
 
         public void LookAtMyTarget()
         {
             #region Turn unit to face ghost
-            if (unitController.unitAnimation.animator.GetBool("AimGrenade")) 
+            if (unitController.UnitAnimation.animator.GetBool("AimGrenade")) 
             { 
-                unitController.unitAnimation.SetRigsForAimingGrenade(); 
+                unitController.UnitAnimation.SetRigsForAimingGrenade(); 
             }
             else 
             { 
-                unitController.unitAnimation.SetRigsForAiming(); 
+                unitController.UnitAnimation.SetRigsForAiming(); 
             }
 
             Vector3 direction = Vector3.zero;
-            if (unitController.unitActions.myDamageableTarget == null)
+            if (unitController.UnitActions.MyDamageableTarget == null)
             {
-                direction = transform.position - unitController.myLookAtTarget;
-                aimTargetIK.transform.position = unitController.myLookAtTarget;
+                direction = transform.position - unitController.MyLookAtTargetVector;
+                AimTargetIK.transform.position = unitController.MyLookAtTargetVector;
             }
             else
             {
-                float aimHeightTarget = GetHeight(unitController.unitActions.myDamageableTarget) / 2;
-                Vector3 aimHeightTargetVector = new(unitController.unitActions.myDamageableTarget.transform.position.x, aimHeightTarget, unitController.unitActions.myDamageableTarget.transform.position.z);
-                direction = transform.position - unitController.unitActions.myDamageableTarget.transform.position;
-                aimTargetIK.transform.position = aimHeightTargetVector;
+                float aimHeightTarget = GetHeight(unitController.UnitActions.MyDamageableTarget) / 2;
+                Vector3 aimHeightTargetVector = new(unitController.UnitActions.MyDamageableTarget.transform.position.x, aimHeightTarget, unitController.UnitActions.MyDamageableTarget.transform.position.z);
+                direction = transform.position - unitController.UnitActions.MyDamageableTarget.transform.position;
+                AimTargetIK.transform.position = aimHeightTargetVector;
             }
             Quaternion rotation = Quaternion.LookRotation(direction);
             rotation *= Quaternion.Euler(0, 180, 0);
@@ -74,18 +74,18 @@ namespace PG
         }
         void Update()
         {
-            if (unitController.myTeam == UnitController.team.computer) return;
-            if (!unitMoving) LookAtMyTarget();
-            UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
+            if (unitController.MyTeam == UnitController.team.computer) return;
+            if (!UnitMoving) LookAtMyTarget();
+            UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + CurrentMovementRemaining.ToString("F1") + "m";
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
-                unitMoving = false;
+                UnitMoving = false;
                 agent.speed = 0;
-                currentMovementRemaining -= thisMovementCost;
-                if (currentMovementRemaining <= 0)
+                CurrentMovementRemaining -= thisMovementCost;
+                if (CurrentMovementRemaining <= 0)
                 {
-                    currentMovementRemaining = 0;
-                    movementComplete = true;
+                    CurrentMovementRemaining = 0;
+                    MovementComplete = true;
                     UIManager.Instance.MovementRemainingText.text = "Movement Complete";
                 }
             }

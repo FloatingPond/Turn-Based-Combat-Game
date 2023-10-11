@@ -5,7 +5,7 @@ namespace PG
 {
     public class InanimateObject : MonoBehaviour, IInteractable, IDamageable
     {
-        public float currentHealth, maxHealth;
+        public float CurrentHealth, MaxHealth;
         [SerializeField] private ParticleSystem deathEffect;
         private MeshRenderer meshRenderer;
         private Collider objectCollider;
@@ -23,30 +23,30 @@ namespace PG
             }
 
             meshRenderer = GetComponent<MeshRenderer>();
-            currentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
             if (deathEffect != null) deathEffect.Stop();
         }
         void IInteractable.OnClick()
         {
-            RoundManager.Instance.unitTakingTurn_UnitController.unitActions.PerformAction(RoundManager.Instance.unitTakingTurn_UnitController.unitActions.unitAction);
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformAction(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnitAction);
         }
 
         void IInteractable.OnHoverEnter()
         {
             float aimHeightTarget = GetHeight(gameObject) / 2; //Half the object's height to get the middle of the object
             Vector3 aimHeightTargetVector = new Vector3 (transform.position.x, aimHeightTarget, transform.position.z);
-            RoundManager.Instance.unitTakingTurn_UnitController.unitActions.myDamageableTarget = gameObject;
-            RoundManager.Instance.unitTakingTurn_UnitController.myLookAtTarget = transform.position;
-            RoundManager.Instance.unitTakingTurn_UnitController.myLookAtTargetTransform = transform;
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.unitActions.usedAction)
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.MyDamageableTarget = gameObject;
+            RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = transform.position;
+            RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetTransform = transform;
+            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UsedAction)
             {
-                if (RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.animator.GetBool("AimGrenade"))
+                if (RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade"))
                 {
                     //Draw grenade trajectory
                 }
                 else
                 {
-                    WeaponTrajectoryIndicator.Instance.DrawProjectedGunshot(RoundManager.Instance.unitTakingTurn_UnitController.unitActions.gunBarrel.position, aimHeightTargetVector);
+                    WeaponTrajectoryIndicator.Instance.DrawProjectedGunshot(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.GunBarrel.position, aimHeightTargetVector);
                 }
                 
             }
@@ -54,8 +54,8 @@ namespace PG
 
         void IInteractable.OnHoverExit()
         {
-            RoundManager.Instance.unitTakingTurn_UnitController.unitActions.myDamageableTarget = null;
-            RoundManager.Instance.unitTakingTurn_UnitController.myLookAtTargetTransform = null;
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.MyDamageableTarget = null;
+            RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetTransform = null;
             WeaponTrajectoryIndicator.Instance.ClearRendererPositions();
         }
 
@@ -65,8 +65,8 @@ namespace PG
         }
         public void TakeDamage(float damage)
         {
-            currentHealth -= damage;
-            if (currentHealth <= 0) Die();
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0) Die();
         }
         public void Die()
         {

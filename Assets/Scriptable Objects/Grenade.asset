@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd9eb71ca76a494eacc833982d6c8cb, type: 3}
   m_Name: Grenade
   m_EditorClassIdentifier: 
-  Name: Rifle
-  type: 2
-  maxRange: 10
-  damage: 1
-  clipSize: 1
-  reloadSpeed: 1
-  areaOfEffectDamage: 3
-  areaOfEffectRange: 5
+  Name: Grenade
+  Type: 2
+  MaxRange: 20
+  Damage: 1
+  ClipSize: 3
+  ReloadSpeed: 1
+  AreaOfEffectDamage: 3
+  AreaOfEffectRange: 5

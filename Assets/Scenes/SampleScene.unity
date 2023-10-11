@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRound: 1
-  unitTakingTurn: {fileID: 0}
+  unitTakingTurn_UnitController: {fileID: 0}
 --- !u!1 &207993213
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +917,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &489802864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5343501454772420399, guid: b0441960dc08a394981347b93d8d2883,
+    type: 3}
+  m_PrefabInstance: {fileID: 7221032570762157021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &600014733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7221715067816461877, guid: b0441960dc08a394981347b93d8d2883,
@@ -1419,6 +1425,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12436117512cc9148a9b41b479042fb5, type: 3}
+--- !u!4 &1204179564 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 82946682, guid: b0441960dc08a394981347b93d8d2883,
+    type: 3}
+  m_PrefabInstance: {fileID: 7221032570762157021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1217037946
 GameObject:
   m_ObjectHideFlags: 3
@@ -2520,28 +2532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1837211819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1961551174910764, guid: 3e03f591017b81a489b06e7850cd0bdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1900236384}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1837211824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837211819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c326f4ec6eb98748b61990b86e8e008, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  launchSpeed: 10
-  launchAngle: 45
-  numPoints: 50
-  timeResolution: 0.1
 --- !u!1 &1883440791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,6 +2720,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4396709082494296, guid: 3e03f591017b81a489b06e7850cd0bdb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64811981544588364, guid: 3e03f591017b81a489b06e7850cd0bdb,
+        type: 3}
+      propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 64811981544588364, guid: 3e03f591017b81a489b06e7850cd0bdb,
@@ -2940,12 +2935,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e090c0d10ff8548820719affba18d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceText: {fileID: 1954328876}
-  movementRemainingText: {fileID: 821462934}
-  actionRemainingText: {fileID: 2100138764}
-  projectedMovementIndicator: {fileID: 1710291538}
-  ghostManager: {fileID: 0}
-  gunShotRenderer: {fileID: 0}
+  DistanceText: {fileID: 1954328876}
+  MovementRemainingText: {fileID: 821462934}
+  ActionRemainingText: {fileID: 2100138764}
+  ProjectedMovementIndicator: {fileID: 1710291538}
+  GhostManager: {fileID: 3167789380498034187}
+  AimTargetIK: {fileID: 1204179564}
+  WeaponTrajectoryIndicator: {fileID: 2024641789}
 --- !u!114 &1979994074 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1937964702, guid: b0441960dc08a394981347b93d8d2883,
@@ -2970,7 +2966,7 @@ GameObject:
   - component: {fileID: 2024641789}
   - component: {fileID: 2024641788}
   m_Layer: 0
-  m_Name: GunShotRenderer
+  m_Name: WeaponTrajectoryIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3445,6 +3441,12 @@ Transform:
 --- !u!4 &4822511133000248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7216843378998106597, guid: b0441960dc08a394981347b93d8d2883,
+    type: 3}
+  m_PrefabInstance: {fileID: 7221032570762157021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4822511133000251 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7307069399655574555, guid: b0441960dc08a394981347b93d8d2883,
     type: 3}
   m_PrefabInstance: {fileID: 7221032570762157021}
   m_PrefabAsset: {fileID: 0}
@@ -4966,10 +4968,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2028072220}
     m_Modifications:
+    - target: {fileID: 82946678, guid: b0441960dc08a394981347b93d8d2883, type: 3}
+      propertyPath: m_Name
+      value: AimTargetIK
+      objectReference: {fileID: 0}
     - target: {fileID: 82946680, guid: b0441960dc08a394981347b93d8d2883, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82946680, guid: b0441960dc08a394981347b93d8d2883, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 313fc3cd83747054d96e8ccca6f24f6d, type: 2}
     - target: {fileID: 82946682, guid: b0441960dc08a394981347b93d8d2883, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -5059,11 +5069,50 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 7221032570297797732, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: AimTargetIK
+      value: 
+      objectReference: {fileID: 1204179564}
+    - target: {fileID: 7221032570297797733, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: rifle
+      value: 
+      objectReference: {fileID: 11400000, guid: f54ef35ac70dd204da13673f57357c8e,
+        type: 2}
+    - target: {fileID: 7221032570297797733, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: grenade
+      value: 
+      objectReference: {fileID: 11400000, guid: cb57c30504bca1a438e89f6c6ad2bd77,
+        type: 2}
+    - target: {fileID: 7221032570297797733, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: GunBarrel
+      value: 
+      objectReference: {fileID: 489802864}
+    - target: {fileID: 7221032570297797733, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: f54ef35ac70dd204da13673f57357c8e,
+        type: 2}
     - target: {fileID: 7221032570297797733, guid: b0441960dc08a394981347b93d8d2883,
         type: 3}
       propertyPath: grenadeTrajectory
       value: 
-      objectReference: {fileID: 1837211824}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221032570297797738, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: UnitData
+      value: 
+      objectReference: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96,
+        type: 2}
+    - target: {fileID: 7221032570297797738, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: AimTargetIK
+      value: 
+      objectReference: {fileID: 1204179564}
     - target: {fileID: 7307069399655574555, guid: b0441960dc08a394981347b93d8d2883,
         type: 3}
       propertyPath: m_WarningMessage
@@ -5084,6 +5133,11 @@ PrefabInstance:
       propertyPath: headAim
       value: 
       objectReference: {fileID: 1778716013}
+    - target: {fileID: 7974212460142301643, guid: b0441960dc08a394981347b93d8d2883,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4822511133000251}
     - target: {fileID: 7974212460142301643, guid: b0441960dc08a394981347b93d8d2883,
         type: 3}
       propertyPath: aimConstraint

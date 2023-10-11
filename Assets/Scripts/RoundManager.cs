@@ -47,10 +47,11 @@ namespace PG
            units = FindObjectsOfType<UnitController>().ToList<UnitController>();
            foreach (UnitController unit in units)
            {
-                unit.initiative = Random.Range(1, 20);
+                unit.Initiative = Random.Range(1, 20);
            }
-           units.Sort((a, b) => b.initiative.CompareTo(a.initiative));
+           units.Sort((a, b) => b.Initiative.CompareTo(a.Initiative));
            unitTakingTurn_UnitController = units[0];
+           UIManager.Instance.AimTargetIK = unitTakingTurn_UnitController.AimTargetIK;
            //TransitionCameraToUnit(unitTakingTurn);
         }
         private void TransitionCameraToUnit(UnitController unit)

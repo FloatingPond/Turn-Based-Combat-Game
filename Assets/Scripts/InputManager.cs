@@ -53,7 +53,7 @@ namespace PG
                     if (CheckIfPositionIsOnNavMesh(hit.point))
                     {
                         hoverWorldPosition = hit.point;
-                        RoundManager.Instance.unitTakingTurn_UnitController.myLookAtTarget = hoverWorldPosition;
+                        RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = hoverWorldPosition;
                         //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
                         if (currentHover == null)
                         {

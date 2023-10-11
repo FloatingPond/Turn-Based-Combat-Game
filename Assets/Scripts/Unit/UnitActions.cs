@@ -4,72 +4,77 @@ namespace PG
 {
     public class UnitActions : MonoBehaviour, IInteractable
     {
-        public Transform gunBarrel;
+        public Transform GunBarrel;
         [SerializeField] private ParticleSystem gunSmoke;
         [SerializeField] private ParticleSystem bulletImpactFX;
-        public GameObject myDamageableTarget;
-        private Animator anim;
-
+        public GameObject MyDamageableTarget;
+        public WeaponData CurrentWeapon;
+        [SerializeField] private WeaponData rifle, grenade;
         private void Start()
         {
-            anim = RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.animator;
             gunSmoke.Stop();
             bulletImpactFX.Stop();
         }
-        public bool usedAction = false;
-        public action unitAction;
-        public enum action { shoot, throwGrenade };
-        public void PerformAction(action _action)
+        public bool UsedAction = false;
+        public Action UnitAction;
+        public enum Action { shoot, throwGrenade };
+        public void PerformAction(Action action)
         {
-            if (!usedAction)
+            if (!UsedAction)
             {
-                switch (_action)
+                switch (action)
                 {
-                    case action.shoot:
+                    case Action.shoot:
                         Shoot();
                         break;
-                    case action.throwGrenade:
+                    case Action.throwGrenade:
                         ThrowGrenade();
                         break;
                     default:
                         break;
                 }
-                usedAction = true;
+                UsedAction = true;
             }
         }
-
+        private Animator GetCurrentUnitAnimator()
+        {
+            return RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator;
+        }
         public void Shoot()
         {
             gunSmoke.Play();
             WeaponTrajectoryIndicator.Instance.ClearRendererPositions();
-            myDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.unitData.damage);
             bulletImpactFX.transform.position = WeaponTrajectoryIndicator.Instance.hitPosition;
             #region Rotate bullet impact fx (particle system) to face the player
-            Vector3 direction = myDamageableTarget.transform.position - transform.position;
+            Vector3 direction = MyDamageableTarget.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction, transform.up);
             bulletImpactFX.transform.rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y - 90, rotation.eulerAngles.z);
             #endregion
             bulletImpactFX.Play();
+            MyDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.UnitData.damage);
 
-            anim.SetTrigger("Shoot");
+            GetCurrentUnitAnimator().SetTrigger("Shoot");
         }
         public void ThrowGrenade()
         {
-            anim.SetTrigger("ThrowGrenade");
-            anim.SetBool("AimGrenade", false);
+            GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
+            GetCurrentUnitAnimator().SetBool("AimGrenade", false);
         }
 
         public void SwitchToGrenade()
         {
-            unitAction = action.throwGrenade;
-            anim.SetBool("AimGrenade", true);
-            RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.SetRigsForRunning();
+            CurrentWeapon = grenade;
+            UnitAction = Action.throwGrenade;
+            GetCurrentUnitAnimator().SetBool("AimGrenade", true);
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForRunning();
+            UIManager.Instance.SwitchGrenadeIndicatorRenderer();
         }
         public void SwitchToRifle()
         {
-            unitAction = action.shoot;
-            anim.SetBool("AimGrenade", false);
-            RoundManager.Instance.unitTakingTurn_UnitController.unitAnimation.SetRigsForAiming();
+            CurrentWeapon = rifle;
+            UnitAction = Action.shoot;
+            GetCurrentUnitAnimator().SetBool("AimGrenade", false);
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForAiming();
         }
         void IInteractable.OnHoverEnter()
         {
