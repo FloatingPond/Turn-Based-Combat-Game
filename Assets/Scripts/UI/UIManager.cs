@@ -6,10 +6,12 @@ namespace PG
 {
     public class UIManager : MonoBehaviour
     {
-        public TextMeshProUGUI distanceText, movementRemainingText, actionRemainingText;
-        public Image projectedMovementIndicator;
-        public GhostManager ghostManager;
-        public WeaponTrajectoryIndicator gunShotRenderer;
+        public TextMeshProUGUI DistanceText, MovementRemainingText, ActionRemainingText;
+        public Image ProjectedMovementIndicator;
+        public GhostManager GhostManager;
+        public Transform AimTargetIK;
+        private MeshRenderer grenadeIndicator;
+        public WeaponTrajectoryIndicator WeaponTrajectoryIndicator;
         #region Singleton
         public static UIManager Instance { get; private set; }
 
@@ -26,16 +28,21 @@ namespace PG
             }
         }
         #endregion
-        // Start is called before the first frame update
         void Start()
         {
-            ghostManager = FindObjectOfType<GhostManager>();
-            gunShotRenderer = FindObjectOfType<WeaponTrajectoryIndicator>();
+            GhostManager = FindObjectOfType<GhostManager>();
+            WeaponTrajectoryIndicator = FindObjectOfType<WeaponTrajectoryIndicator>();
         }
 
         public void SwitchWeapon()
         {
             RoundManager.Instance.unitTakingTurn_UnitController.unitActions.SwitchToGrenade(); //Need to take in weapon to switch to at later point
+        }
+
+        public void SwitchGrenadeIndicatorRenderer()
+        {
+            if (AimTargetIK.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer)) grenadeIndicator = meshRenderer; else grenadeIndicator = null;
+            grenadeIndicator.enabled = !grenadeIndicator.enabled;
         }
     }
 }

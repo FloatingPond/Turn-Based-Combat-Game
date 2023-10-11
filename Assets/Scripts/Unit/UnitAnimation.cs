@@ -11,14 +11,11 @@ namespace PG
         [SerializeField] private MultiAimConstraint[] multiAimConstraints;
         [SerializeField] private MultiAimConstraint headAim, bodyAim, aimConstraint;
         [SerializeField] private TwoBoneIKConstraint handAim;
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
         }
-
-        // Update is called once per frame
         void Update()
         {
             animator.SetFloat("MoveSpeed", agent.speed);

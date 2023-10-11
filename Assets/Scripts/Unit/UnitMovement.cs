@@ -76,7 +76,7 @@ namespace PG
         {
             if (unitController.myTeam == UnitController.team.computer) return;
             if (!unitMoving) LookAtMyTarget();
-            UIManager.Instance.movementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
+            UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + currentMovementRemaining.ToString("F1") + "m";
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
                 unitMoving = false;
@@ -86,7 +86,7 @@ namespace PG
                 {
                     currentMovementRemaining = 0;
                     movementComplete = true;
-                    UIManager.Instance.movementRemainingText.text = "Movement Complete";
+                    UIManager.Instance.MovementRemainingText.text = "Movement Complete";
                 }
             }
         }
