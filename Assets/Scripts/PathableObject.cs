@@ -47,6 +47,7 @@ namespace PG
                 //Update ghost opacity
                 UIManager.Instance.GhostManager.ShowGhost();
 
+                //If the ghost's indicated position is within our remaining movement, colour white, if not (i.e over max remaining) colour red
                 if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent))
                 {
                     foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)

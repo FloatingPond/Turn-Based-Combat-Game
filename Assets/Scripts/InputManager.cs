@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 namespace PG
 {
     public class InputManager : MonoBehaviour
     {
-        private IInteractable currentHover;
-        [SerializeField]
+        private IInteractable currentHover, currentInteractable;
+        private RaycastHit hit;
         public Vector3 hoverWorldPosition;
+        [SerializeField] private EventSystem eventSystem;
         #region Singleton
         public static InputManager Instance { get; private set; }
 
@@ -34,76 +36,79 @@ namespace PG
             if (navMeshHit.position.x == point.x && navMeshHit.position.z == point.z) return true;
             else return false;
         }
-        void Update()
+        private void Update()
         {
-
-            #region Interactable
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            Debug.Log(currentInteractable);
+            //If we have just hovered over something interactable:
+            if (currentInteractable != null)
             {
-                hit.collider.TryGetComponent(out IInteractable interactable);
+                // Store the world position the player is hovering on
 
-                //If we have just hovered over something interactable:
-                if (interactable != null)
+                if (CheckIfPositionIsOnNavMesh(hit.point))
                 {
-                    // Store the world position the player is hovering on
-
-                    if (CheckIfPositionIsOnNavMesh(hit.point))
+                    hoverWorldPosition = hit.point;
+                    RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = hoverWorldPosition;
+                    //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
+                    if (currentHover == null)
                     {
-                        hoverWorldPosition = hit.point;
-                        RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = hoverWorldPosition;
-                        //If we haven't hovered over something yet, make the thing we hovered over this frame our current hover
-                        if (currentHover == null)
-                        {
-                            currentHover = interactable;
-                            currentHover.OnHoverEnter();
-                        }
-                        //If the thing we've hovered over is interactable but different from the interactable from last frame, call exit then enter again
-                        else if (currentHover != interactable)
-                        {
-                            currentHover.OnHoverExit();
-                            currentHover = interactable;
-                            currentHover.OnHoverEnter();
-                        }
-                        //If we're hovering over the same interactable from last frame, call stay
-                        else if (currentHover == interactable)
-                        {
-                            currentHover.OnHoverStay();
-                        }
-                        //If we click, call click
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            currentHover.OnClick();
-                        }
+                        currentHover = currentInteractable;
+                        currentHover.OnHoverEnter();
+                    }
+                    //If the thing we've hovered over is interactable but different from the interactable from last frame, call exit then enter again
+                    else if (currentHover != currentInteractable)
+                    {
+                        currentHover.OnHoverExit();
+                        currentHover = currentInteractable;
+                        currentHover.OnHoverEnter();
+                    }
+                    //If we're hovering over the same interactable from last frame, call stay
+                    else if (currentHover == currentInteractable)
+                    {
+                        currentHover.OnHoverStay();
+                    }
+                    //If we click, call click
+                    if (Input.GetMouseButtonDown(0) && !eventSystem.IsPointerOverGameObject())
+                    {
+                        currentHover.OnClick();
+                    }
+                }
+                else
+                {
+                    //Position we're hovering over isn't on the navmesh
+                    if (currentHover == null)
+                    {
+                        currentHover = currentInteractable;
+                        currentHover.OnHoverEnter();
                     }
                     else
                     {
-                        //Position we're hovering over isn't on the navmesh
-                        if (currentHover == null)
-                        {
-                            currentHover = interactable;
-                            currentHover.OnHoverEnter();
-                        }
-                        else
-                        {
-                            currentHover.OnHoverExit();
-                            currentHover = interactable;
-                            currentHover.OnHoverEnter();
-                        }
-                        //If we click, call click
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            currentHover.OnClick();
-                        }
+                        currentHover.OnHoverExit();
+                        currentHover = currentInteractable;
+                        currentHover.OnHoverEnter();
+                    }
+                    //If we click, call click
+                    if (Input.GetMouseButtonDown(0) && !eventSystem.IsPointerOverGameObject())
+                    {
+                        currentHover.OnClick();
                     }
                 }
-                //If it's not interactable, call exit
-                else
-                {
-                    if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
-                }
+            }
+            //If it's not interactable, call exit
+            else
+            {
+                if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
+            }
+        }
+        void FixedUpdate()
+        {
+            if (eventSystem.IsPointerOverGameObject()) return;
+            #region Interactable
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(ray, out hit))
+            {
+                _ = hit.collider.TryGetComponent(out IInteractable interactable);
+                currentInteractable = interactable;
             }
             else //If we hit nothing, it's not interactable so call exit
             {
