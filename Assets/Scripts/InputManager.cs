@@ -10,6 +10,7 @@ namespace PG
         private RaycastHit hit;
         public Vector3 hoverWorldPosition;
         [SerializeField] private EventSystem eventSystem;
+        LayerMask worldspaceLayer;
         #region Singleton
         public static InputManager Instance { get; private set; }
 
@@ -26,19 +27,20 @@ namespace PG
             }
         }
         #endregion
-
+        private void Start()
+        {
+            worldspaceLayer = LayerMask.GetMask("WorldspaceUI");
+        }
         private bool CheckIfPositionIsOnNavMesh(Vector3 point)
         {
             Vector3 groundNavMeshHeightOffset = point;
             groundNavMeshHeightOffset.y = 1;
             NavMeshHit navMeshHit;
             NavMesh.SamplePosition(groundNavMeshHeightOffset, out navMeshHit, 1, NavMesh.AllAreas);
-            if (navMeshHit.position.x == point.x && navMeshHit.position.z == point.z) return true;
-            else return false;
+            return (navMeshHit.position.x == point.x && navMeshHit.position.z == point.z);
         }
         private void Update()
         {
-            Debug.Log(currentInteractable);
             //If we have just hovered over something interactable:
             if (currentInteractable != null)
             {
@@ -67,9 +69,10 @@ namespace PG
                         currentHover.OnHoverStay();
                     }
                     //If we click, call click
-                    if (Input.GetMouseButtonDown(0) && !eventSystem.IsPointerOverGameObject())
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        currentHover.OnClick();
+                        if (!eventSystem.IsPointerOverGameObject() || (eventSystem.IsPointerOverGameObject() && hit.collider.gameObject.layer != worldspaceLayer))
+                            currentHover.OnClick();
                     }
                 }
                 else
@@ -87,9 +90,10 @@ namespace PG
                         currentHover.OnHoverEnter();
                     }
                     //If we click, call click
-                    if (Input.GetMouseButtonDown(0) && !eventSystem.IsPointerOverGameObject())
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        currentHover.OnClick();
+                        if (!eventSystem.IsPointerOverGameObject() || (eventSystem.IsPointerOverGameObject() && hit.collider.gameObject.layer != worldspaceLayer))
+                            currentHover.OnClick();
                     }
                 }
             }
@@ -104,7 +108,7 @@ namespace PG
             if (eventSystem.IsPointerOverGameObject()) return;
             #region Interactable
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
+
             if (Physics.Raycast(ray, out hit))
             {
                 _ = hit.collider.TryGetComponent(out IInteractable interactable);
@@ -116,7 +120,6 @@ namespace PG
                 currentHover = null;
             }
             #endregion
-            
         }
     }
 
