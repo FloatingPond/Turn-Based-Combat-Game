@@ -2534,7 +2534,6 @@ GameObject:
   - component: {fileID: 1731173460}
   - component: {fileID: 1731173462}
   - component: {fileID: 1731173461}
-  - component: {fileID: 1731173463}
   m_Layer: 6
   m_Name: Worldspace
   m_TagString: Untagged
@@ -2608,23 +2607,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1731173463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731173459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &1778716013 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 682711330, guid: b0441960dc08a394981347b93d8d2883,
