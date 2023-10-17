@@ -58,7 +58,7 @@ namespace PG
         public void ThrowGrenade()
         {
             GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
-            GetCurrentUnitAnimator().SetBool("AimGrenade", false);
+            UIManager.Instance.SwitchGrenadeIndicatorRenderer();
         }
 
         public void SwitchToGrenade()
