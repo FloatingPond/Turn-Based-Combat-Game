@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -11,6 +12,7 @@ namespace PG
         public Vector3 hoverWorldPosition;
         [SerializeField] private EventSystem eventSystem;
         LayerMask worldspaceLayer;
+        private List<RaycastResult> raycastResults = new List<RaycastResult>();
         #region Singleton
         public static InputManager Instance { get; private set; }
 
@@ -105,12 +107,17 @@ namespace PG
         }
         void FixedUpdate()
         {
-            if (eventSystem.IsPointerOverGameObject()) return;
             #region Interactable
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
+                if (eventSystem.IsPointerOverGameObject() && hit.collider.gameObject.layer != worldspaceLayer)
+                {
+                    currentInteractable = null;
+                    return;
+                }
+
                 _ = hit.collider.TryGetComponent(out IInteractable interactable);
                 currentInteractable = interactable;
             }
