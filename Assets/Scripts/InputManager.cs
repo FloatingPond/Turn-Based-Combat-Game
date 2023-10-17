@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -12,7 +11,6 @@ namespace PG
         public Vector3 hoverWorldPosition;
         [SerializeField] private EventSystem eventSystem;
         LayerMask worldspaceLayer;
-        private List<RaycastResult> raycastResults = new List<RaycastResult>();
         #region Singleton
         public static InputManager Instance { get; private set; }
 
@@ -123,7 +121,7 @@ namespace PG
             }
             else //If we hit nothing, it's not interactable so call exit
             {
-                if (currentHover != null) currentHover.OnHoverExit();
+                currentHover?.OnHoverExit();
                 currentHover = null;
             }
             #endregion
