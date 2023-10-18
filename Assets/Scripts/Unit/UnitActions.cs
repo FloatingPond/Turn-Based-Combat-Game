@@ -36,6 +36,7 @@ namespace PG
                         break;
                 }
                 UsedAction = true;
+                UIManager.Instance.ActionRemainingText.text = "No Actions Remaining";
             }
         }
         private Animator GetCurrentUnitAnimator()

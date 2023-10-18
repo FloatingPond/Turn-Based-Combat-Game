@@ -22,6 +22,7 @@ namespace PG
             lineRendererPath = FindObjectOfType<LineRendererPath>();
             unitData = unitController.UnitData;
             CurrentMovementRemaining = unitData.maxMovementDistance;
+            UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + CurrentMovementRemaining.ToString("F1") + "m";
         }
         public void CheckRemainingMovement()
         {
