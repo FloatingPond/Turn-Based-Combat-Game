@@ -15,6 +15,7 @@ namespace PG
         {
             gunSmoke.Stop();
             bulletImpactFX.Stop();
+            grenade.ChangeGrenadeRenderers(false);
         }
         public bool UsedAction = false;
         public Action UnitAction;
@@ -60,13 +61,14 @@ namespace PG
         {
             GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();
-            StartCoroutine(grenade.ThrowGrenade(MyDamageableTarget.transform.position, 2f));
+            StartCoroutine(grenade.ThrowGrenade(MyDamageableTarget.transform.position, Vector3.Distance(transform.position, MyDamageableTarget.transform.position)));
         }
 
         public void SwitchToGrenade()
         {
             CurrentWeapon = grenadeData;
             UnitAction = Action.throwGrenade;
+            grenade.ChangeGrenadeRenderers(true);
             GetCurrentUnitAnimator().SetBool("AimGrenade", true);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForRunning();
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();

@@ -10,6 +10,19 @@ namespace PG
         [SerializeField] private AreaOfEffectDamage aoe;
         [SerializeField] private ParticleSystem grenadeExplosionFX;
         [SerializeField] private List<MeshRenderer> meshRenderers;
+        private Transform parent;
+        private Vector3 originalPosition;
+
+        private void OnEnable()
+        {
+            parent = transform.parent;
+            originalPosition = transform.localPosition;
+        }
+        private void ResetGrenade()
+        {
+            transform.SetParent(parent);
+            transform.localPosition = originalPosition;
+        }
         public IEnumerator ThrowGrenade(Vector3 targetPosition, float duration)
         {
             transform.SetParent(null);
@@ -30,11 +43,16 @@ namespace PG
                 yield return null;
             }
             aoe.DoDamageInSphere(transform.position, aoe.radius);
-            grenadeExplosionFX.transform.rotation = new Quaternion(-90, 0, 0, 0);
+            grenadeExplosionFX.transform.rotation = new Quaternion(-45, 0, 0, 0);
             grenadeExplosionFX.Play();
+            ChangeGrenadeRenderers(false);
+            Invoke(nameof(ResetGrenade), 3.5f);
+        }
+        public void ChangeGrenadeRenderers(bool newVal)
+        {
             for (int i = 0; i < meshRenderers.Count; i++)
             {
-                meshRenderers[i].enabled = false;
+                meshRenderers[i].enabled = newVal;
             }
         }
     }
