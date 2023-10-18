@@ -61,7 +61,8 @@ namespace PG
         {
             GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();
-            StartCoroutine(grenade.ThrowGrenade(MyDamageableTarget.transform.position, Vector3.Distance(transform.position, MyDamageableTarget.transform.position)));
+            Vector3 direction = MyDamageableTarget.transform.position - transform.position;
+            grenade.Throw(direction, grenade.verticalForce);
         }
 
         public void SwitchToGrenade()

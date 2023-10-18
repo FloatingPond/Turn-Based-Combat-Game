@@ -10,6 +10,9 @@ namespace PG
         [SerializeField] private AreaOfEffectDamage aoe;
         [SerializeField] private ParticleSystem grenadeExplosionFX;
         [SerializeField] private List<MeshRenderer> meshRenderers;
+        [SerializeField] private float throwStrength = 10f;
+        public float verticalForce = 5f;
+        private Rigidbody rb;
         private Transform parent;
         private Vector3 originalPosition;
 
@@ -17,36 +20,20 @@ namespace PG
         {
             parent = transform.parent;
             originalPosition = transform.localPosition;
+            rb = GetComponent<Rigidbody>();
         }
         private void ResetGrenade()
         {
             transform.SetParent(parent);
             transform.localPosition = originalPosition;
         }
-        public IEnumerator ThrowGrenade(Vector3 targetPosition, float duration)
+        public void Throw(Vector3 direction, float verticalForce)
         {
             transform.SetParent(null);
-            
-            float elapsedTime = 0;
-            Vector3 startPosition = transform.position;
-
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-                float progress = elapsedTime / duration;
-
-                float height = trajectory.Evaluate(progress);
-                Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, progress);
-                newPosition.y += height;
-
-                transform.position = newPosition;
-                yield return null;
-            }
-            aoe.DoDamageInSphere(transform.position, aoe.radius);
-            grenadeExplosionFX.transform.rotation = new Quaternion(-45, 0, 0, 0);
-            grenadeExplosionFX.Play();
-            ChangeGrenadeRenderers(false);
-            Invoke(nameof(ResetGrenade), 3.5f);
+            ChangeGrenadeRenderers(true);
+            rb.isKinematic = false;
+            Vector3 finalDirection = new Vector3(direction.x, verticalForce, direction.z);
+            rb.AddForce(finalDirection.normalized * throwStrength, ForceMode.Impulse);
         }
         public void ChangeGrenadeRenderers(bool newVal)
         {
@@ -54,6 +41,15 @@ namespace PG
             {
                 meshRenderers[i].enabled = newVal;
             }
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            aoe.DoDamageInSphere(transform.position, aoe.radius);
+            rb.isKinematic = true;
+            grenadeExplosionFX.transform.rotation = new Quaternion(-45, 0, 0, 0);
+            grenadeExplosionFX.Play();
+            ChangeGrenadeRenderers(false);
+            Invoke(nameof(ResetGrenade), 3.5f);
         }
     }
 }
