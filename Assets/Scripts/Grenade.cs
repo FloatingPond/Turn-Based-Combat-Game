@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace PG
         [SerializeField] private AreaOfEffectDamage aoe;
         [SerializeField] private ParticleSystem grenadeExplosionFX;
         [SerializeField] private List<MeshRenderer> meshRenderers;
-        [SerializeField] private float throwStrength = 10f;
+        public float forwardForce = 10f;
         public float verticalForce = 5f;
         private Rigidbody rb;
         private Transform parent;
@@ -27,13 +26,13 @@ namespace PG
             transform.SetParent(parent);
             transform.localPosition = originalPosition;
         }
-        public void Throw(Vector3 direction, float verticalForce)
+        public void Throw(Vector3 direction, float forwardForce, float verticalForce)
         {
             transform.SetParent(null);
             ChangeGrenadeRenderers(true);
             rb.isKinematic = false;
-            Vector3 finalDirection = new Vector3(direction.x, verticalForce, direction.z);
-            rb.AddForce(finalDirection.normalized * throwStrength, ForceMode.Impulse);
+            Vector3 finalDirection = new Vector3(direction.x, verticalForce * 2.5f, direction.z);
+            rb.AddForce(finalDirection.normalized * forwardForce, ForceMode.Impulse);
         }
         public void ChangeGrenadeRenderers(bool newVal)
         {

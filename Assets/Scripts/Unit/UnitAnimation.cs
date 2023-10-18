@@ -33,6 +33,10 @@ namespace PG
                 ChangeMultiAimConstraintWeight(mac, newVal);
             }
         }
+        public void LaunchGrenadeAnimReceiver()
+        {
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.ThrowGrenade();
+        }
 
         public void SetRigsForRunning()
         {
