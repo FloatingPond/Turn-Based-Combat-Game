@@ -48,28 +48,9 @@ namespace PG
 
                 //Update ghost opacity
                 UIManager.Instance.GhostManager.ShowGhost();
+                SetGhostColor();
 
-                //If the ghost's indicated position is within our remaining movement, colour white, if not (i.e over max remaining) colour red
-                if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent))
-                {
-                    foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)
-                    {
-                        renderer.material.SetColor("_Color", Color.red);
-                    }
-                    UIManager.Instance.GhostManager.skinnedMesh.material.SetColor("_Color", Color.red);
-                    UIManager.Instance.DistanceText.color = Color.red;
-                }
-                else
-                {
-                    foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)
-                    {
-                        renderer.material.SetColor("_Color", Color.white);
-                    }
-
-                    UIManager.Instance.GhostManager.skinnedMesh.material.SetColor("_Color", Color.white);
-                    UIManager.Instance.DistanceText.color = Color.white;
-                }
-
+                //Clamps the positions to grid co-ordinates
                 Vector3 clampedVect3 = new Vector3 (Mathf.Sign(InputManager.Instance.hoverWorldPosition.x) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.x) + 0.5f),
                                                     RoundManager.Instance.unitTakingTurn_UnitController.transform.position.y,
                                                     Mathf.Sign(InputManager.Instance.hoverWorldPosition.z) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.z) + 0.5f));
@@ -101,7 +82,31 @@ namespace PG
 
             UIManager.Instance.GhostManager.HideGhost();
             UIManager.Instance.GhostManager.transform.position = Vector3.zero;
-        }   
+        }
 
+        private void SetGhostColor()
+        {
+            //If the ghost's indicated position is within our remaining movement, colour white, if not (i.e over max remaining) colour red
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent))
+            {
+                foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)
+                {
+                    renderer.material.SetColor("_Color", Color.red);
+                }
+                UIManager.Instance.GhostManager.skinnedMesh.material.SetColor("_Color", Color.red);
+                UIManager.Instance.DistanceText.color = Color.red;
+            }
+            else
+            {
+                foreach (Renderer renderer in UIManager.Instance.GhostManager.renderers)
+                {
+                    renderer.material.SetColor("_Color", Color.white);
+                }
+
+                UIManager.Instance.GhostManager.skinnedMesh.material.SetColor("_Color", Color.white);
+                UIManager.Instance.DistanceText.color = Color.white;
+            }
+
+        }
     }
 }
