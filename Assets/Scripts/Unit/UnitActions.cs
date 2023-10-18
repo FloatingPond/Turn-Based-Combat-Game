@@ -9,7 +9,8 @@ namespace PG
         [SerializeField] private ParticleSystem bulletImpactFX;
         public GameObject MyDamageableTarget;
         public WeaponData CurrentWeapon;
-        [SerializeField] private WeaponData rifle, grenade;
+        [SerializeField] private Grenade grenade;
+        [SerializeField] private WeaponData rifleData, grenadeData;
         private void Start()
         {
             gunSmoke.Stop();
@@ -59,11 +60,12 @@ namespace PG
         {
             GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();
+            StartCoroutine(grenade.ThrowGrenade(MyDamageableTarget.transform.position, 2f));
         }
 
         public void SwitchToGrenade()
         {
-            CurrentWeapon = grenade;
+            CurrentWeapon = grenadeData;
             UnitAction = Action.throwGrenade;
             GetCurrentUnitAnimator().SetBool("AimGrenade", true);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForRunning();
@@ -71,7 +73,7 @@ namespace PG
         }
         public void SwitchToRifle()
         {
-            CurrentWeapon = rifle;
+            CurrentWeapon = rifleData;
             UnitAction = Action.shoot;
             GetCurrentUnitAnimator().SetBool("AimGrenade", false);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForAiming();
