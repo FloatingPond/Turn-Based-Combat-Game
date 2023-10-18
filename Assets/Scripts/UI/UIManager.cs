@@ -49,7 +49,7 @@ namespace PG
                 float grenadeExplosionSize = RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.CurrentWeapon.AreaOfEffectRange;
                 Vector3 grenadeExplosionSizeVector = new (grenadeExplosionSize, grenadeExplosionSize, grenadeExplosionSize);
                 grenadeIndicator.enabled = !grenadeIndicator.enabled;
-                AimTargetIK.localScale += grenadeExplosionSizeVector;
+                AimTargetIK.localScale = grenadeExplosionSizeVector;
             }
         }
     }
