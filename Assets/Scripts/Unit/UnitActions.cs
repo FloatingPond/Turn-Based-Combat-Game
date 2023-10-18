@@ -61,7 +61,6 @@ namespace PG
         {
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();
             Vector3 direction = MyDamageableTarget.transform.position - transform.position;
-            Debug.Log(Vector3.Distance(MyDamageableTarget.transform.position, transform.position));
             float forwardForce = Vector3.Distance(MyDamageableTarget.transform.position, transform.position);
             float verticalForce = forwardForce / 2;
             grenade.Throw(direction, forwardForce, verticalForce);
