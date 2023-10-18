@@ -14,6 +14,7 @@ namespace PG
         public float CurrentMovementRemaining;
         public Transform AimTargetIK;
         [SerializeField] private float thisMovementCost;
+        [SerializeField] private float movementProgress;
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -27,7 +28,7 @@ namespace PG
             thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
             if (thisMovementCost > CurrentMovementRemaining)
             {
-                Debug.Log("Not enough movement!");
+                Debug.Log("Not enough movement!"); //Need to add UI/feedback to the player here
             }
             else
             {
@@ -45,13 +46,13 @@ namespace PG
         public void LookAtMyTarget()
         {
             #region Turn unit to face ghost
-            if (unitController.UnitAnimation.animator.GetBool("AimGrenade")) 
-            { 
-                unitController.UnitAnimation.SetRigsForAimingGrenade(); 
+            if (unitController.UnitAnimation.animator.GetBool("AimGrenade"))
+            {
+                unitController.UnitAnimation.SetRigsForAimingGrenade();
             }
-            else 
-            { 
-                unitController.UnitAnimation.SetRigsForAiming(); 
+            else
+            {
+                unitController.UnitAnimation.SetRigsForAiming();
             }
 
             Vector3 direction = Vector3.zero;
@@ -76,7 +77,16 @@ namespace PG
         {
             if (unitController.MyTeam == UnitController.team.computer) return;
             if (!UnitMoving) LookAtMyTarget();
-            UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + CurrentMovementRemaining.ToString("F1") + "m";
+            else
+            {
+                movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
+
+                float temp = (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining - thisMovementCost) + movementProgress;
+
+                string distanceFromRemaining = "Movement Remaining: " + temp.ToString("F1") + "m";
+
+                UIManager.Instance.MovementRemainingText.text = distanceFromRemaining.ToString();
+            }
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
                 UnitMoving = false;

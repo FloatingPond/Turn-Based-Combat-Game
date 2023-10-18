@@ -16,7 +16,9 @@ namespace PG
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
             if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving)
             {
-                UIManager.Instance.DistanceText.text = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent).ToString("F1") + "m";
+                float distanceFloat = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
+                string distanceString = distanceFloat.ToString("F1") + "m";
+                UIManager.Instance.DistanceText.text = distanceString;
             }
             //Clears the distance text once the unit has reached it's destination
             else
