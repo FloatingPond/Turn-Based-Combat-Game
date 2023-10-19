@@ -28,7 +28,15 @@ namespace PG
         }
         public void OnClick()
         {
-            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.team.computer || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")) { ClearMovementUI(); return; }
+            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.team.computer) { ClearMovementUI(); return; }
+
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")) 
+            { 
+                RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformAction(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnitAction); 
+                ClearMovementUI(); 
+                return; 
+            }
+
             if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete) RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CheckRemainingMovement();
         }
 
