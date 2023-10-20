@@ -43,7 +43,7 @@ namespace PG
         }
         public void CalculateInitiativeOrder()
         {
-           List<UnitController> units = new List<UnitController> ();
+           List<UnitController> units = new();
            units = FindObjectsOfType<UnitController>().ToList<UnitController>();
            foreach (UnitController unit in units)
            {

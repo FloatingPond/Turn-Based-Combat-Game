@@ -31,7 +31,7 @@ namespace PG
             transform.SetParent(null);
             ChangeGrenadeRenderers(true);
             rb.isKinematic = false;
-            Vector3 finalDirection = new Vector3(direction.x, verticalForce * 2.5f, direction.z);
+            Vector3 finalDirection = new(direction.x, verticalForce * 2.5f, direction.z);
             rb.AddForce(finalDirection.normalized * forwardForce, ForceMode.Impulse);
         }
         public void ChangeGrenadeRenderers(bool newVal)

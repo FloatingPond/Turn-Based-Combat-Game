@@ -10,7 +10,7 @@ namespace PG
         public UnitAnimation UnitAnimation;
         public UnitMovement UnitMovement;
         [Space(10)]
-        public team MyTeam;
+        public Team MyTeam;
         public UnitData UnitData;
         public int Initiative;
         public float CurrentHealth;
@@ -19,7 +19,7 @@ namespace PG
         public Transform MyLookAtTargetTransform;
         public NavMeshAgent Agent;
         public Transform AimTargetIK;
-        public enum team { player, computer };
+        public enum Team { player, computer };
        
         // Start is called before the first frame update
         void Start()

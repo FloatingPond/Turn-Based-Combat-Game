@@ -42,6 +42,7 @@ namespace PG
             unitController.UnitAnimation.SetRigsForRunning();
             agent.speed = unitController.UnitData.moveSpeed;
             UnitMoving = true;
+            CurrentMovementRemaining -= thisMovementCost;
         }
 
         public void LookAtMyTarget()
@@ -56,7 +57,7 @@ namespace PG
                 unitController.UnitAnimation.SetRigsForAiming();
             }
 
-            Vector3 direction = Vector3.zero;
+            Vector3 direction;
             if (unitController.UnitActions.MyDamageableTarget == null)
             {
                 direction = transform.position - unitController.MyLookAtTargetVector;
@@ -76,13 +77,13 @@ namespace PG
         }
         void Update()
         {
-            if (unitController.MyTeam == UnitController.team.computer) return;
+            if (unitController.MyTeam == UnitController.Team.computer) return;
             if (!UnitMoving) LookAtMyTarget();
             else
             {
                 movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
 
-                float temp = (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining - thisMovementCost) + movementProgress;
+                float temp = RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining + movementProgress;
 
                 string distanceFromRemaining = "Movement Remaining: " + temp.ToString("F1") + "m";
 
@@ -92,7 +93,7 @@ namespace PG
             {
                 UnitMoving = false;
                 agent.speed = 0;
-                CurrentMovementRemaining -= thisMovementCost;
+
                 if (CurrentMovementRemaining <= 0)
                 {
                     CurrentMovementRemaining = 0;
