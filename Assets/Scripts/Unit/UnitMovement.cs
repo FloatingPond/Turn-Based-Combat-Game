@@ -81,7 +81,7 @@ namespace PG
         {
             if (unitController.MyTeam == UnitController.Team.computer) return;
             if (!UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) LookAtMyTarget();
-            else
+            else if (UnitMoving)
             {
                 movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
 

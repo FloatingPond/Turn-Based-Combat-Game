@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PG
@@ -27,10 +25,14 @@ namespace PG
             {
                 animator.SetBool("AimGrenade", false);
             }
+            if (shoot)
+            {
+                RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.BulletTrail.SetActive(false);
+            }
             if (grenade || shoot)
             {
-                RoundManager.Instance.TransitionCameraToMain();
-                RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = false;
+                RoundManager.Instance.Invoke(nameof(RoundManager.Instance.TransitionCameraToMain), 2f);
+                RoundManager.Instance.StartCoroutine(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnlockInput());
             }
         }
 
