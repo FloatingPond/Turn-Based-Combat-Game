@@ -41,6 +41,7 @@ namespace PG
         }
         private void Update()
         {
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) return;
             //If we have just hovered over something interactable:
             if (currentInteractable != null)
             {

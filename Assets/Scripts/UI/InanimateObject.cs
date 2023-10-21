@@ -33,6 +33,7 @@ namespace PG
 
         void IInteractable.OnHoverEnter()
         {
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) return;
             float aimHeightTarget = GetHeight(gameObject) / 2; //Half the object's height to get the middle of the object
             Vector3 aimHeightTargetVector = new Vector3 (transform.position.x, aimHeightTarget, transform.position.z);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.MyDamageableTarget = gameObject;

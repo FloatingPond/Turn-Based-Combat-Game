@@ -39,6 +39,8 @@ namespace PG
         }
         public void MoveToDestination()
         {
+            RoundManager.Instance.TransitionCameraToUnit(unitController);
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = true;
             unitController.UnitAnimation.SetRigsForRunning();
             agent.speed = unitController.UnitData.moveSpeed;
             UnitMoving = true;
@@ -78,7 +80,7 @@ namespace PG
         void Update()
         {
             if (unitController.MyTeam == UnitController.Team.computer) return;
-            if (!UnitMoving) LookAtMyTarget();
+            if (!UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) LookAtMyTarget();
             else
             {
                 movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
@@ -93,7 +95,8 @@ namespace PG
             {
                 UnitMoving = false;
                 agent.speed = 0;
-
+                RoundManager.Instance.TransitionCameraToMain();
+                RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = false;
                 if (CurrentMovementRemaining <= 0)
                 {
                     CurrentMovementRemaining = 0;

@@ -5,12 +5,9 @@ namespace PG
 {
     public class Grenade : MonoBehaviour
     {
-        [SerializeField] private AnimationCurve trajectory;
         [SerializeField] private AreaOfEffectDamage aoe;
         [SerializeField] private ParticleSystem grenadeExplosionFX;
         [SerializeField] private List<MeshRenderer> meshRenderers;
-        public float forwardForce = 10f;
-        public float verticalForce = 5f;
         private Rigidbody rb;
         private Transform parent;
         private Vector3 originalPosition;
@@ -43,6 +40,7 @@ namespace PG
         }
         private void OnCollisionEnter(Collision collision)
         {
+            Debug.Log(collision.gameObject.name);
             aoe.DoDamageInSphere(transform.position, aoe.radius);
             rb.isKinematic = true;
             grenadeExplosionFX.transform.rotation = new Quaternion(-45, 0, 0, 0);

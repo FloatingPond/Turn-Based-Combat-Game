@@ -54,11 +54,26 @@ namespace PG
            UIManager.Instance.AimTargetIK = unitTakingTurn_UnitController.AimTargetIK;
            //TransitionCameraToUnit(unitTakingTurn);
         }
-        private void TransitionCameraToUnit(UnitController unit)
+        public void TransitionCameraToUnit(UnitController unit)
         {
             foreach (CinemachineVirtualCamera cam in cameras)
             {
-                if (cam.Follow == unit.transform)
+                if (cam.transform.parent == unit.transform)
+                {
+                    cam.Priority = 1;
+                }
+                else
+                {
+                    cam.Priority = 0;
+                }
+            }
+        }
+
+        public void TransitionCameraToMain()
+        {
+            foreach (CinemachineVirtualCamera cam in cameras)
+            {
+                if (cam.name == "InputCam")
                 {
                     cam.Priority = 1;
                 }

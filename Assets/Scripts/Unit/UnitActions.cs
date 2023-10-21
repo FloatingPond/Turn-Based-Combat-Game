@@ -11,6 +11,7 @@ namespace PG
         public WeaponData CurrentWeapon;
         public Grenade grenade;
         [SerializeField] private WeaponData rifleData, grenadeData;
+        public bool PerformingAction = false;
         private void Start()
         {
             gunSmoke.Stop();
@@ -22,8 +23,10 @@ namespace PG
         public enum Action { shoot, throwGrenade };
         public void PerformAction(Action action)
         {
-            if (!UsedAction)
+            if (!UsedAction && !PerformingAction)
             {
+                PerformingAction = true;
+                RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController);
                 switch (action)
                 {
                     case Action.shoot:
@@ -55,7 +58,6 @@ namespace PG
             #endregion
             bulletImpactFX.Play();
             MyDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.UnitData.damage);
-
             GetCurrentUnitAnimator().SetTrigger("Shoot");
         }
         public void ThrowGrenade()

@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,6 +20,7 @@ namespace PG
         public Transform MyLookAtTargetTransform;
         public NavMeshAgent Agent;
         public Transform AimTargetIK;
+        public CinemachineVirtualCamera OverShoulderVcam;
         public enum Team { player, computer };
        
         // Start is called before the first frame update
