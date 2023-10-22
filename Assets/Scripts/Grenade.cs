@@ -43,8 +43,9 @@ namespace PG
             Debug.Log(collision.gameObject.name);
             aoe.DoDamageInSphere(transform.position, aoe.radius);
             rb.isKinematic = true;
-            grenadeExplosionFX.transform.rotation = new Quaternion(-45, 0, 0, 0);
+            grenadeExplosionFX.transform.rotation = new Quaternion(180f, 0, 0, 0);
             grenadeExplosionFX.Play();
+            transform.rotation = grenadeExplosionFX.transform.rotation = Quaternion.identity;
             ChangeGrenadeRenderers(false);
             Invoke(nameof(ResetGrenade), 3.5f);
         }
