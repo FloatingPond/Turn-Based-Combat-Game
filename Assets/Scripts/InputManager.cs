@@ -41,7 +41,8 @@ namespace PG
         }
         private void Update()
         {
-            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) return;
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction 
+                || RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.Team.computer) return;
             //If we have just hovered over something interactable:
             if (currentInteractable != null)
             {
