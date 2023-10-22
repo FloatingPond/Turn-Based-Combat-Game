@@ -411,7 +411,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.19629629
+      - time: 0.17529891
         functionName: LaunchGrenadeAnimReceiver
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 6d44a1fd03c4c714a83e4f3ea996c11d,
