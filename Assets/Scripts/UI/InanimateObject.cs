@@ -35,7 +35,7 @@ namespace PG
         {
             if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) return;
             float aimHeightTarget = GetHeight(gameObject) / 2; //Half the object's height to get the middle of the object
-            Vector3 aimHeightTargetVector = new Vector3 (transform.position.x, aimHeightTarget, transform.position.z);
+            Vector3 aimHeightTargetVector = new(transform.position.x, aimHeightTarget, transform.position.z);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.MyDamageableTarget = gameObject;
             RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = transform.position;
             RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetTransform = transform;

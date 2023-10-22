@@ -64,7 +64,7 @@ namespace PG
                 SetGhostColor();
 
                 //Clamps the positions to grid co-ordinates
-                Vector3 clampedVect3 = new Vector3 (Mathf.Sign(InputManager.Instance.hoverWorldPosition.x) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.x) + 0.5f),
+                Vector3 clampedVect3 = new(Mathf.Sign(InputManager.Instance.hoverWorldPosition.x) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.x) + 0.5f),
                                                     RoundManager.Instance.unitTakingTurn_UnitController.transform.position.y,
                                                     Mathf.Sign(InputManager.Instance.hoverWorldPosition.z) * (Mathf.Abs((int)InputManager.Instance.hoverWorldPosition.z) + 0.5f));
 
