@@ -51,7 +51,8 @@ namespace PG
         {
             if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.Team.computer 
                 || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade") 
-                || RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) { ClearMovementUI(); return; }
+                || RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction
+                || RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < 1) { ClearMovementUI(); return; }
             if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete)
             {
                 //Update distance text position & content

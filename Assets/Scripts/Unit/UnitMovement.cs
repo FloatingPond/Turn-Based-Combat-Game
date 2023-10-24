@@ -85,12 +85,16 @@ namespace PG
             {
                 movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
 
+                if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < 1)
+                { RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining = 0; }
+
                 float temp = RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining + movementProgress;
 
                 string distanceFromRemaining = "Movement Remaining: " + temp.ToString("F1") + "m";
 
                 UIManager.Instance.MovementRemainingText.text = distanceFromRemaining.ToString();
             }
+
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
                 UnitMoving = false;
