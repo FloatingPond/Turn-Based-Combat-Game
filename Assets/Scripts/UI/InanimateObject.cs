@@ -39,7 +39,7 @@ namespace PG
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.MyDamageableTarget = gameObject;
             RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector = transform.position;
             RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetTransform = transform;
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UsedAction)
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.actionsRemaining != 0)
             {
                 if (RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade"))
                 {

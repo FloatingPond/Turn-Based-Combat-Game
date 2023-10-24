@@ -32,11 +32,29 @@ namespace PG
         {
             GhostManager = FindObjectOfType<GhostManager>();
             WeaponTrajectoryIndicator = FindObjectOfType<WeaponTrajectoryIndicator>();
+            UpdateActionText();
         }
 
         public void SwitchWeapon()
         {
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.SwitchToGrenade(); //Need to take in weapon to switch to at later point
+        }
+
+        public void UpdateActionText()
+        {
+            int temp = RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.actionsRemaining;
+            switch (temp)
+            {
+                case 0:
+                    ActionRemainingText.text = "No Actions Remaining";
+                    break;
+                case 1:
+                    ActionRemainingText.text = RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.actionsRemaining + " Action Remaining";
+                    break;
+                default:
+                    ActionRemainingText.text = RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.actionsRemaining + " Actions Remaining";
+                    break;
+            }
         }
 
         public void SwitchGrenadeIndicatorRenderer()

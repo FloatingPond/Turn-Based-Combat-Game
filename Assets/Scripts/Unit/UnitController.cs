@@ -30,7 +30,7 @@ namespace PG
             UnitAnimation = GetComponent<UnitAnimation>();
             UnitMovement = GetComponent<UnitMovement>();
             Agent = GetComponent<NavMeshAgent>();
-            CurrentHealth = UnitData.maxHealth;
+            CurrentHealth = UnitData.MaxHealth;
         }
         public void Die()
         {

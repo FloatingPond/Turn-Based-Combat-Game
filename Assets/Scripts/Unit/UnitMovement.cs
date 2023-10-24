@@ -21,7 +21,7 @@ namespace PG
             unitController = GetComponent<UnitController>();
             lineRendererPath = FindObjectOfType<LineRendererPath>();
             unitData = unitController.UnitData;
-            CurrentMovementRemaining = unitData.maxMovementDistance;
+            CurrentMovementRemaining = unitData.MaxMovementDistance;
             UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + CurrentMovementRemaining.ToString("F1") + "m";
         }
         public void CheckRemainingMovement()
@@ -42,7 +42,7 @@ namespace PG
             RoundManager.Instance.TransitionCameraToUnit(unitController);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = true;
             unitController.UnitAnimation.SetRigsForRunning();
-            agent.speed = unitController.UnitData.moveSpeed;
+            agent.speed = unitController.UnitData.MoveSpeed;
             UnitMoving = true;
             CurrentMovementRemaining -= thisMovementCost;
         }

@@ -14,20 +14,22 @@ namespace PG
         public Grenade grenade;
         [SerializeField] private WeaponData rifleData, grenadeData;
         public bool PerformingAction = false;
+        public int actionsRemaining = 1;
         private void Start()
         {
             gunSmoke.Stop();
             bulletImpactFX.Stop();
             grenade.ChangeGrenadeRenderers(false);
+            TryGetComponent(out UnitController unitController);
+            actionsRemaining = unitController.UnitData.MaxActions;
         }
-        public bool UsedAction = false;
         public Action UnitAction;
         public enum Action { shoot, throwGrenade };
         public void PerformAction(Action action)
         {
-            if (!UsedAction)
+            if (actionsRemaining != 0)
             {
-                UsedAction = true;
+                actionsRemaining--;
                 PerformingAction = true;
                 RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController);
                 switch (action)
@@ -41,7 +43,6 @@ namespace PG
                     default:
                         break;
                 }
-                UIManager.Instance.ActionRemainingText.text = "No Actions Remaining";
             }
         }
         private Animator GetCurrentUnitAnimator()
@@ -64,7 +65,7 @@ namespace PG
             float bulletDistance = Vector3.Distance(GunBarrel.position, MyDamageableTarget.transform.position);
             BulletTrail.transform.localScale = new Vector3(1f, 1f, 0.65f + bulletDistance);
             BulletTrail.transform.localPosition = new Vector3(0, 0, 0.65f + (bulletDistance / 2));
-            MyDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.UnitData.damage);
+            MyDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.UnitData.Damage);
             GetCurrentUnitAnimator().SetTrigger("Shoot");
         }
         public void ThrowGrenade()

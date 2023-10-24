@@ -35,6 +35,7 @@ namespace PG
             {
                 RoundManager.Instance.Invoke(nameof(RoundManager.Instance.TransitionCameraToMain), delay);
                 RoundManager.Instance.StartCoroutine(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnlockInput(delay));
+                UIManager.Instance.Invoke(nameof(UIManager.Instance.UpdateActionText), delay); 
             }
         }
 
