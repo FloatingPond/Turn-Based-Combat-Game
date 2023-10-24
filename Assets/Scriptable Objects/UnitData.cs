@@ -5,12 +5,13 @@ namespace PG
     [CreateAssetMenu]
     public class UnitData : ScriptableObject
     {
-        public string unitName = "Soldier";
-        public float maxMovementDistance = 5f;
-        public float moveSpeed = 3.5f;
-        public float maxHealth = 3f;
-        public float damage = 1f;
-        public int clipSize = 3;
-        public int reloadSpeed = 1;
+        public string UnitName = "Soldier";
+        public float MaxMovementDistance = 5f;
+        public float MoveSpeed = 3.5f;
+        public float MaxHealth = 3f;
+        public float Damage = 1f;
+        public int ClipSize = 3;
+        public int ReloadSpeed = 1;
+        public int MaxActions = 1;
     }
 }
