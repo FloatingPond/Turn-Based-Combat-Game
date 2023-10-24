@@ -40,7 +40,6 @@ namespace PG
         }
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject.name);
             aoe.DoDamageInSphere(transform.position, aoe.radius);
             rb.isKinematic = true;
             transform.rotation = Quaternion.identity;
