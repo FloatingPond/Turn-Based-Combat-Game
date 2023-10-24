@@ -298,47 +298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fef8715f080a5e46b4a750e42f11b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectory:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.0000007916242
-      inSlope: 4.9979525
-      outSlope: 4.9979525
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.49999994
-      value: 2.4989767
-      inSlope: -0.00000023841858
-      outSlope: -0.00000023841858
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.000000059604645
-      inSlope: -4.997953
-      outSlope: -4.997953
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   aoe: {fileID: 1750029838}
   grenadeExplosionFX: {fileID: 198146752421437534}
   meshRenderers:
   - {fileID: 23766156851137962}
   - {fileID: 23446187005511040}
   - {fileID: 23660638425445516}
-  throwStrength: 10
-  verticalForce: 10
 --- !u!114 &1750029838
 MonoBehaviour:
   m_ObjectHideFlags: 0
