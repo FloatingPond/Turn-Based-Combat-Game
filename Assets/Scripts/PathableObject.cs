@@ -40,7 +40,8 @@ namespace PG
                 return; 
             }
 
-            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete) RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CheckRemainingMovement();
+            if (!RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.MovementComplete) 
+                RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CheckRemainingMovement();
         }
 
         public void OnHoverEnter()

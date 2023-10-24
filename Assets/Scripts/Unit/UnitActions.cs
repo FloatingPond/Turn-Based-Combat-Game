@@ -27,6 +27,7 @@ namespace PG
         {
             if (!UsedAction)
             {
+                UsedAction = true;
                 PerformingAction = true;
                 RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController);
                 switch (action)
@@ -40,7 +41,6 @@ namespace PG
                     default:
                         break;
                 }
-                UsedAction = true;
                 UIManager.Instance.ActionRemainingText.text = "No Actions Remaining";
             }
         }
@@ -50,6 +50,7 @@ namespace PG
         }
         public void Shoot()
         {
+            UIManager.Instance.ActionRemainingText.text = "Shooting";
             WeaponTrajectoryIndicator.Instance.ClearRendererPositions();
             gunSmoke.Play();
             bulletImpactFX.transform.position = WeaponTrajectoryIndicator.Instance.hitPosition;
@@ -68,6 +69,7 @@ namespace PG
         }
         public void ThrowGrenade()
         {
+            UIManager.Instance.ActionRemainingText.text = "Throwing Grenade";
             UIManager.Instance.SwitchGrenadeIndicatorRenderer();
             Vector3 direction = RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector - transform.position;
             float forwardForce = Vector3.Distance(RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector, transform.position);
@@ -91,9 +93,9 @@ namespace PG
             GetCurrentUnitAnimator().SetBool("AimGrenade", false);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForAiming();
         }
-        public IEnumerator UnlockInput()
+        public IEnumerator UnlockInput(float delay)
         {
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(delay);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = false;
         }
         void IInteractable.OnHoverEnter()

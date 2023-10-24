@@ -99,8 +99,6 @@ namespace PG
             {
                 UnitMoving = false;
                 agent.speed = 0;
-                RoundManager.Instance.TransitionCameraToMain();
-                RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = false;
                 if (CurrentMovementRemaining <= 0)
                 {
                     CurrentMovementRemaining = 0;

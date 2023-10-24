@@ -6,6 +6,8 @@ namespace PG
     {
         [SerializeField] private bool grenade = false;
         [SerializeField] private bool shoot = false;
+        [SerializeField] private bool moving = false;
+        [SerializeField] private float delay = 2f;
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         //{
@@ -29,10 +31,10 @@ namespace PG
             {
                 RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.BulletTrail.SetActive(false);
             }
-            if (grenade || shoot)
+            if (grenade || shoot || moving)
             {
-                RoundManager.Instance.Invoke(nameof(RoundManager.Instance.TransitionCameraToMain), 2f);
-                RoundManager.Instance.StartCoroutine(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnlockInput());
+                RoundManager.Instance.Invoke(nameof(RoundManager.Instance.TransitionCameraToMain), delay);
+                RoundManager.Instance.StartCoroutine(RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.UnlockInput(delay));
             }
         }
 
