@@ -1163,8 +1163,8 @@ GameObject:
   - component: {fileID: 5733538504535527824}
   - component: {fileID: 5733538504535527826}
   - component: {fileID: 5733538504535527837}
-  - component: {fileID: 5733538504535527836}
   - component: {fileID: 4975857201269410867}
+  - component: {fileID: 5733538504535527836}
   m_Layer: 0
   m_Name: Enemy_Character_German_Soldier_01
   m_TagString: Untagged
@@ -1280,11 +1280,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520a20d14e12360498fd45211389f1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTeam: 1
-  unitData: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96, type: 2}
-  initiative: 0
-  currentHealth: 0
-  uIManager: {fileID: 0}
+  UnitActions: {fileID: 5733538504535527837}
+  UnitAnimation: {fileID: 4975857201269410867}
+  UnitMovement: {fileID: 5733538504535527836}
+  MyTeam: 1
+  UnitData: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96, type: 2}
+  Initiative: 0
+  CurrentHealth: 0
+  MyLookAtTargetVector: {x: 0, y: 0, z: 0}
+  MyLookAtTargetTransform: {fileID: 0}
+  Agent: {fileID: 0}
+  AimTargetIK: {fileID: 0}
+  OverShoulderVcam: {fileID: 0}
 --- !u!114 &5733538504535527837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,22 +1304,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93993cfc3be654c478c746c3663ec170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5733538504535527836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5734336730568515249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29aa4ef0a19221e40b35c8fbe047dde7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitMoving: 0
-  movementComplete: 0
-  currentMovementRemaining: 0
-  thisMovementCost: 0
+  GunBarrel: {fileID: 0}
+  gunSmoke: {fileID: 0}
+  bulletImpactFX: {fileID: 0}
+  BulletTrail: {fileID: 0}
+  MyDamageableTarget: {fileID: 0}
+  CurrentWeapon: {fileID: 0}
+  grenade: {fileID: 0}
+  rifleData: {fileID: 11400000, guid: f54ef35ac70dd204da13673f57357c8e, type: 2}
+  grenadeData: {fileID: 11400000, guid: cb57c30504bca1a438e89f6c6ad2bd77, type: 2}
+  PerformingAction: 0
+  actionsRemaining: 1
+  UnitAction: 0
 --- !u!114 &4975857201269410867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,6 +1328,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d44a1fd03c4c714a83e4f3ea996c11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  multiAimConstraints: []
+  headAim: {fileID: 0}
+  bodyAim: {fileID: 0}
+  aimConstraint: {fileID: 0}
+  handAim: {fileID: 0}
+--- !u!114 &5733538504535527836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734336730568515249}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29aa4ef0a19221e40b35c8fbe047dde7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitMoving: 0
+  MovementComplete: 0
+  CurrentMovementRemaining: 0
+  AimTargetIK: {fileID: 0}
+  thisMovementCost: 0
+  movementProgress: 0
 --- !u!1 &5734341251335995755
 GameObject:
   m_ObjectHideFlags: 0

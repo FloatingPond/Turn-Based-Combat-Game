@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82946678}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,7 +218,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -4489,7 +4489,7 @@ MonoBehaviour:
   CurrentHealth: 0
   MyLookAtTargetVector: {x: 0, y: 0, z: 0}
   MyLookAtTargetTransform: {fileID: 0}
-  Agent: {fileID: 0}
+  Agent: {fileID: 7221032570297797743}
   AimTargetIK: {fileID: 82946682}
   OverShoulderVcam: {fileID: 749376501}
 --- !u!114 &7221032570297797733
@@ -4514,7 +4514,7 @@ MonoBehaviour:
   rifleData: {fileID: 11400000, guid: f54ef35ac70dd204da13673f57357c8e, type: 2}
   grenadeData: {fileID: 11400000, guid: cb57c30504bca1a438e89f6c6ad2bd77, type: 2}
   PerformingAction: 0
-  UsedAction: 0
+  actionsRemaining: 1
   UnitAction: 0
 --- !u!114 &7974212460142301643
 MonoBehaviour:

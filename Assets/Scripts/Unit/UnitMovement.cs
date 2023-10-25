@@ -79,7 +79,7 @@ namespace PG
         }
         void Update()
         {
-            if (unitController.MyTeam == UnitController.Team.computer) return;
+            if (unitController.MyTeam == UnitController.Team.computer && RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer) return;
             if (!UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) LookAtMyTarget();
             else if (UnitMoving)
             {

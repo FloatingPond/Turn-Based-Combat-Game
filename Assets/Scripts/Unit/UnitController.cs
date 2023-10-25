@@ -65,7 +65,7 @@ namespace PG
 
         void IInteractable.OnClick()
         {
-            
+            UIManager.Instance.UpdateActionText();
         }
     }
 }

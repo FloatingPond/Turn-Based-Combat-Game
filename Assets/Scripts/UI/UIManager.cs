@@ -32,7 +32,6 @@ namespace PG
         {
             GhostManager = FindObjectOfType<GhostManager>();
             WeaponTrajectoryIndicator = FindObjectOfType<WeaponTrajectoryIndicator>();
-            UpdateActionText();
         }
 
         public void SwitchWeapon()
