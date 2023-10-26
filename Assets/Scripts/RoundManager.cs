@@ -19,6 +19,8 @@ namespace PG
         [Header("Spawning"), Space(10)]
         [SerializeField] private float spawnHeight = 0;
         [SerializeField] private int maxSpawnAttempts = 100;
+        [SerializeField] private List<GameObject> spawnedPlayerUnits;
+        [SerializeField] private List<GameObject> spawnedComputerUnits;
         //[SerializeField] private LayerMask ground;
         #region Singleton
         public static RoundManager Instance { get; private set; }
@@ -74,7 +76,7 @@ namespace PG
             }
             else if (coinFlip == 1)
             {
-                CurrentTurnOwner= TurnOwner.Computer;
+                CurrentTurnOwner = TurnOwner.Computer;
             }
         }
         private void InitialiseUnits()
@@ -87,6 +89,16 @@ namespace PG
             {
                 SpawnComputerControlledUnit();
             }
+            if (CurrentTurnOwner == TurnOwner.Player)
+            {
+                spawnedPlayerUnits[0].TryGetComponent(out UnitController unitContoller);
+                unitTakingTurn_UnitController = unitContoller;
+            }
+            else
+            {
+                spawnedComputerUnits[0].TryGetComponent(out UnitController unitContoller);
+                unitTakingTurn_UnitController = unitContoller;
+            }    
         }
 
         public void SpawnPlayerControlledUnit()
@@ -95,7 +107,7 @@ namespace PG
 
             if (GetNavMeshPosition(spawnPosition, out Vector3 navMeshPosition, 1))
             {
-                Instantiate(level.PlayerUnits[Random.Range(0, level.PlayerUnits.Count)], navMeshPosition, Quaternion.identity, playerUnitsTransform);
+                spawnedPlayerUnits.Add(Instantiate(level.PlayerUnits[Random.Range(0, level.PlayerUnits.Count)], navMeshPosition, Quaternion.identity, playerUnitsTransform));
             }
         }
         public void SpawnComputerControlledUnit()
@@ -104,7 +116,7 @@ namespace PG
 
             if (GetNavMeshPosition(spawnPosition, out Vector3 navMeshPosition, 1))
             {
-                Instantiate(level.ComputerUnits[Random.Range(0, level.ComputerUnits.Count)], navMeshPosition, Quaternion.identity, computerUnitsTransform);
+                spawnedComputerUnits.Add(Instantiate(level.ComputerUnits[Random.Range(0, level.ComputerUnits.Count)], navMeshPosition, Quaternion.identity, computerUnitsTransform));
             }
         }
         public void TransitionCameraToUnit(UnitController unit)

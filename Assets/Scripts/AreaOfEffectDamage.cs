@@ -5,7 +5,7 @@ namespace PG
     public class AreaOfEffectDamage : MonoBehaviour
     {
         [SerializeField] private float baseDamage = 5;
-        [SerializeField] public float radius = 5;
+        public float radius = 5;
 
         public void DoDamageInSphere(Vector3 center, float radius)
         {
