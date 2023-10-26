@@ -78,6 +78,7 @@ namespace PG
             {
                 CurrentTurnOwner = TurnOwner.Computer;
             }
+            UIManager.Instance.UpdateCurrentTurnOwnerText();
         }
         private void InitialiseUnits()
         {
@@ -152,6 +153,15 @@ namespace PG
         public void NextRound()
         {
             currentRound++;
+            if (CurrentTurnOwner == TurnOwner.Player)
+            {
+                CurrentTurnOwner = TurnOwner.Computer;
+            }
+            else if (CurrentTurnOwner == TurnOwner.Computer)
+            {
+                CurrentTurnOwner = TurnOwner.Player;
+            }
+            UIManager.Instance.UpdateCurrentTurnOwnerText();
             //UPDATE UI WITH ROUND NUMBER
         }
         Vector3 GenerateSpawnPosition(int minX, int maxX, int minZ, int maxZ)

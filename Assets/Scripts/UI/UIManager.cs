@@ -6,7 +6,7 @@ namespace PG
 {
     public class UIManager : MonoBehaviour
     {
-        public TextMeshProUGUI DistanceText, MovementRemainingText, ActionRemainingText;
+        public TextMeshProUGUI DistanceText, MovementRemainingText, ActionRemainingText, currentTurnOwnerText;
         public Image ProjectedMovementIndicator;
         public GhostManager GhostManager;
         public Transform AimTargetIK;
@@ -55,7 +55,17 @@ namespace PG
                     break;
             }
         }
-
+        public void UpdateCurrentTurnOwnerText()
+        {
+            if (RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Player)
+            {
+                currentTurnOwnerText.text = "Your turn";
+            }
+            else if (RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer)
+            {
+                currentTurnOwnerText.text = "Computer turn";
+            }
+        }
         public void SwitchGrenadeIndicatorRenderer()
         {
             AimTargetIK = RoundManager.Instance.unitTakingTurn_UnitController.AimTargetIK;

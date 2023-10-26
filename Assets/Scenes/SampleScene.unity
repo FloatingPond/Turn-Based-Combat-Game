@@ -2792,6 +2792,7 @@ MonoBehaviour:
   DistanceText: {fileID: 1954328876}
   MovementRemainingText: {fileID: 821462934}
   ActionRemainingText: {fileID: 2100138764}
+  currentTurnOwnerText: {fileID: 1253364764}
   ProjectedMovementIndicator: {fileID: 1710291538}
   GhostManager: {fileID: 3167789380498034187}
   AimTargetIK: {fileID: 0}
