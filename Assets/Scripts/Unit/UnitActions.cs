@@ -31,7 +31,7 @@ namespace PG
             {
                 actionsRemaining--;
                 PerformingAction = true;
-                RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController);
+                RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController, RoundManager.Instance.unitTakingTurn_UnitController.OverShoulderVcam);
                 switch (action)
                 {
                     case Action.shoot:

@@ -154,7 +154,7 @@ Transform:
   m_Children:
   - {fileID: 1217037947}
   m_Father: {fileID: 2134661033}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &100737623
 MonoBehaviour:
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 207993214}
-  m_Follow: {fileID: 207993214}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -517,65 +517,6 @@ MonoBehaviour:
   spawnedPlayerUnits: []
   spawnedComputerUnits: []
   alwaysPlayerTurnFirst: 1
---- !u!1 &207993213
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 207993214}
-  - component: {fileID: 207993215}
-  m_Layer: 0
-  m_Name: CameraSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &207993214
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207993213}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2134661033}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &207993215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207993213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9949c45195accb488ece67c47dc53d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cinemachineVirtualCamera: {fileID: 100737623}
-  useEdgeScrolling: 0
-  useDragPan: 0
-  cameraBaseMoveSpeed: 50
-  currentCameraBaseMoveSpeed: 50
-  cameraBaseRotateSpeed: 100
-  currentCameraRotateSpeed: 100
-  zoomSpeed: 10
-  zoom: 1
-  fieldOfViewMax: 50
-  fieldOfViewMin: 10
-  followOffsetMin: 5
-  followOffsetMax: 35
-  followOffsetMinY: 10
-  followOffsetMaxY: 35
 --- !u!4 &327620989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 469324, guid: 26e4e200f6d585e42a8f2ffa348e8109,
@@ -3289,8 +3230,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2134661033}
+  - component: {fileID: 2134661034}
   m_Layer: 0
-  m_Name: Cameras
+  m_Name: CameraSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3309,11 +3251,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 330585546}
-  - {fileID: 207993214}
   - {fileID: 100737622}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2134661034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134661032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9949c45195accb488ece67c47dc53d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputCam: {fileID: 100737623}
+  useEdgeScrolling: 0
+  useDragPan: 0
+  cameraBaseMoveSpeed: 50
+  currentCameraBaseMoveSpeed: 50
+  cameraBaseRotateSpeed: 100
+  currentCameraRotateSpeed: 100
+  zoomSpeed: 10
+  zoom: 1
+  fieldOfViewMax: 50
+  fieldOfViewMin: 10
+  followOffsetMin: 5
+  followOffsetMax: 35
+  followOffsetMinY: 10
+  followOffsetMaxY: 35
 --- !u!1 &3072153863020618072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1269627170764587529, guid: b229fba22d137c649bacfe7aa70eb706,

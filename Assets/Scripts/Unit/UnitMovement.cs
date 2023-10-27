@@ -39,7 +39,7 @@ namespace PG
         }
         public void MoveToDestination()
         {
-            RoundManager.Instance.TransitionCameraToUnit(unitController);
+            RoundManager.Instance.TransitionCameraToUnit(unitController, RoundManager.Instance.unitTakingTurn_UnitController.OverShoulderVcam);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = true;
             unitController.UnitAnimation.SetRigsForRunning();
             agent.speed = unitController.UnitData.MoveSpeed;

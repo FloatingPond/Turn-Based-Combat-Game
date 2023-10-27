@@ -1,4 +1,5 @@
 using Cinemachine;
+using CodeMonkey.CameraSystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -124,36 +125,25 @@ namespace PG
                 spawnedComputerUnits.Add(Instantiate(level.ComputerUnits[Random.Range(0, level.ComputerUnits.Count)], navMeshPosition, Quaternion.identity, computerUnitsTransform));
             }
         }
-        public void TransitionCameraToUnit(UnitController unit)
+        public void TransitionCameraToUnit(UnitController unit, CinemachineVirtualCamera cam)
         {
-            foreach (CinemachineVirtualCamera cam in cameras)
-            {
-                if (cam.transform.parent == unit.transform)
-                {
-                    cam.Priority = 1;
-                }
-                else
-                {
-                    cam.Priority = 0;
-                }
-            }
+            Debug.Log("Transition camera to " + unit.name);
+            SetCameraPrioritiesToZero();
+            cam.Priority = 1;
         }
 
         public void TransitionCameraToMain()
         {
-            foreach (CinemachineVirtualCamera cam in cameras)
+            SetCameraPrioritiesToZero();
+            CameraSystem.Instance.InputCam.Priority = 1;
+        }
+        private void SetCameraPrioritiesToZero()
+        {
+            for (int i = 0; i < cameras.Count; i++)
             {
-                if (cam.name == "InputCam")
-                {
-                    cam.Priority = 1;
-                }
-                else
-                {
-                    cam.Priority = 0;
-                }
+                cameras[i].Priority = 0;
             }
         }
-
         public void NextRound()
         {
             currentRound++;

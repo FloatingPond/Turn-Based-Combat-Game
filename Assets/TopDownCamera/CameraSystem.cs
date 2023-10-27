@@ -7,7 +7,7 @@ namespace CodeMonkey.CameraSystem {
 
     public class CameraSystem : MonoBehaviour {
 
-        [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+        public CinemachineVirtualCamera InputCam;
         [SerializeField] private bool useEdgeScrolling = false;
         [SerializeField] private bool useDragPan = false;
         [SerializeField] private float cameraBaseMoveSpeed = 50f;
@@ -30,9 +30,22 @@ namespace CodeMonkey.CameraSystem {
         private float targetFieldOfView = 50;
         private Vector3 followOffset;
 
+        #region Singleton
+        public static CameraSystem Instance { get; private set; }
 
-        private void Awake() {
-            followOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
+        private void Awake() 
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            #endregion
+            followOffset = InputCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
         }
 
         private void Update() 
@@ -154,8 +167,8 @@ namespace CodeMonkey.CameraSystem {
 
             targetFieldOfView = Mathf.Clamp(targetFieldOfView, fieldOfViewMin, fieldOfViewMax);
 
-            cinemachineVirtualCamera.m_Lens.FieldOfView =
-                Mathf.Lerp(cinemachineVirtualCamera.m_Lens.FieldOfView, targetFieldOfView, Time.deltaTime * zoomSpeed);
+            InputCam.m_Lens.FieldOfView =
+                Mathf.Lerp(InputCam.m_Lens.FieldOfView, targetFieldOfView, Time.deltaTime * zoomSpeed);
         }
 
         private void HandleCameraZoom_MoveForward() 
@@ -178,8 +191,8 @@ namespace CodeMonkey.CameraSystem {
                 followOffset = zoomDir * followOffsetMax;
             }
 
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-                Vector3.Lerp(cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, followOffset, Time.deltaTime * zoomSpeed);
+            InputCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+                Vector3.Lerp(InputCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, followOffset, Time.deltaTime * zoomSpeed);
         }
 
         private void HandleCameraZoom_LowerY() 
@@ -194,8 +207,8 @@ namespace CodeMonkey.CameraSystem {
 
             followOffset.y = Mathf.Clamp(followOffset.y, followOffsetMinY, followOffsetMaxY);
 
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-                Vector3.Lerp(cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, followOffset, Time.deltaTime * zoomSpeed);
+            InputCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+                Vector3.Lerp(InputCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, followOffset, Time.deltaTime * zoomSpeed);
 
         }
 
