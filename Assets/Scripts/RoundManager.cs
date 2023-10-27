@@ -14,8 +14,8 @@ namespace PG
         public TurnOwner CurrentTurnOwner;
         public UnitController unitTakingTurn_UnitController;
         [SerializeField] private LevelData level;
-        private List<CinemachineVirtualCamera> cameras;
         [SerializeField] private Transform playerUnitsTransform, computerUnitsTransform;
+        [SerializeField] private List<CinemachineVirtualCamera> cameras;
 
         [Header("Spawning"), Space(10)]
         [SerializeField] private float spawnHeight = 0;
@@ -44,14 +44,13 @@ namespace PG
         #endregion
         void Start()
         {
-            GetVcams();
             CalculateInitiative();
             InitialiseUnits();
+            GetVcams();
         }
 
         private void GetVcams()
         {
-            cameras = new List<CinemachineVirtualCamera>();
             cameras = FindObjectsOfType<CinemachineVirtualCamera>().ToList();
             if (cameras.Count == 0)
             {
@@ -60,14 +59,6 @@ namespace PG
         }
         public void CalculateInitiativeOrder()
         {
-           List<UnitController> units = new();
-           units = FindObjectsOfType<UnitController>().ToList<UnitController>();
-           foreach (UnitController unit in units)
-           {
-                unit.Initiative = Random.Range(1, 20);
-           }
-           units.Sort((a, b) => b.Initiative.CompareTo(a.Initiative));
-           unitTakingTurn_UnitController = units[0];
            UIManager.Instance.AimTargetIK = unitTakingTurn_UnitController.AimTargetIK;
            UIManager.Instance.UpdateActionText();
         }

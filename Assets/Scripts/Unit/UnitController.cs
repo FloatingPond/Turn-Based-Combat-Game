@@ -13,7 +13,6 @@ namespace PG
         [Space(10)]
         public Team MyTeam;
         public UnitData UnitData;
-        public int Initiative;
         public float CurrentHealth;
         public Vector3 MyLookAtTargetVector;
         [Space(10)]
