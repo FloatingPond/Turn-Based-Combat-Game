@@ -17,9 +17,9 @@ namespace PG
         public int actionsRemaining = 1;
         private void Start()
         {
-            gunSmoke.Stop();
-            bulletImpactFX.Stop();
-            grenade.ChangeGrenadeRenderers(false);
+            if (gunSmoke != null) gunSmoke.Stop();
+            if (bulletImpactFX != null) bulletImpactFX.Stop();
+            if (grenade != null) grenade.ChangeGrenadeRenderers(false);
             TryGetComponent(out UnitController unitController);
             actionsRemaining = unitController.UnitData.MaxActions;
         }
