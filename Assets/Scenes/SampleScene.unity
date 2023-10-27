@@ -516,6 +516,7 @@ MonoBehaviour:
   maxSpawnAttempts: 100
   spawnedPlayerUnits: []
   spawnedComputerUnits: []
+  alwaysPlayerTurnFirst: 1
 --- !u!1 &207993213
 GameObject:
   m_ObjectHideFlags: 0

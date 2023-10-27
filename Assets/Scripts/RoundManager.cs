@@ -21,6 +21,9 @@ namespace PG
         [SerializeField] private int maxSpawnAttempts = 100;
         [SerializeField] private List<GameObject> spawnedPlayerUnits;
         [SerializeField] private List<GameObject> spawnedComputerUnits;
+
+        [Header("Tools"), Space(10)]
+        [SerializeField] private bool alwaysPlayerTurnFirst = false;
         //[SerializeField] private LayerMask ground;
         #region Singleton
         public static RoundManager Instance { get; private set; }
@@ -78,6 +81,7 @@ namespace PG
             {
                 CurrentTurnOwner = TurnOwner.Computer;
             }
+            if (alwaysPlayerTurnFirst) CurrentTurnOwner = TurnOwner.Player;
             UIManager.Instance.UpdateCurrentTurnOwnerText();
         }
         private void InitialiseUnits()
