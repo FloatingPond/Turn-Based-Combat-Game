@@ -512,6 +512,7 @@ MonoBehaviour:
   level: {fileID: 11400000, guid: 7ee38fbf94a30c749baf8da2f0dc4408, type: 2}
   playerUnitsTransform: {fileID: 2028072220}
   computerUnitsTransform: {fileID: 744577274}
+  cameras: []
   spawnHeight: 0
   maxSpawnAttempts: 100
   spawnedPlayerUnits: []
@@ -836,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09838381fe2f73a4db6cafe827ba0f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 0}
+  lineRenderer: {fileID: 611840518}
 --- !u!120 &611840518
 LineRenderer:
   m_ObjectHideFlags: 0

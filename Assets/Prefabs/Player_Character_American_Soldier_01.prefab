@@ -4414,7 +4414,7 @@ GameObject:
   - component: {fileID: 7221032570297797738}
   - component: {fileID: 7221032570297797733}
   - component: {fileID: 7974212460142301643}
-  - component: {fileID: 7221032570297797732}
+  - component: {fileID: -427114562772808649}
   - component: {fileID: 7221032570297797736}
   - component: {fileID: 7221032570297797743}
   - component: {fileID: 7307069399655574555}
@@ -4482,10 +4482,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitActions: {fileID: 7221032570297797733}
   UnitAnimation: {fileID: 7974212460142301643}
-  UnitMovement: {fileID: 7221032570297797732}
+  UnitMovement: {fileID: 0}
   MyTeam: 0
   UnitData: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96, type: 2}
-  Initiative: 0
   CurrentHealth: 0
   MyLookAtTargetVector: {x: 0, y: 0, z: 0}
   MyLookAtTargetTransform: {fileID: 0}
@@ -4537,7 +4536,7 @@ MonoBehaviour:
   bodyAim: {fileID: 1740644386}
   aimConstraint: {fileID: 1939254749}
   handAim: {fileID: 1937964702}
---- !u!114 &7221032570297797732
+--- !u!114 &-427114562772808649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4546,9 +4545,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7220300336437642057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29aa4ef0a19221e40b35c8fbe047dde7, type: 3}
+  m_Script: {fileID: 11500000, guid: 32cdf986069ed974f96d0d640e17f688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 7221032570297797743}
+  unitController: {fileID: 7221032570297797738}
+  lineRendererPath: {fileID: 0}
   UnitMoving: 0
   MovementComplete: 0
   CurrentMovementRemaining: 0
