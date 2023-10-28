@@ -15,7 +15,7 @@ namespace PG
         public Transform AimTargetIK;
         [SerializeField] private float thisMovementCost;
         [SerializeField] private float movementProgress;
-        void Start()
+        public virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             unitController = GetComponent<UnitController>();
@@ -24,7 +24,7 @@ namespace PG
             CurrentMovementRemaining = unitData.MaxMovementDistance;
             UIManager.Instance.MovementRemainingText.text = "Movement Remaining: " + CurrentMovementRemaining.ToString("F1") + "m";
         }
-        public void CheckRemainingMovement()
+        public virtual void CheckRemainingMovement()
         {
             thisMovementCost = lineRendererPath.CalculatePathDistance(agent);
             if (thisMovementCost > CurrentMovementRemaining)
@@ -37,7 +37,7 @@ namespace PG
                 MoveToDestination();
             }
         }
-        public void MoveToDestination()
+        public virtual void MoveToDestination()
         {
             RoundManager.Instance.TransitionCameraToUnit(unitController, RoundManager.Instance.unitTakingTurn_UnitController.OverShoulderVcam);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = true;
@@ -77,7 +77,7 @@ namespace PG
             transform.rotation = rotation;
             #endregion
         }
-        void Update()
+        public virtual void Update()
         {
             if (unitController.MyTeam == UnitController.Team.computer && RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer) return;
             if (!UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) LookAtMyTarget();
@@ -107,7 +107,7 @@ namespace PG
                 }
             }
         }
-        float GetHeight(GameObject obj)
+        public virtual float GetHeight(GameObject obj)
         {
             MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
             if (meshRenderer == null)
