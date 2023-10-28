@@ -15,6 +15,6 @@ MonoBehaviour:
   ComputerUnitAmount: 4
   PlayerUnitAmount: 4
   ComputerUnits:
-  - {fileID: 5734336730568515249, guid: bf736c948462da24db1cc8ecf114ddc4, type: 3}
+  - {fileID: 7220300336437642057, guid: cf7f779572a13cf42b844f8b641c19fe, type: 3}
   PlayerUnits:
   - {fileID: 7220300336437642057, guid: b0441960dc08a394981347b93d8d2883, type: 3}
