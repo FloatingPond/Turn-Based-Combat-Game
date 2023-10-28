@@ -4480,9 +4480,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520a20d14e12360498fd45211389f1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitActions: {fileID: 0}
+  UnitActions: {fileID: 7079065141151687620}
   UnitAnimation: {fileID: 7974212460142301643}
-  UnitMovement: {fileID: 0}
+  UnitMovement: {fileID: -427114562772808649}
   MyTeam: 0
   UnitData: {fileID: 11400000, guid: e3b8658b3bde1d24ebacf582baee1d96, type: 2}
   CurrentHealth: 0
