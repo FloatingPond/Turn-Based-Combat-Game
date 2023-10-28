@@ -25,7 +25,7 @@ namespace PG
         }
         public Action UnitAction;
         public enum Action { shoot, throwGrenade };
-        public void PerformAction(Action action)
+        public virtual void PerformAction(Action action)
         {
             if (actionsRemaining != 0)
             {
@@ -49,9 +49,8 @@ namespace PG
         {
             return RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator;
         }
-        public void Shoot()
+        protected virtual void Shoot()
         {
-            UIManager.Instance.ActionRemainingText.text = "Shooting";
             WeaponTrajectoryIndicator.Instance.ClearRendererPositions();
             gunSmoke.Play();
             bulletImpactFX.transform.position = WeaponTrajectoryIndicator.Instance.hitPosition;
@@ -68,24 +67,21 @@ namespace PG
             MyDamageableTarget.GetComponent<IDamageable>().TakeDamage(RoundManager.Instance.unitTakingTurn_UnitController.UnitData.Damage);
             GetCurrentUnitAnimator().SetTrigger("Shoot");
         }
-        public void ThrowGrenade()
+        public virtual void ThrowGrenade()
         {
-            UIManager.Instance.ActionRemainingText.text = "Throwing Grenade";
-            UIManager.Instance.SwitchGrenadeIndicatorRenderer();
             Vector3 direction = RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector - transform.position;
             float forwardForce = Vector3.Distance(RoundManager.Instance.unitTakingTurn_UnitController.MyLookAtTargetVector, transform.position);
             float verticalForce = forwardForce / 2;
             grenade.Throw(direction, forwardForce, verticalForce);
         }
 
-        public void SwitchToGrenade()
+        public virtual void SwitchToGrenade()
         {
             CurrentWeapon = grenadeData;
             UnitAction = Action.throwGrenade;
             grenade.ChangeGrenadeRenderers(true);
             GetCurrentUnitAnimator().SetBool("AimGrenade", true);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.SetRigsForRunning();
-            UIManager.Instance.SwitchGrenadeIndicatorRenderer();
         }
         public void SwitchToRifle()
         {

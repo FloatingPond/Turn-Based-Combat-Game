@@ -4412,6 +4412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7216843378998106597}
   - component: {fileID: 7221032570297797738}
+  - component: {fileID: 7079065141151687620}
   - component: {fileID: 7221032570297797733}
   - component: {fileID: 7974212460142301643}
   - component: {fileID: -427114562772808649}
@@ -4491,7 +4492,7 @@ MonoBehaviour:
   Agent: {fileID: 7221032570297797743}
   AimTargetIK: {fileID: 82946682}
   OverShoulderVcam: {fileID: 749376501}
---- !u!114 &7221032570297797733
+--- !u!114 &7079065141151687620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4499,6 +4500,30 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7220300336437642057}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1179041181c24e9438dc10e082833f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GunBarrel: {fileID: 5343501454772420399}
+  gunSmoke: {fileID: 7221032571430205449}
+  bulletImpactFX: {fileID: 3178258967614151695}
+  BulletTrail: {fileID: 7220908986136082498}
+  MyDamageableTarget: {fileID: 0}
+  CurrentWeapon: {fileID: 0}
+  grenade: {fileID: 7221032570878804912}
+  rifleData: {fileID: 11400000, guid: f54ef35ac70dd204da13673f57357c8e, type: 2}
+  grenadeData: {fileID: 11400000, guid: cb57c30504bca1a438e89f6c6ad2bd77, type: 2}
+  PerformingAction: 0
+  actionsRemaining: 1
+  UnitAction: 0
+--- !u!114 &7221032570297797733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220300336437642057}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93993cfc3be654c478c746c3663ec170, type: 3}
   m_Name: 

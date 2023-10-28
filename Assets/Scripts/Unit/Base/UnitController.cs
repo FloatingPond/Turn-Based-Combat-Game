@@ -17,6 +17,7 @@ namespace PG
         public Vector3 MyLookAtTargetVector;
         [Space(10)]
         public Transform MyLookAtTargetTransform;
+        [Header("References")]
         public NavMeshAgent Agent;
         public Transform AimTargetIK;
         public CinemachineVirtualCamera OverShoulderVcam;
