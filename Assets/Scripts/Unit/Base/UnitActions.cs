@@ -41,6 +41,7 @@ namespace PG
                         GetCurrentUnitAnimator().SetTrigger("ThrowGrenade");
                         break;
                     default:
+                        Debug.LogError("Unhandled action type: " + action);
                         break;
                 }
             }
