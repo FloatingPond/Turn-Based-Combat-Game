@@ -6,16 +6,24 @@ namespace PG
 {
     public class ComputerUnitActions : UnitActions
     {
-        // Start is called before the first frame update
-        void Start()
+        public override void PerformAction(Action action)
         {
-        
+            base.PerformAction(action);
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void SwitchToGrenade()
         {
-        
+            base.SwitchToGrenade();
+        }
+
+        public override void ThrowGrenade()
+        {
+            base.ThrowGrenade();
+        }
+
+        protected override void Shoot()
+        {
+            base.Shoot();
         }
     }
 }
