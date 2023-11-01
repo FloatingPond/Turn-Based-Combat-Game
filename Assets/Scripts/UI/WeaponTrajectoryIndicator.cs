@@ -40,7 +40,7 @@ namespace PG
                 transform.position = origin;
                 lineRenderer.positionCount = 2;
                 lineRenderer.SetPosition(0, origin);
-                lineRenderer.SetPosition(1, destination);
+                lineRenderer.SetPosition(1, hitPosition);
             }
         }
         public void ClearRendererPositions()
