@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace PG
 {
     public class PlayerUnitActions : UnitActions
@@ -30,6 +26,5 @@ namespace PG
             base.Shoot();
             UIManager.Instance.ActionRemainingText.text = "Shooting";
         }
-
     }
 }
