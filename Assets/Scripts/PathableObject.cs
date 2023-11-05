@@ -12,8 +12,7 @@ namespace PG
         }
         private void Update()
         { 
-            if (RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.Team.computer
-                && RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer
+            if (RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer
                 || RoundManager.Instance.unitTakingTurn_UnitController.UnitAnimation.animator.GetBool("AimGrenade")
                 || RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) { ClearMovementUI(); return; }
             //Updates the distance UI to tick down the remaining distance as the unit moves toward it's destination
