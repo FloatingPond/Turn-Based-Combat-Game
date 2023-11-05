@@ -30,24 +30,24 @@ namespace PG
         public override void Update()
         {
             base.Update();
+            if (MovementComplete)
+            {
+                UIManager.Instance.MovementRemainingText.text = "Movement Complete";
+                LookAtMyTarget();
+                return;
+            }
             if (!UnitMoving && !RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction) LookAtMyTarget();
             else if (UnitMoving)
             {
                 movementProgress = lineRendererPath.CalculatePathDistance(RoundManager.Instance.unitTakingTurn_UnitController.Agent);
 
-                if (RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining < 1)
-                { RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining = 0; }
+                if (CurrentMovementRemaining < 1) CurrentMovementRemaining = 0;
 
                 float temp = RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.CurrentMovementRemaining + movementProgress;
 
                 string distanceFromRemaining = "Movement Remaining: " + temp.ToString("F1") + "m";
 
                 UIManager.Instance.MovementRemainingText.text = distanceFromRemaining.ToString();
-            }
-
-            if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
-            {
-                UIManager.Instance.MovementRemainingText.text = "Movement Complete";
             }
         }
         protected void LookAtMyTarget()
