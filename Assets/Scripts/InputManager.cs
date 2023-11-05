@@ -39,14 +39,37 @@ namespace PG
             NavMesh.SamplePosition(groundNavMeshHeightOffset, out navMeshHit, 1, NavMesh.AllAreas);
             return (navMeshHit.position.x == point.x && navMeshHit.position.z == point.z);
         }
+        void FixedUpdate()
+        {
+            if (!PerformanceCheck()) return;
+            #region Interactable
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (eventSystem.IsPointerOverGameObject() && hit.collider.gameObject.layer != worldspaceLayer)
+                {
+                    currentInteractable = null;
+                    return;
+                }
+
+                _ = hit.collider.TryGetComponent(out IInteractable interactable);
+                currentInteractable = interactable;
+            }
+            else //If we hit nothing, it's not interactable so call exit
+            {
+                currentHover?.OnHoverExit();
+                currentHover = null;
+            }
+            #endregion
+        }
         private void Update()
         {
-            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction
-                || RoundManager.Instance.unitTakingTurn_UnitController.MyTeam == UnitController.Team.computer 
-                && RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer) return;
+            if (!PerformanceCheck()) return;
             //If we have just hovered over something interactable:
             if (currentInteractable != null)
             {
+                Debug.Log("Hovering over interactable");
                 // Store the world position the player is hovering on
 
                 if (CheckIfPositionIsOnNavMesh(hit.point))
@@ -106,29 +129,14 @@ namespace PG
                 if (currentHover != null) { currentHover.OnHoverExit(); currentHover = null; }
             }
         }
-        void FixedUpdate()
+        private bool PerformanceCheck()
         {
-            #region Interactable
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (eventSystem.IsPointerOverGameObject() && hit.collider.gameObject.layer != worldspaceLayer)
-                {
-                    currentInteractable = null;
-                    return;
-                }
-
-                _ = hit.collider.TryGetComponent(out IInteractable interactable);
-                currentInteractable = interactable;
-            }
-            else //If we hit nothing, it's not interactable so call exit
-            {
-                currentHover?.OnHoverExit();
-                currentHover = null;
-            }
-            #endregion
+            if (RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction
+    || RoundManager.Instance.CurrentTurnOwner == RoundManager.TurnOwner.Computer
+    || RoundManager.Instance.unitTakingTurn_UnitController.UnitMovement.UnitMoving)
+            { return false; }
+            else
+            { return true; }
         }
     }
-
 }
