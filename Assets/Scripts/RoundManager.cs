@@ -109,16 +109,16 @@ namespace PG
         }
         public void SpawnComputerControlledUnit()
         {
-            Vector3 spawnPosition = GenerateSpawnPosition(-5, 5, 25, 50);
+            Vector3 spawnPosition = GenerateSpawnPosition(-5, 5, 15, 25);
 
             if (GetNavMeshPosition(spawnPosition, out Vector3 navMeshPosition, 1))
             {
                 spawnedComputerUnits.Add(Instantiate(level.ComputerUnits[Random.Range(0, level.ComputerUnits.Count)], navMeshPosition, Quaternion.identity, computerUnitsTransform));
             }
         }
-        public void TransitionCameraToUnit(UnitController unit, CinemachineVirtualCamera cam)
+        public void TransitionCameraToUnit(CinemachineVirtualCamera cam)
         {
-            Debug.Log("Transition camera to " + unit.name);
+            Debug.Log("Transition camera to " + cam.transform.parent.name);
             SetCameraPrioritiesToZero();
             cam.Priority = 1;
         }
