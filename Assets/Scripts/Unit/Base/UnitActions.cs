@@ -31,7 +31,7 @@ namespace PG
             {
                 actionsRemaining--;
                 PerformingAction = true;
-                RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController, RoundManager.Instance.unitTakingTurn_UnitController.OverShoulderVcam);
+                RoundManager.Instance.TransitionCameraToUnit(RoundManager.Instance.unitTakingTurn_UnitController.OverShoulderVcam);
                 switch (action)
                 {
                     case Action.shoot:
@@ -96,9 +96,14 @@ namespace PG
             yield return new WaitForSecondsRealtime(delay);
             RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = false;
         }
+        public IEnumerator LockInput(float delay)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+            RoundManager.Instance.unitTakingTurn_UnitController.UnitActions.PerformingAction = true;
+        }
         void IInteractable.OnHoverEnter()
         {
-            
+
         }
 
         void IInteractable.OnHoverStay()
@@ -108,7 +113,7 @@ namespace PG
 
         void IInteractable.OnHoverExit()
         {
-           
+
         }
 
         void IInteractable.OnClick()
