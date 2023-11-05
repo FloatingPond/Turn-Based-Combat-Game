@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace PG
 {
-    public class UnitController : MonoBehaviour, IDamageable, IInteractable
+    public class UnitController : MonoBehaviour, IDamageable
     {
         [Header("Unit Scripts")]
         public UnitActions UnitActions;
@@ -46,26 +46,6 @@ namespace PG
             {
                 Die();
             }
-        }
-
-        void IInteractable.OnHoverEnter()
-        {
-           
-        }
-
-        void IInteractable.OnHoverStay()
-        {
-
-        }
-
-        void IInteractable.OnHoverExit()
-        {
-            
-        }
-
-        void IInteractable.OnClick()
-        {
-            UIManager.Instance.UpdateActionText();
         }
     }
 }
